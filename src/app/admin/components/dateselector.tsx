@@ -15,7 +15,7 @@ export default function DateSelector() {
   return (
     <div
       id="filtergrid"
-      className="grid grid-cols-4 w-fit max-sm:grid-cols-3 filter mt-2 text-[16px] max-sm:text-[14px] items-end gap-4 "
+      className="grid grid-cols-4 w-fit max-sm:grid-cols-3 filter lg:mt-0 text-[16px] max-sm:text-[14px] items-end gap-4 "
     >
       <div className="flex flex-col gap-1">
         <span>Search by:</span>
