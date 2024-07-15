@@ -13,55 +13,44 @@ export default function DateSelector() {
     console.log(`selected ${value}`);
   };
   return (
-    <div className="flex-row flex items-end text-[16px] gap-4 ">
+    <div
+      id="filtergrid"
+      className="grid grid-cols-4 w-fit max-sm:grid-cols-3 filter mt-2 text-[16px] max-sm:text-[14px] items-end gap-4 "
+    >
       <div className="flex flex-col gap-1">
         <span>Search by:</span>
         <Select
           defaultValue="date"
-          style={{ width: 120, height: 40 }}
+          style={{ width: 120, height: 40, color: "#005A86" }}
           onChange={handleChange}
           options={[
-            { value: "date", label: "Date:Range" },
+            { value: "date", label: "Date Range" },
             { value: "lucy", label: "Lucy" },
             { value: "Yiminghe", label: "yiminghe" },
           ]}
         />
       </div>
-      <div className="flex flex-col gap-1">
+      <div id="startbox" className="flex flex-col gap-1">
         <span>Start date</span>
         <DatePicker onChange={onChange} style={{ width: 120, height: 40 }} />
-      </div>
-      <div className="flex flex-col gap-1">
+      </div>{" "}
+      <div id="endbox" className="flex flex-col gap-1">
         <span>End date</span>
         <DatePicker onChange={onChange} style={{ width: 120, height: 40 }} />
       </div>{" "}
-      {/* <div className="flex flex-row w-[120px] h-[40px] justify-between items-center rounded-lg border relative border-[#005A86]">
-        <div className="flex basis-full h-full overflow-hidden rounded-lg ">
-          <input
-            type="text"
-            placeholder="Search"
-            className="h-full p-3 border-none text- rounded-lg outline-none -z-10"
-          />
-        </div>
-        <Image
-          src={Search}
-          className="w-6 h-6 absolute right-[5px] z-10 "
-          alt="export"
-        />
-      </div> */}
-      <div className="flex-row flex p-2 w-36 max-sm:w-24 border rounded-md flex-end ">
+      <div className="flex-row flex p-2 w-[120px] h-[40px] border border-[#005A86] rounded-md flex-end ">
         <div className="flex bg-green-200 flex-row justify-between basis-3/4 overflow-hidden ">
           {" "}
           <input
             type="text"
             placeholder="Search"
-            className="focus:border-none focus:outline-none"
+            className="focus:border-none text-[13px] focus:outline-none"
             // value={filterstring}
             // onChange={(e) => setFilterString(e.target.value)}
           />
         </div>
-        <div className="flex justify-end basis-1/3 items-center">
-          <Image src={Search} className="w-5 h-5" alt="searchimage" />
+        <div className="flex justify-end basis-1/3 items-center ">
+          <Image src={Search} className="w-4 h-4" alt="searchimage" />
         </div>
       </div>
     </div>
