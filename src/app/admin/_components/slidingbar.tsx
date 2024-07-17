@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { ReactNode, useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 
 export default function SlidingBar({
   sections,
@@ -10,14 +10,14 @@ export default function SlidingBar({
   sections: [string, string] | [string];
   children: ReactNode;
 }) {
-  const isXs = useMediaQuery({ query: "(max-width: 1110px)" });
-  const [isnotTable, setisnotTable] = useState(false);
-  useEffect(
-    function () {
-      setisnotTable(isXs);
-    },
-    [isXs]
-  );
+  // const isXs = useMediaQuery({ query: "(max-width: 1110px)" });
+  // const [isnotTable, setisnotTable] = useState(false);
+  // useEffect(
+  //   function () {
+  //     setisnotTable(isXs);
+  //   },
+  //   [isXs]
+  // );
   const [animClass, setanimClass] = useState("move-left");
   return (
     <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
@@ -52,7 +52,7 @@ export default function SlidingBar({
           )}
         </div>
       </div>
-      {!isnotTable && children}
+      {children}
     </div>
   );
 }

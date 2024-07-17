@@ -38,7 +38,7 @@ export default function StaffManagement() {
       <div className="flex flex-col">
         <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
           <SlidingBar sections={["Staff List", "Pending Request"]}>
-            <div className="flex w-[164px] rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[40px] text-white bg-[#005A86] justify-between items-center">
+            <div className="flex w-[164px] largegenerictable rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[40px] text-white bg-[#005A86] justify-between items-center">
               <span> Export </span>
               <Image src={Export} className="w-6 h-6" alt="export" />
             </div>

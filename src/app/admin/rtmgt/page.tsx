@@ -26,7 +26,10 @@ export default function RouteManagement() {
       <div className="flex flex-col">
         <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
           <SlidingBar sections={["Route List"]}>
-            <div className="flex w-[164px] gap-1 rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center">
+            <div
+              id="largegenerictable"
+              className="flex w-[164px] gap-1 rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center"
+            >
               <span> Add Route </span>
               <Image src={Add} className="w-6 h-6" alt="add" />
             </div>
