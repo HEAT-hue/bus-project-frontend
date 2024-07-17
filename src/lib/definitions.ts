@@ -12,16 +12,16 @@ export type AuthRequest = {
 export enum NAVIGATION {
   ADMIN = "/admin",
   ADMIN_STMGT = `${ADMIN}/stmgt`,
-//   ADMIN_MANAGEMENT = `${ADMIN}/management`,
-//   ADMIN_CHALLENGE = `${ADMIN}/challenges`,
-//   CAPTAIN = "/captain",
-//   LOGIN = "/login",
-//   HOME = `${BASE_NAVIGATION}`,
-//   IDEA_MARKET = `${BASE_NAVIGATION}/ideas`,
-//   INNOVATION_CHALLENGE = `${BASE_NAVIGATION}/challenge`,
-//   LEADERBOARD = `${BASE_NAVIGATION}/leaderboard`,
-//   ENGAGEMENT = `${LEADERBOARD}/engagements`,
-//   INTERACTION = `${LEADERBOARD}/interactions`,
+  ADMIN_MANAGEMENT = `${ADMIN}/management`,
+  ADMIN_CHALLENGE = `${ADMIN}/challenges`,
+  CAPTAIN = "/captain",
+  LOGIN = "/login",
+  HOME = `${BASE_NAVIGATION}`,
+  IDEA_MARKET = `${BASE_NAVIGATION}/ideas`,
+  INNOVATION_CHALLENGE = `${BASE_NAVIGATION}/challenge`,
+  LEADERBOARD = `${BASE_NAVIGATION}/leaderboard`,
+  ENGAGEMENT = `${LEADERBOARD}/engagements`,
+  INTERACTION = `${LEADERBOARD}/interactions`,
 }
 
 export enum USER_AUTHORITES {
