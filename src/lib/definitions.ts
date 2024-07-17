@@ -2,14 +2,14 @@ export const BASE_URL = process.env.BACKEND_BASE_URL;
 export const ROUTE_SECRET = process.env.ROUTE_SECRET;
 
 
-const BASE_NAVIGATION = "/app"
+const BASE_NAVIGATION = "/app";
 
 export const COOOKIE_EXPIRY = 10000;
 
 export type AuthRequest = {
-    email: string,
-    password: string
-}
+  email: string;
+  password: string;
+};
 
 export enum NAVIGATION {
     ADMIN = "/admin",
@@ -27,31 +27,31 @@ export enum NAVIGATION {
     INTERACTION = `${LEADERBOARD}/interactions`
 }
 
-
 export enum USER_AUTHORITES {
-    USER = 'USER',
-    ADMIN = "ADMIN",
-    CAPTAIN = "CAPTAIN"
+  USER = "USER",
+  ADMIN = "ADMIN",
+  CAPTAIN = "CAPTAIN",
 }
 
 export type User = {
-    "authorities": string,
-    "level": string,
-    "firstName": string,
-    "lastName": string,
-    "username": string
-}
+  authorities: string;
+  level: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+};
 
 export type AuthResponse = {
-    "token": string,
-    "authorities": string,
-    "level": string,
-    "firstName": string,
-    "lastName": string,
-    "username": string
-}
+  token: string;
+  authorities: string;
+  level: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+};
 
 export type Session = AuthResponse & {
+<<<<<<< HEAD
     exp: number
 }
 
@@ -61,3 +61,7 @@ export type Bus = {
     route: string,
     busNumber: string
 }
+=======
+  exp: number;
+};
+>>>>>>> 508ce322254eb7481c8c3d10a032815a7d9d5898

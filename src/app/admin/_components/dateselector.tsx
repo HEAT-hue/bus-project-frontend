@@ -15,7 +15,7 @@ export default function DateSelector() {
   return (
     <div
       id="filtergrid"
-      className="grid grid-cols-4 w-fit max-sm:grid-cols-3 filter mt-2 text-[16px] max-sm:text-[14px] items-end gap-4 "
+      className="grid grid-cols-4 w-fit max-sm:grid-cols-3 filter lg:mt-0 text-[16px] max-sm:text-[14px] items-end gap-4 "
     >
       <div className="flex flex-col gap-1">
         <span>Search by:</span>
@@ -38,8 +38,8 @@ export default function DateSelector() {
         <span>End date</span>
         <DatePicker onChange={onChange} style={{ width: 120, height: 40 }} />
       </div>{" "}
-      <div className="flex-row flex p-2 w-[120px] h-[40px] border border-[#005A86] rounded-md flex-end ">
-        <div className="flex bg-green-200 flex-row justify-between basis-3/4 overflow-hidden ">
+      <div className="flex-row flex p-2 w-[120px] h-[40px] bg-white border border-[#005A86] rounded-md flex-end ">
+        <div className="flex flex-row justify-between basis-3/4 overflow-hidden ">
           {" "}
           <input
             type="text"
