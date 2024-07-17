@@ -73,7 +73,7 @@ export default function WaitingList() {
                   </div>
                 </div>
 
-                <div className="px-6 py-4 w-[46vh] sm:w-[30vw]">
+                <div className="px-6 py-4 w-[37vh] sm:w-[30vw]">
                   <div className="flex items-center justify-center gap-x-[20%]">
                     <table className="w-full text-left">
                       <thead id='first-thead'>
