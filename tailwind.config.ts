@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        'landscape': {'raw': '(orientation: landscape)'},
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -15,11 +18,13 @@ const config: Config = {
         bus: "url('/public/bus.svg')",
       },
       colors: {
-        ecobankBlue: "rgb(2, 130, 173)",
-        ecobankGreen: "rgb(177, 220, 48)",
-        ecobankTeal: "rgb(2, 52, 72)",
-        ecobankLightTeal: "rgb(0, 91, 130)",
-        ecobankLightBlue: "rgba(192, 230, 247, 1)",
+        ecobankBlue: 'rgb(2, 130, 173)',
+        ecobankGreen: 'rgb(177, 220, 48)',
+        ecobankTeal: 'rgb(2, 52, 72)',
+        ecobankLightTeal: 'rgb(0, 91, 130)',
+        ecobankLightBlue: 'rgba(192, 230, 247, 1)',
+        endRed: 'rgba(179, 38, 30, 1)',
+
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
@@ -32,11 +37,15 @@ const config: Config = {
         "Inter-Extrabold": ["Inter-Extrabold"],
         "Inter-Black": ["Inter-Black"],
         "Aladin-Regular": ["Aladin-Regular"],
-      },
-      screens: {
-        "max-lg": { max: "1000px" },
-        "trans-range": { min: "600px", max: "1024px" },
-        "max-sm": { max: "600px" },
+        "Gilroy-Thin": ["Gilroy-Thin"],
+        "Gilroy-UltraLight": ["Gilroy-UltraLight"],
+        "Gilroy-Light": ["Gilroy-Light"],
+        "Gilroy-Regular": ["Gilroy-Regular"],
+        "Gilroy-Medium": ["Gilroy-Medium"],
+        "Gilroy-SemiBold": ["Gilroy-SemiBold"],
+        "Gilroy-Bold": ["Gilroy-Bold"],
+        "Gilroy-ExtraBold": ["Gilroy-ExtraBold"],
+        "Gilroy-Black": ["Gilroy-Black"]
       },
     },
   },
