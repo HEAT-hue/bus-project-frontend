@@ -3,7 +3,47 @@
 @tailwind utilities;
 
 /* Import font css */
-@import url('../../public/fonts/font.css');
+@import url("../../public/fonts/font.css");
+
+#staff.tablerow > td {
+  padding: 12px 0px; /* Padding for the cells */
+  border-color: white;
+}
+@media (max-width: 450px) {
+  #filtergrid.filter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #filtergrid #startbox {
+    order: 3;
+  }
+  #filtergrid #endbox {
+    order: 3;
+  }
+}
+
+#coolnav.move-right {
+  animation: moveRight 0.8s forwards;
+}
+#coolnav.move-left {
+  animation: moveLeft 0.8s forwards;
+}
+/*  */
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+@keyframes moveLeft {
+  0% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 
 /* 
 :root {

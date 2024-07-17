@@ -15,7 +15,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "bus": "url('/public/bus.svg')"
+        bus: "url('/public/bus.svg')",
       },
       colors: {
         ecobankBlue: 'rgb(2, 130, 173)',
@@ -27,7 +27,7 @@ const config: Config = {
 
       },
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
+        roboto: ["Roboto", "sans-serif"],
         "Inter-Thin": ["Inter-Thin"],
         "Inter-Extralight": ["Inter-Extralight"],
         "Inter-Light": ["Inter-Light"],
