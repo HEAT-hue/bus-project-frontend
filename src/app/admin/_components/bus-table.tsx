@@ -1,24 +1,24 @@
 "use client";
 import { Table } from "antd";
 import TypedInputNumber from "antd/es/input-number";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import SmallTable from "./small-staff";
 import { useEffect, useState } from "react";
 import Tags from "./table-tags";
+import SmallBus from "./small-bus";
 type Status = "Pending" | "Active" | "Inactive";
-type Staff = {
-  name: string;
-  department: string;
-  affiliate: string;
-  staffID: string;
-  email: string;
-  phone: string;
+type Bus = {
+  number: string;
+  model: string;
+  capacity: string;
+  color: string;
+  route: string;
   status: Status;
   action: string;
 };
 
-export default function StaffTable() {
-  const isXs = useMediaQuery({ query: "(max-width: 1110px)" });
+export default function BusTable() {
+  const isXs = useMediaQuery("(min-width:1100px)", { noSsr: true });
   const [isnotTable, setisnotTable] = useState(false);
   useEffect(
     function () {
@@ -26,72 +26,60 @@ export default function StaffTable() {
     },
     [isXs]
   );
-  let Staffdata: Staff[] = [
+  let Busdata: Bus[] = [
     {
-      name: "Joyce Orimolowo",
-      department: "Marketing & Corp Comms",
-      affiliate: "ENG",
-      staffID: "ENG/FST/067",
-      email: "jorimolowo@ecobank.com",
-      phone: "09058897701",
+      number: "KRD 567 FK",
+      model: "Sprinter",
+      capacity: "29",
+      color: "blue",
+      route: "Ajah",
       status: "Pending",
       action: "",
     },
     {
-      name: "Joy Omodada",
-      department: "Marketing & Corp Comms",
-      affiliate: "ENG",
-      staffID: "ENG/FST/067",
-      email: "jorimolowo@ecobank.com",
-      phone: "09058897701",
-      status: "Active",
+      number: "KRD 566 FK",
+      model: "Sprinter",
+      capacity: "29",
+      color: "green",
+      route: "Ikorodu",
+      status: "Pending",
       action: "",
     },
   ];
-  return isnotTable ? (
-    <SmallTable />
+  return !isnotTable ? (
+    <SmallBus />
   ) : (
     <div className="flex flex-col gap-2 text-[16px] ">
       <table className="w-full  border-separate border-spacing-y-4 ">
         <thead className="">
           <tr id="header" className="text-[#00567B] pb-20">
             <th className="">S/N</th>
-            <th className="">Name</th>
-            <th className="">Department</th>
-            <th className="">Affiliate</th>
-            <th className="">Staff ID</th>
-            <th className="">Email Address</th>
-            <th className="">Phone Number</th>
+            <th className="">Bus Number</th>
+            <th className="">Model</th>
+            <th className="">Capacity</th>
+            <th className="">Color</th>
+            <th className="">Route</th>
             <th className="">Status</th>
             <th className="">Action</th>
           </tr>
         </thead>
         <tbody className="">
-          {Staffdata.map((value, index) => {
-            const {
-              name,
-              department,
-              affiliate,
-              staffID,
-              email,
-              phone,
-              status,
-              action,
-            } = value;
+          {Busdata.map((value, index) => {
+            const { number, model, capacity, color, route, status, action } =
+              value;
             return (
               <tr
                 id="staff"
-                key={staffID}
+                key={number}
                 className=" text-center tablerow bg-[#F4F4F4] text-[14px] text-[#4D4D4D]"
               >
                 <td className="rounded-l-lg">{index + 1}</td>
-                <td className=" ">{name}</td>
-                <td className=" ">{department}</td>
-                <td className=" ">{affiliate}</td>
-                <td className=" ">{staffID}</td>
-                <td className=" ">{email}</td>
-                <td className=" ">{phone}</td>
-                <td className=" ">
+                <td className=" ">{number}</td>
+                <td className=" ">{model}</td>
+                <td className=" ">{capacity}</td>
+                <td className=" ">{color}</td>
+                <td className=" ">{route}</td>
+                <td className="flex justify-center ">
                   {/* <span className="flex justify-center items-center bg-red-200 py-1 rounded-lg  w-full">
                     {status}
                   </span> */}

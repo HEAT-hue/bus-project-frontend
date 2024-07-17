@@ -38,8 +38,8 @@ export default function DateSelector() {
         <span>End date</span>
         <DatePicker onChange={onChange} style={{ width: 120, height: 40 }} />
       </div>{" "}
-      <div className="flex-row flex p-2 w-[120px] h-[40px] border border-[#005A86] rounded-md flex-end ">
-        <div className="flex bg-green-200 flex-row justify-between basis-3/4 overflow-hidden ">
+      <div className="flex-row flex p-2 w-[120px] h-[40px] bg-white border border-[#005A86] rounded-md flex-end ">
+        <div className="flex flex-row justify-between basis-3/4 overflow-hidden ">
           {" "}
           <input
             type="text"

@@ -5,7 +5,7 @@ export default function Tags({ statusName }: { statusName: Status }) {
   
     return (
       <span
-        className={`flex justify-center items-center ${color} ${bgColor}  py-1 rounded-lg  w-full`}
+        className={`flex justify-center items-center ${color} ${bgColor} max-w-[130px]  py-1 rounded-lg  w-full`}
       >
         {statusName}
       </span>
