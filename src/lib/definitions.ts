@@ -1,4 +1,5 @@
 export const BASE_URL = process.env.BACKEND_BASE_URL;
+export const ROUTE_SECRET = process.env.ROUTE_SECRET;
 
 const BASE_NAVIGATION = "/app";
 
@@ -11,9 +12,10 @@ export type AuthRequest = {
 
 export enum NAVIGATION {
   ADMIN = "/admin",
-  ADMIN_STMGT = `${ADMIN}/stmgt`,
   ADMIN_MANAGEMENT = `${ADMIN}/management`,
   ADMIN_CHALLENGE = `${ADMIN}/challenges`,
+  USER = "/user",
+  USER_BOOK = `${USER}/book`,
   CAPTAIN = "/captain",
   LOGIN = "/login",
   HOME = `${BASE_NAVIGATION}`,
@@ -49,4 +51,11 @@ export type AuthResponse = {
 
 export type Session = AuthResponse & {
   exp: number;
+};
+
+export type Bus = {
+  id: string;
+  name: string;
+  route: string;
+  busNumber: string;
 };
