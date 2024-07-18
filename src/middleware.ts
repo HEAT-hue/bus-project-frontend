@@ -8,6 +8,8 @@ export default async function middleware(req: NextRequest) {
     // Get path
     const path = req.nextUrl.pathname
 
+    console.log(path);
+
     const publicRoutes = [NAVIGATION.LOGIN.toString()];
 
     /* Define Protected Routes By User Roles */
@@ -43,6 +45,8 @@ export default async function middleware(req: NextRequest) {
         // Redirect to login to create new session
         return NextResponse.redirect(new URL('/login', req.nextUrl))
     }
+
+    console.log(session);
 
     // Redirect to /login if the user is not authenticated or user is not an admin
     if (isAdminProtectedRoute && (!session || session?.authorities != ROLES.ADMIN)) {

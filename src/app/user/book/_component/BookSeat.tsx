@@ -1,11 +1,12 @@
 'use client'
-import { Bus, Session } from "@/lib/definitions"
+import { Bus, NAVIGATION, Session } from "@/lib/definitions"
 import { prepareBusStopData } from "@/lib/utils/utils";
 import { Select } from "antd";
 import { useState } from "react";
 import classNames from "classnames";
 import { getSession } from "@/lib/session";
 import { bookBus } from "@/lib/user/action";
+import { useRouter } from "next/navigation";
 
 type BookSeatProp = {
     bus: Bus
@@ -16,7 +17,10 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus }) => {
 
     const [selectedDropOffPoint, setSelectedDropOffPoint] = useState<string | undefined>(undefined);
 
+    const router = useRouter();
+
     async function handleBook() {
+        router.push(NAVIGATION.USER_CHECKOUT.toString())
         try {
 
         } catch (error) {

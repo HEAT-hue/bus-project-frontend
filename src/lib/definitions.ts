@@ -37,6 +37,7 @@ export enum NAVIGATION {
     /*************************** User Routes ********************************************/
     USER = "/user",
     USER_BOOK = `${USER}/book`,
+    USER_CHECKOUT = `${USER}/checkout`,
 
     /*************************** Captain Routes ********************************************/
     CAPTAIN = "/captain",

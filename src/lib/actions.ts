@@ -41,6 +41,8 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
             body: JSON.stringify(payload),
         });
 
+        console.log(response);
+
         if (!response.ok) {
             if (response.status == 400) {
                 throw new FetchError(response.status, `Incorrect credentials`);

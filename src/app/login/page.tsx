@@ -1,7 +1,6 @@
 'use client'
 import { LoginUser } from "@/lib/actions"
-import { NAVIGATION, ROLES, User, USER_AUTHORITES } from "@/lib/definitions"
-import Image from "next/image"
+import { NAVIGATION, User, USER_AUTHORITES } from "@/lib/definitions"
 import { useRouter } from "next/navigation"
 import { CSSProperties, useState } from "react"
 import { BeatLoader } from "react-spinners"
@@ -39,10 +38,12 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState<string>("");
     const [error, setErrorMessage] = useState<String>("");
     const [submissionPending, setSubmissionPending] = useState<boolean>(false);
-
     const router = useRouter();
 
-    function handleSubmit() {
+
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
         // Set button pending state
         setSubmissionPending(true);
 
@@ -86,7 +87,6 @@ const Login: React.FC = () => {
                 }
             } catch (error) {
                 setErrorMessage("Error validating credentials!");
-            } finally {
                 // Clear pending state
                 setSubmissionPending(false);
             }
@@ -95,13 +95,14 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <form action={handleSubmit}>
-                <div className="flex flex-col gap-y-5">
+            <form onSubmit={handleSubmit}>
+                {error && <p className="text-xs text-right text-error">{error}</p>}
+                <div className="flex flex-col gap-y-5 mt-5">
                     {/* Email */}
                     <div className="flex flex-col gap-y-2">
                         <label
                             htmlFor="email"
-                            className="text-sm text-red-600 sm:text-blue-600"
+                            className="text-sm"
                         >
                             Staff ID/Email Address
                         </label>
