@@ -1,6 +1,6 @@
 'use client'
 import { LoginUser } from "@/lib/actions"
-import { NAVIGATION, User, USER_AUTHORITES } from "@/lib/definitions"
+import { NAVIGATION, ROLES, User, USER_AUTHORITES } from "@/lib/definitions"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { CSSProperties, useState } from "react"
@@ -67,23 +67,22 @@ const Login: React.FC = () => {
                 console.log(user)
                 if (user) {
 
-                    // Retrieve roles
-                    const authorities = user.authorities.split(" ");
+                    console.log(user.authorities);
 
                     // Admin page
-                    if (authorities.includes(USER_AUTHORITES.ADMIN)) {
+                    if (user.authorities == ROLES.ADMIN) {
                         router.push(NAVIGATION.ADMIN)
                         return;
                     }
 
                     // Admin page
-                    if (authorities.includes(USER_AUTHORITES.CAPTAIN)) {
+                    if (user.authorities == ROLES.CAPTAIN) {
                         router.push(NAVIGATION.CAPTAIN)
                         return;
                     }
 
                     // User page
-                    router.push(NAVIGATION.HOME)
+                    router.push(NAVIGATION.USER)
                 }
             } catch (error) {
                 setErrorMessage("Error validating credentials!")

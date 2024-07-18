@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type SelectBusProp = {
-    buses: Bus[],
+    buses: any[],
     route_secret?: string
 }
 
@@ -17,7 +17,7 @@ const SelectBus: React.FC<SelectBusProp> = ({ buses, route_secret }) => {
     const router = useRouter();
 
     function handleBusChange(e: any) {
-        const bus = buses.find((bus: Bus) => {
+        const bus = buses.find((bus: any) => {
             return bus.id == e
         })
 
@@ -25,6 +25,8 @@ const SelectBus: React.FC<SelectBusProp> = ({ buses, route_secret }) => {
 
         router.push(`${NAVIGATION.USER_BOOK}?st=${encryptedBusDetails}`)
     }
+
+    console.log(prepareBusData(buses))
 
     return (
         <>

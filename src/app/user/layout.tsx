@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 // import "./globals.css";
 import { Navigation } from "../components";
 import Footer from "../components/Footer";
-import { Suspense } from "react";
-// import { viewport } from "./viewport";
-import Loading from "./loading";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "Kiti | user",

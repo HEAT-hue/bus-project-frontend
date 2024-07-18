@@ -1,67 +1,86 @@
+import { AuthResponse } from "./actions";
+
 export const BASE_URL = process.env.BACKEND_BASE_URL;
 export const ROUTE_SECRET = process.env.ROUTE_SECRET;
-
 
 const BASE_NAVIGATION = "/app";
 
 export const COOOKIE_EXPIRY = 10000;
 
-export type AuthRequest = {
-  email: string;
-  password: string;
-};
+const SESSION_EXPIRY = 10000
+
+export enum ROLES {
+    USER = "USER",
+    ADMIN = "ADMIN",
+    CAPTAIN = "CAPTAIN",
+    DRIVER = "DRIVER",
+}
+
+export type BaseEntity = {
+    createdAt: Date
+    createdBy: number
+    updatedAt: Date
+    updatedBy: number
+}
+
+export enum BUS_OPERATIONAL_STATUS {
+    ACTIVE = "ACTIVE",
+    INACTIVE = "INACTIVE"
+}
 
 export enum NAVIGATION {
+    /*************************** Admin Routes ********************************************/
     ADMIN = "/admin",
     ADMIN_MANAGEMENT = `${ADMIN}/management`,
     ADMIN_CHALLENGE = `${ADMIN}/challenges`,
+
+    /*************************** User Routes ********************************************/
     USER = "/user",
     USER_BOOK = `${USER}/book`,
+
+    /*************************** Captain Routes ********************************************/
     CAPTAIN = "/captain",
+
+    /*************************** Login Routes ********************************************/
     LOGIN = "/login",
-    HOME = `${BASE_NAVIGATION}`,
-    IDEA_MARKET = `${BASE_NAVIGATION}/ideas`,
-    INNOVATION_CHALLENGE = `${BASE_NAVIGATION}/challenge`,
-    LEADERBOARD = `${BASE_NAVIGATION}/leaderboard`,
-    ENGAGEMENT = `${LEADERBOARD}/engagements`,
-    INTERACTION = `${LEADERBOARD}/interactions`
 }
 
 export enum USER_AUTHORITES {
-  USER = "USER",
-  ADMIN = "ADMIN",
-  CAPTAIN = "CAPTAIN",
+    USER = "USER",
+    ADMIN = "ADMIN",
+    CAPTAIN = "CAPTAIN",
 }
 
 export type User = {
-  authorities: string;
-  level: string;
-  firstName: string;
-  lastName: string;
-  username: string;
+    authorities: string;
+    level: string;
+    firstName: string;
+    lastName: string;
+    username: string;
 };
 
-export type AuthResponse = {
-  token: string;
-  authorities: string;
-  level: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-};
+export type Session = AuthResponse & { SESSION_EXPIRY: number };
 
-export type Session = AuthResponse & {
-<<<<<<< HEAD
-    exp: number
+export type Account = {
+
 }
+
 
 export type Bus = {
-    id: string
-    name: string,
-    route: string,
+    busId: number,
     busNumber: string
-}
-=======
-  exp: number;
-};
->>>>>>> 508ce322254eb7481c8c3d10a032815a7d9d5898
+    operationalStatus: BUS_OPERATIONAL_STATUS
+    busModel: string
+    busCapacity: number
+    busColor: string
+    routeName: string
+    driverId: number
+    captainId: number
+    busStops: BusStop[]
+    accounts: Account[]
+} & BaseEntity
+
+export type BusStop = {
+    busStopId: string,
+    busStopName: string
+} & BaseEntity

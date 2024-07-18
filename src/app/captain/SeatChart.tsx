@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import "./page.css";
 import React, { useState, useEffect } from "react";
-
 
 const ExportData = [
   { name: 'Joyce Orimolowo', seat: '8C' },
@@ -25,22 +25,22 @@ const ExportData = [
   { name: 'Shalom Sahara', seat: '8B' }
 ];
 
-const SeatChart = ({ handleAllChecked }) => {
-    const [checkedInputs, setCheckedInputs] = useState<boolean[]>(new Array(ExportData.length).fill(false));
-    
+const SeatChart = ({ handleAllChecked }: any) => {
+  const [checkedInputs, setCheckedInputs] = useState<boolean[]>(new Array(ExportData.length).fill(false));
+
   const handleInputChange = (index: number) => {
     const newCheckedInputs = [...checkedInputs];
     newCheckedInputs[index] = !newCheckedInputs[index];
     setCheckedInputs(newCheckedInputs);
 
-//  // Update checkedInputs when ExportData changes
-//  useEffect(() => {
-//     setCheckedInputs(new Array(ExportData.length).fill(false));
-//   }, [ExportData]);
+    //  // Update checkedInputs when ExportData changes
+    //  useEffect(() => {
+    //     setCheckedInputs(new Array(ExportData.length).fill(false));
+    //   }, [ExportData]);
 
-   // Call handleAllChecked function to check if all are checked
-   handleAllChecked(newCheckedInputs.every((isChecked) => isChecked));
-    
+    // Call handleAllChecked function to check if all are checked
+    handleAllChecked(newCheckedInputs.every((isChecked) => isChecked));
+
   };
   return (
     <div className="flex flex-col justify-center sm:flex-row sm:justify-between mb-[10%] mt-[8vh]" >
@@ -59,15 +59,15 @@ const SeatChart = ({ handleAllChecked }) => {
                 <td className='pt-4 font-Gilroy-Regular text-sm'>{item.name}</td>
                 <td className="font-Gilroy-SemiBold text-center pt-4 text-sm">{item.seat}</td>
                 <td className='text-center pt-4'>
-                <div className="flex justify-center">
-                                 <img
-                                src={checkedInputs[index] ? 'checked.svg' : 'unchecked.svg'}
+                  <div className="flex justify-center">
+                    <img
+                      src={checkedInputs[index] ? 'checked.svg' : 'unchecked.svg'}
 
-                                alt={checkedInputs[index] ? 'Checked' : 'Unchecked'}
-                                className="h-5 w-5 cursor-pointer"
-                                onClick={() => handleInputChange(index)}
-                              />
-                              </div>
+                      alt={checkedInputs[index] ? 'Checked' : 'Unchecked'}
+                      className="h-5 w-5 cursor-pointer"
+                      onClick={() => handleInputChange(index)}
+                    />
+                  </div>
                 </td>
               </tr>
             ))}
@@ -89,15 +89,15 @@ const SeatChart = ({ handleAllChecked }) => {
                 <td className='pt-4 font-Gilroy-Regular text-sm' id="tablename">{item.name}</td>
                 <td className="font-Gilroy-SemiBold text-center pt-4 text-sm" id="tableseat">{item.seat}</td>
                 <td className='text-center pt-4  ' id="tablestatus">
-                <div className="flex justify-center">
-                                 <img
-                                src={checkedInputs[index + 10] ? 'checked.svg' : 'unchecked.svg'}
+                  <div className="flex justify-center">
+                    <img
+                      src={checkedInputs[index + 10] ? 'checked.svg' : 'unchecked.svg'}
 
-                                alt={checkedInputs[index + 10] ? 'Checked' : 'Unchecked'}
-                                className="h-5 w-5 cursor-pointer"
-                                onClick={() => handleInputChange(index + 10)}
-                              />
-                              </div>
+                      alt={checkedInputs[index + 10] ? 'Checked' : 'Unchecked'}
+                      className="h-5 w-5 cursor-pointer"
+                      onClick={() => handleInputChange(index + 10)}
+                    />
+                  </div>
                 </td>
               </tr>
             ))}

@@ -1,13 +1,27 @@
-import { Bus } from "../definitions";
+import { Bus, BusStop } from "../definitions";
 
 export function prepareBusData(data?: Bus[]) {
     if (!data) {
         return [];
     }
 
-    return data.map((option: Bus) => {
+    return data.map((option: any) => {
         return ({
-            label: option.route,
+            label: option.name,
+            value: option.id + ""
+        })
+    })
+}
+
+export function prepareBusStopData(data?: BusStop[]) {
+    if (!data) {
+        return [];
+    }
+
+    console.log(data);
+    return data.map((option: any) => {
+        return ({
+            label: option.name,
             value: option.id + ""
         })
     })
