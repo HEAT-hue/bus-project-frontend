@@ -6,14 +6,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReactNode, useEffect, useState } from "react";
 import Tags from "./table-tags";
 type Status = "Pending" | "Active" | "Inactive";
+
 export type Data = {
   [key: string]: string;
   status: Status;
 };
 
-export default function GenericTable({
-  data,
-  children,
+export default function GenericTable({ data, children,
 }: {
   data: Data[];
   children: ReactNode;

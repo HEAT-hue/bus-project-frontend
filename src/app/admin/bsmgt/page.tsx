@@ -6,28 +6,38 @@ import BusTable from "../_components/bus-table";
 import GenericTable, { Data } from "../_components/generic-table";
 import SmallTable from "../_components/small-staff";
 import SmallBus from "../_components/small-bus";
+import { getSession } from "@/lib/session";
+import { Session } from "@/lib/definitions";
+import { fetchBus } from "@/lib/user/action";
 
-export default function BusManagement() {
-  let Busdata: Data[] = [
-    {
-      number: "KRD 567 FK",
-      model: "Sprinter",
-      capacity: "29",
-      color: "blue",
-      route: "Ajah",
-      status: "Pending",
-      action: "",
-    },
-    {
-      number: "KRD 566 FK",
-      model: "Sprinter",
-      capacity: "29",
-      color: "green",
-      route: "Ikorodu",
-      status: "Pending",
-      action: "",
-    },
-  ];
+export default async function BusManagement() {
+
+  const session: Session = await getSession();
+
+  const busResponsePage = await fetchBus(session.token, {});
+
+  const buses = busResponsePage.content;
+
+  // let Busdata: Data[] = [
+  //   {
+  //     number: "KRD 567 FK",
+  //     model: "Sprinter",
+  //     capacity: "29",
+  //     color: "blue",
+  //     route: "Ajah",
+  //     status: "Pending",
+  //     action: "",
+  //   },
+  //   {
+  //     number: "KRD 566 FK",
+  //     model: "Sprinter",
+  //     capacity: "29",
+  //     color: "green",
+  //     route: "Ikorodu",
+  //     status: "Pending",
+  //     action: "",
+  //   },
+  // ];
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-8 max-sm:gap-4">
       <h1 className="text-[32px] max-sm:text-[25px] text-[#023448]">
