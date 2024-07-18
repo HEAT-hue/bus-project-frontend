@@ -66,7 +66,6 @@ export type Account = {
 
 }
 
-
 export type Bus = {
     busId: number,
     busNumber: string
@@ -85,3 +84,13 @@ export type BusStop = {
     busStopId: string,
     busStopName: string
 } & BaseEntity
+
+
+export type PagedResponse<T> = {
+    "content": T[]
+    "pageNumber": number
+    "pageSize": number
+    "totalElements": number
+    "totalPages":number
+    "last": boolean
+  }

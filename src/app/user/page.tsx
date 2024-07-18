@@ -1,44 +1,18 @@
 import { SelectBus } from "./_component";
-import { Bus } from "@/lib/definitions";
+import { Bus, Session } from "@/lib/definitions";
 import { ROUTE_SECRET } from "@/lib/definitions";
 import Image from "next/image";
 
+import { getSession } from "@/lib/session";
+import { fetchBus } from "@/lib/user/action";
+
 const UserSelectionPage = async () => {
-  // Check if user has booked. - Redirect to confirmation page
-  // If booking doesn't exist. Stay here
-  // const result = await delay(5000);
+  const session: Session = await getSession()
 
+  const busPage = await fetchBus(session.token, {})
 
-  const buses: any[] = [
-    {
-      id: "1",
-      name: "Soole",
-      route: "Ajah",
-      busNumber: "K9892",
-      busStops: [
-        {
-          id: "1",
-          name: "Ikorodu"
-        },
-        {
-          id: "2",
-          name: "Agege"
-        },
-        {
-          id: "3",
-          name: "Ogolonto"
-        },
-        {
-          id: "4",
-          name: "Agege"
-        },
-        {
-          id: "5",
-          name: "Ogolonto"
-        },
-      ]
-    },
-  ]
+  const buses = busPage.content
+
   return (
     <>
       <div className="w-[95vw] mx-auto max-w-[928px]">
@@ -47,8 +21,8 @@ const UserSelectionPage = async () => {
         <div className=" mt-8 grid grid-flow-row grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
           {buses.map((bus) => (
             <BusCard
-              key={bus.id}
-              route={bus.route}
+              key={bus.busId}
+              route={bus.routeName}
               numberPlate={bus.busNumber}
             />
           ))}
