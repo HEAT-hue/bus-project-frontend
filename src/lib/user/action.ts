@@ -35,8 +35,6 @@ export async function fetchBus(
       body: JSON.stringify(requestBody),
     });
 
-    console.log(response);
-
     if (!response.ok) {
       if (response.status == 401) {
         throw new FetchError(

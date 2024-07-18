@@ -6,7 +6,6 @@ import Add from "../../../../public/add.png";
 import Captain from "../../../../public/captain.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-
 import { useEffect, useState } from "react";
 
 export default function SmallRoute() {
@@ -21,15 +20,15 @@ export default function SmallRoute() {
   return (
     <>
       <div className="flex flex-col smallgenerictable max-sm:mt-2 gap-2 ">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-between items-center font-Gilroy-SemiBold">
           <h1 className="text-[18px] m-0 text-[#023448]">Routes</h1>
-          <div className="flex w-[140px] rounded-lg hover:scale-105 duration-300 flex-row py-1 px-[15px] text-white bg-[#005A86] justify-between items-center">
+          <div className="flex w-[140px] rounded-lg hover:scale-105 duration-300 flex-row py-1 px-[15px] text-white  bg-[#005A86] justify-between items-center">
             <span> Add Route </span>
             <Image src={Add} className="w-6 h-6" alt="add" />
           </div>
         </div>
-        <div className="flex flex-row items-center sm:text-[13px] text-[9px] justify-between p-3 bg-[#F4F4F4] rounded-lg">
-          <span className="font-bold text-[15px]">Ajah</span>
+        <div className="flex flex-row items-center sm:text-[13px] text-[9px] font-Gilroy-SemiBold justify-between p-3 bg-[#F4F4F4] rounded-lg">
+          <span className="font-bold text-[15px] font-Gilroy-ExtraBold">Ajah</span>
           <div className="flex flex-row items-center">
             <Image src={Driver} className="w-5 h-5" alt="driver" />
             <span>Tayo Adewole</span>
