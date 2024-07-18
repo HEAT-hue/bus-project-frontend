@@ -26,8 +26,6 @@ const SelectBus: React.FC<SelectBusProp> = ({ buses, route_secret }) => {
         router.push(`${NAVIGATION.USER_BOOK}?st=${encryptedBusDetails}`)
     }
 
-    console.log(prepareBusData(buses))
-
     return (
         <>
             <div className="">

@@ -6,14 +6,26 @@ import BusTable from "../_components/bus-table";
 import GenericTable, { Data } from "../_components/generic-table";
 import SmallTable from "../_components/small-staff";
 import SmallBus from "../_components/small-bus";
+import { getSession } from "@/lib/session";
+import { Session } from "@/lib/definitions";
+import { redirect } from "next/navigation";
+import { fetchBus } from "@/lib/user/action";
 
 export default async function BusManagement() {
-  const busResponse = await fetch(
-    "http://192.168.224.161:8080/api/v1/bus/list?page=0&size=0&query=string&sortDirection=string&operationalStatus=ACTIVE"
-  );
-  const bus = await busResponse.json();
-  console.log(bus);
+  const session: Session = await getSession();
   
+  if (!session) {
+    console.log("NO session found")
+    redirect("/login");
+  }
+
+  console.log("Pass complete")
+  const busResponse = await fetchBus(session.token, {});
+  console.log(busResponse)
+
+  // const buses = busResponse.content;
+  // console.log(buses);
+
   let Busdata: Data[] = [
     {
       number: "KRD 567 FK",
