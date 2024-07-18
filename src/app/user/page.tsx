@@ -1,7 +1,6 @@
-import { SelectBus } from "./_component";
-import { Bus, Session } from "@/lib/definitions";
-import { ROUTE_SECRET } from "@/lib/definitions";
+import { Session } from "@/lib/definitions";
 import Image from "next/image";
+import { SelectBus } from "./_component";
 
 import { getSession } from "@/lib/session";
 import { fetchBus } from "@/lib/user/action";
