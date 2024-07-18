@@ -33,9 +33,9 @@ export function Modal({ closeModal, children, bare, info, dark }: ModalProps) {
                 closeModal();
             }}
         >
-            <div className={`relative bg-white border-[1.5px] border-ecobankBlue shadow ${!bare && "slide-in-elliptic-top-fwd"} flex flex-row-reverse rounded-lg`}>
+            <div className={`relative bg-white border-[1.5px] border-ecobankBlue shadow flex flex-row-reverse rounded-lg`}>
                 {/* This  */}
-                {(!bare && !info) && (
+                {(!bare) && (
                     <div className="absolute right-2 top-2">
                         <img src="/cancel.svg" alt="close" className="w-[20px]" />
                     </div>
