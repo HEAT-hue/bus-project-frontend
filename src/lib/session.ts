@@ -2,7 +2,8 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { FetchError } from "./FetchError";
-import { AuthResponse, COOOKIE_EXPIRY, Session, User } from "./definitions";
+import { COOOKIE_EXPIRY, Session, User } from "./definitions";
+import { AuthResponse } from "./actions";
 import { JWTExpired } from "jose/errors";
 
 // Custom error for expired or invalid session
@@ -25,9 +26,9 @@ export type SignInResposne = {
     exp: number
 }
 
-// Encrypt
+// Encrypt session
 export async function encrypt(payload: Session) {
-    const expirationTime = new Date(Date.now() + payload.exp); // 1 hour from now in seconds
+    const expirationTime = new Date(Date.now() + payload.SESSION_EXPIRY); // 1 hour from now in seconds
 
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
@@ -36,7 +37,7 @@ export async function encrypt(payload: Session) {
         .sign(key);
 }
 
-// Decrypt payload
+// Decrypt session
 export async function decrypt(input: string): Promise<any> {
     try {
         const { payload } = await jwtVerify(input, key, {
@@ -51,12 +52,12 @@ export async function decrypt(input: string): Promise<any> {
     }
 }
 
-// Login user
+// Create session for Authenticated User
 export async function createSession(payload: AuthResponse) {
     try {
         // // Set expiration time to 1 hour from now
         const expires = new Date(Date.now() + COOOKIE_EXPIRY);
-        const session = await encrypt({ ...payload, exp: Math.floor(expires.getTime() / 1000) });
+        const session = await encrypt({ ...payload, SESSION_EXPIRY: Math.floor(expires.getTime() / 1000) });
 
         // Save the session in a cookie
         cookies().set("session", session, { expires, httpOnly: true });
@@ -82,7 +83,7 @@ export async function logout() {
     cookies().set("session", "", { expires: new Date(0) });
 }
 
-// Retrieve session
+// Retrieve session from user storage
 export async function getSession() {
     const session = cookies().get("session")?.value;
     if (!session) return null;
@@ -113,5 +114,4 @@ export async function updateSession(request: NextRequest) {
     } catch (error) {
         return null;
     }
-
 }

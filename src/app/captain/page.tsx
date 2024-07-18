@@ -3,7 +3,7 @@ import { useState } from "react";
 import SeatChart from "./SeatChart";
 import WaitingList from "./WaitingList";
 
-export default function captainHome() {
+export default function CaptainHome() {
     const [allChecked, setAllChecked] = useState(false);
     const [tripStarted, setTripStarted] = useState(false);
     const [buttonText, setButtonText] = useState('Begin Trip');

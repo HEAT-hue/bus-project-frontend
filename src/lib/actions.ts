@@ -1,9 +1,22 @@
 'use server'
-import { BASE_URL } from "./definitions";
-import { AuthRequest, AuthResponse } from "./definitions";
+import { BASE_URL, ROLES } from "./definitions";
 import { FetchError } from "./FetchError";
 import { createSession } from "./session";
 import { AUTH_URL } from "./urls";
+
+export type AuthRequest = {
+    email: string;
+    password: string;
+};
+
+export type AuthResponse = {
+    token: string;
+    authorities: ROLES;
+    level: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+};
 
 export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
     if (payload.email == null || payload.password == null) {
@@ -13,12 +26,8 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
         });
     }
 
-    console.log(payload)
-
     // Verify credentials && get the user
     const apiUrl = new URL(`${BASE_URL}${AUTH_URL}`);
-
-    console.log(apiUrl);
 
     // Construct the headers
     const headers: HeadersInit = {
@@ -35,10 +44,13 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
         console.log(response);
 
         if (!response.ok) {
+            if (response.status == 400) {
+                throw new FetchError(response.status, `Incorrect credentials`);
+            }
             throw new FetchError(response.status, `Failed to Login user: ${response.statusText}`);
         }
 
-        const user = (await response.json() as AuthResponse);
+        const user = await response.json() as AuthResponse;
 
         await createSession(user);
 
@@ -57,3 +69,5 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
         });
     }
 }
+
+
