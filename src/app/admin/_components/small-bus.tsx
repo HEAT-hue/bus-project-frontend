@@ -20,15 +20,15 @@ export default function SmallBus() {
   return (
     <>
       <div className="flex flex-col smallgenerictable max-sm:mt-2 gap-2 ">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-between items-center font-Gilroy-SemiBold">
           <h1 className="text-[18px] m-0 text-[#023448]">Buses</h1>
           <div className="flex w-[140px] rounded-lg hover:scale-105 duration-300 flex-row py-1 px-[15px] text-white bg-[#005A86] justify-between items-center">
             <span> Add Bus </span>
             <Image src={Add} className="w-6 h-6" alt="add" />
           </div>
         </div>
-        <div className="flex flex-row items-center sm:text-[15px] text-[#4D4D4D] text-[12px] justify-between p-3 bg-[#F4F4F4] rounded-lg">
-          <span className="font-bold text-[15px]">KRD 566 FK</span>
+        <div className="flex flex-row items-center sm:text-[15px] font-Gilroy-SemiBold text-[#4D4D4D] text-[12px] justify-between p-3 bg-[#F4F4F4] rounded-lg">
+          <span className="font-bold text-[15px] font-Gilroy-Bold">KRD 566 FK</span>
           <div className="flex flex-row items-center">
             <Image src={Groups} className="w-6 h-6" alt="groups" />
             <span>29</span>

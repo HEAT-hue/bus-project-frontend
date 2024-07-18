@@ -28,7 +28,7 @@ export default function RouteManagement() {
           <SlidingBar sections={["Route List"]}>
             <div
               id="largegenerictable"
-              className="flex w-[164px] gap-1 rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center"
+              className="flex w-[164px] font-Gilroy-SemiBold gap-1 rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center"
             >
               <span> Add Route </span>
               <Image src={Add} className="w-6 h-6" alt="add" />
@@ -39,7 +39,18 @@ export default function RouteManagement() {
         <div className="flex flex-row items-center"></div>
       </div>
       <DateSelector />
-      <GenericTable data={Routedata}>
+      <GenericTable
+        data={Routedata}
+        tableHeaders={[
+          "routeID",
+          "route",
+          "driver",
+          "Phone Number",
+          "captain",
+          "Phone Number",
+          "status",
+        ]}
+      >
         <SmallRoute />
       </GenericTable>{" "}
     </div>
