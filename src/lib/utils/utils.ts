@@ -17,8 +17,6 @@ export function prepareBusStopData(data?: BusStop[]) {
     if (!data) {
         return [];
     }
-
-    console.log(data);
     return data.map((option: any) => {
         return ({
             label: option.name,
@@ -45,4 +43,11 @@ export function getFormattedDate(date: Date = new Date()) {
     const minutes = date.getMinutes()
 
     return { year, month, monthShort, day, time, hours, minutes };
+}
+
+export function capitalizeFirstLetter(string: string) {
+    if (typeof string !== "string" || string.length === 0) {
+        return "";
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

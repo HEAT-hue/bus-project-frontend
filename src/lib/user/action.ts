@@ -18,9 +18,22 @@ export type FetchBusParams = {
 // Function to fech a bus
 export async function fetchBus(
   token: string,
-  requestBody: FetchBusParams
+  requestParams: FetchBusParams
 ): Promise<PagedResponse<Bus>> {
   const apiUrl = new URL(`${BASE_URL}/bus/list`);
+
+  // Append query parameters
+  Object.entries(requestParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      apiUrl.searchParams.append(key, value.toString());
+    }
+  });
+
+  // Adjust 'page' parameter to be zero-based
+  if (requestParams.page !== undefined) {
+    apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
+  }
+
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -32,7 +45,6 @@ export async function fetchBus(
     const response = await fetch(apiUrl.toString(), {
       method: "GET",
       headers: headers,
-      body: JSON.stringify(requestBody),
     });
 
     console.log(response);

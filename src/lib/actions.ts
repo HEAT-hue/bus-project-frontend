@@ -29,6 +29,8 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
     // Verify credentials && get the user
     const apiUrl = new URL(`${BASE_URL}${AUTH_URL}`);
 
+    console.log(apiUrl);
+    console.log(apiUrl.toString())
     // Construct the headers
     const headers: HeadersInit = {
         'Content-Type': 'application/json'

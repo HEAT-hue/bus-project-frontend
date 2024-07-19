@@ -5,23 +5,22 @@ import TypedInputNumber from "antd/es/input-number";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReactNode, useEffect, useState } from "react";
 import Tags from "./table-tags";
+import { capitalizeFirstLetter } from "@/lib/utils/utils";
 type Status = "Pending" | "Active" | "Inactive";
+
 export type Data = {
   [key: string]: string;
-  status: Status;
 };
 
-export default function GenericTable({
-  data,
-  children,
-}: {
-  data: Data[];
-  children: ReactNode;
+export default function GenericTable({ data, isAction = true, tableHeaders, children, }: {
+  data: Data[]; tableHeaders: string[]; isAction?: boolean; children: ReactNode;
 }) {
+
+  // Responsiveness
   const isXs = useMediaQuery("(min-width:1100px)", { noSsr: true });
   const [isnotTable, setisnotTable] = useState(false);
   useEffect(
-    function () {
+    function () { 
       setisnotTable(isXs);
     },
     [isXs]
@@ -30,12 +29,7 @@ export default function GenericTable({
     return <p>No data available</p>;
   }
   const headers = Object.keys(data[0]);
-  function capitalizeFirstLetter(string: string) {
-    if (typeof string !== "string" || string.length === 0) {
-      return "";
-    }
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  const lenCol = headers.length;
 
   return (
     <>
@@ -45,37 +39,47 @@ export default function GenericTable({
           <thead className="">
             <tr id="header" className="text-[#00567B] pb-20">
               <th className="">S/N</th>
-              {headers.map((header) => (
-                <th key={header} className="">
+              {tableHeaders.map((header) => (
+                <th key={header} className="font-Gilroy-SemiBold">
                   {capitalizeFirstLetter(header)}
                 </th>
               ))}
-              <th className="">Action</th>
+              {isAction && <th className="">Action</th>}
             </tr>
           </thead>
           <tbody className="">
-            {data.map((item, index) => (
-              <tr
-                id="staff"
-                key={index}
-                className=" text-center tablerow bg-[#F4F4F4] text-[14px] text-[#4D4D4D]"
-              >
-                {" "}
-                <td className="rounded-l-lg">{index + 1}</td>
-                {headers.map((header) => {
-                  return header !== "status" ? (
-                    <td key={header} className="px-6 py-4 whitespace-nowrap">
-                      {item[header]}
+            {data.map((item, index) => {
+              return (
+                <tr
+                  id="staff"
+                  key={index}
+                  className=" text-center tablerow bg-[#F4F4F4] text-[14px] text-[#4D4D4D]"
+                >
+                  {" "}
+                  <td className="rounded-l-lg whitespace-nowrap">{index + 1}</td>
+                  {headers.map((header, index) => {
+                    return header !== "status" ? (
+                      <td
+                        key={header}
+                        className={`px-6 py-4 ${index + 1 === lenCol && !isAction && "rounded-r-lg"
+                          }  border-none whitespace-nowrap font-Gilroy-Regular`}
+                      >
+                        {item[header]}
+                      </td>
+                    ) : (
+                      <td className=" flex justify-center items-center font-Gilroy-SemiBold whitespace-nowrap ">
+                        <Tags statusName={item[header]} />
+                      </td>
+                    );
+                  })}
+                  {isAction && (
+                    <td className=" rounded-r-lg whitespace-nowrap font-Gilroy-Regular">
+                      View
                     </td>
-                  ) : (
-                    <td className=" ">
-                      <Tags statusName={item[header]} />
-                    </td>
-                  );
-                })}
-                <td className="rounded-r-lg ">View</td>
-              </tr>
-            ))}
+                  )}
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>{" "}
