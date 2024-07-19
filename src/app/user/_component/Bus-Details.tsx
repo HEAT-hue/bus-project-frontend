@@ -1,12 +1,36 @@
 import Image from "next/image";
 import { Button } from "antd";
+import { Dispatch } from "react";
 
-export default function BusDetails() {
+import { useRouter } from "next/navigation";
+import { encryptData } from "@/lib/utils/cyptoUtils";
+import { Bus, NAVIGATION } from "@/lib/definitions";
+
+type BusDetailsProp = {
+  bus: Bus;
+  setShowBus: Dispatch<Bus | undefined>;
+};
+
+export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
+  
+  const router = useRouter()
+
+  function handleClick() {
+    const encryptedBusDetails = encryptData(bus);
+
+    router.push(`${NAVIGATION.USER_BOOK}?st=${encryptedBusDetails}`);
+  }
+ 
+
+  console.log(bus);
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center">
       <div>
         <div className="border rounded-md shadow-ecobankBlue shadow-md w-[320px] h-[640px] relative ">
-          <div className="absolute right-3 top-3">
+          <div
+            className="absolute right-3 top-3 hover:cursor-pointer"
+            onClick={() => setShowBus(undefined)}
+          >
             <Image
               src="/cancel-red.svg"
               alt="cancel icon"
@@ -27,7 +51,7 @@ export default function BusDetails() {
             <div className="flex flex-col gap-8 mt-7">
               <div className="flex justify-between items-center">
                 <div className="font-Gilroy-SemiBold">Plate number:</div>
-                <div className="font-Gilroy-Regular">KRD 914 YH</div>
+                <div className="font-Gilroy-Regular">{bus.busNumber}</div>
               </div>
               <div className="flex justify-between items-center">
                 <div className="font-Gilroy-SemiBold">Bus Driver:</div>
@@ -44,7 +68,7 @@ export default function BusDetails() {
             </div>
 
             <div className="mt-16">
-              <Button className="w-full p-5 bg-[#005A86] text-base text-white font-Gilroy-Regular font-semibold ">
+              <Button onClick={handleClick} className="w-full p-5 bg-[#005A86] text-base text-white font-Gilroy-Regular font-semibold ">
                 Book a Seat
               </Button>
             </div>
