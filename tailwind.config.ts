@@ -27,7 +27,8 @@ const config: Config = {
         ecobankLightTeal: "rgb(0, 91, 130)",
         ecobankLightBlue: "rgba(192, 230, 247, 1)",
         endRed: "rgba(179, 38, 30, 1)",
-        error: "#B3261E"
+        error: "#B3261E",
+        darkBlue: "#005A86"
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],

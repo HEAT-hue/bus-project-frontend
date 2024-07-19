@@ -17,8 +17,8 @@ const SelectBus: React.FC<SelectBusProp> = ({ buses, route_secret }) => {
     const router = useRouter();
 
     function handleBusChange(e: any) {
-        const bus = buses.find((bus: any) => {
-            return bus.id == e
+        const bus = buses.find((bus: Bus) => {
+            return bus.busId == e
         })
 
         const encryptedBusDetails = encryptData(bus);

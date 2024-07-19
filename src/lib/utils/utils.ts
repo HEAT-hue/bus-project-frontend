@@ -5,10 +5,10 @@ export function prepareBusData(data?: Bus[]) {
         return [];
     }
 
-    return data.map((option: any) => {
+    return data.map((option: Bus) => {
         return ({
-            label: option.name,
-            value: option.id + ""
+            label: option.routeName,
+            value: option.busId + ""
         })
     })
 }
