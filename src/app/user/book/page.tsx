@@ -17,7 +17,6 @@ const BookPage = async ({ searchParams }: { searchParams: { st: string } }) => {
     try {
         busState = decryptData(searchParams?.st || "") as Bus;
     } catch (error: any) {
-        console.log(error.message)
         redirect("/user")
     }
 

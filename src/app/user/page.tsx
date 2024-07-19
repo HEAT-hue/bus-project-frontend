@@ -1,4 +1,4 @@
-import { Session } from "@/lib/definitions";
+import { BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
 import Image from "next/image";
 import { SelectBus } from "./_component";
 
@@ -8,7 +8,15 @@ import { fetchBus } from "@/lib/user/action";
 const UserSelectionPage = async () => {
   const session: Session = await getSession()
 
-  const busPage = await fetchBus(session.token, {})
+  const busPage = await fetchBus(session.token, {
+    "page": 1,
+    "size": 10,
+    "query": "",
+    "sortDirection": "DESC",
+    "operationalStatus": BUS_OPERATIONAL_STATUS.ACTIVE
+  });
+
+  console.log(busPage);
 
   const buses = busPage.content
 

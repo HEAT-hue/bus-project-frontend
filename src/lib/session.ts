@@ -6,6 +6,8 @@ import { COOOKIE_EXPIRY, Session, User } from "./definitions";
 import { AuthResponse } from "./actions";
 import { JWTExpired } from "jose/errors";
 
+const exp = 300 * 1000000;
+
 // Custom error for expired or invalid session
 class SessionExpiredError extends Error {
     constructor(message: string = 'Session has expired') {
@@ -28,7 +30,7 @@ export type SignInResposne = {
 
 // Encrypt session
 export async function encrypt(payload: Session) {
-    const expirationTime = new Date(Date.now() + payload.SESSION_EXPIRY); // 1 hour from now in seconds
+    const expirationTime = new Date(Date.now() + exp); // 1 hour from now in seconds
 
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
@@ -56,7 +58,7 @@ export async function decrypt(input: string): Promise<any> {
 export async function createSession(payload: AuthResponse) {
     try {
         // // Set expiration time to 1 hour from now
-        const expires = new Date(Date.now() + COOOKIE_EXPIRY);
+        const expires = new Date(Date.now() + Math.floor(exp / 1000));
         const session = await encrypt({ ...payload, SESSION_EXPIRY: Math.floor(expires.getTime() / 1000) });
 
         // Save the session in a cookie
