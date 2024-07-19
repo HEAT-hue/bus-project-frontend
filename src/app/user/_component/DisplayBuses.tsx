@@ -3,18 +3,19 @@ import Image from "next/image";
 import { Modal } from "@/app/components/ModalWrapper";
 import { useState } from "react";
 import BusDetails from "./Bus-Details";
+import { Bus } from "@/lib/definitions";
 
 type DisplayBusesProp = {
-  buses: any;
+  buses: Bus[];
 };
 
 const DisplayBuses: React.FC<DisplayBusesProp> = ({ buses }) => {
-  const [showBus, setShowBus] = useState<any | undefined>(undefined);
+  const [showBus, setShowBus] = useState<Bus | undefined>(undefined);
 
   return (
     <>
       <div className=" mt-8 grid grid-flow-row grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
-        {buses.map((bus: any) => {
+        {buses.map((bus: Bus) => {
           return (
             <div key={bus.busId} onClick={() => setShowBus(bus)}>
               <BusCard

@@ -4,11 +4,11 @@ import { Dispatch } from "react";
 
 import { useRouter } from "next/navigation";
 import { encryptData } from "@/lib/utils/cyptoUtils";
-import { NAVIGATION } from "@/lib/definitions";
+import { Bus, NAVIGATION } from "@/lib/definitions";
 
 type BusDetailsProp = {
-  bus: any;
-  setShowBus: Dispatch<any>;
+  bus: Bus;
+  setShowBus: Dispatch<Bus | undefined>;
 };
 
 export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
