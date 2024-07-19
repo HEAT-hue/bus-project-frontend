@@ -45,11 +45,8 @@ export async function CreateBus(token: string, payload: CreateBusRequest): Promi
 
     const result = await response.json() as CreateBusResponse;
 
-    console.log(result);
-
     revalidatePath(NAVIGATION.ADMIN_BSMGT);
     revalidatePath(NAVIGATION.USER);
-
     return result;
   } catch (error) {
 

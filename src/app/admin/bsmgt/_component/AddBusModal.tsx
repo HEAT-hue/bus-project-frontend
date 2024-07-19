@@ -5,6 +5,7 @@ import { Modal } from "@/app/components/ModalWrapper"
 import AddSVG from "@/app/components/svg/AddSVG";
 import { CreateBus } from "@/lib/admin/action";
 import { BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
+import { FetchError } from "@/lib/FetchError";
 import classNames from "classnames";
 import { CSSProperties, useState } from "react"
 import { BeatLoader } from "react-spinners";
@@ -41,11 +42,14 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
         route: '',
     });
 
+    // Set property
     const setBusProperty = <K extends keyof BusState>(property: K, value: BusState[K]) => {
         updateBus((draft: any) => {
             draft[property] = value;
         });
     };
+
+    // Submit Add bus
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
@@ -66,10 +70,14 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
             }
             catch (error) {
                 // Clear pending state
+                if (error instanceof FetchError) {
+                    setErrorMessage(error.message);
+                }
+            } finally {
                 setLoading(false);
             }
-        })();
-    };
+        })()
+    }
 
     return (
         <div>
@@ -174,5 +182,4 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
     )
 }
 
-export default AddBusModal
-
+export default AddBusModal;

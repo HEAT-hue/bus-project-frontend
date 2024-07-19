@@ -17,10 +17,10 @@ export function prepareBusStopData(data?: BusStop[]) {
     if (!data) {
         return [];
     }
-    return data.map((option: any) => {
+    return data.map((option: BusStop) => {
         return ({
-            label: option.name,
-            value: option.id + ""
+            label: option.busStopName,
+            value: option.busStopId + ""
         })
     })
 }
