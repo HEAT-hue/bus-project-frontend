@@ -1,58 +1,88 @@
 "use client";
-import Export from "../../../../public/export.png";
+import { BUS_OPERATIONAL_STATUS } from "@/lib/definitions";
 import Search from "../../../../public/search.png";
+import { Select } from "antd";
+import { useSearchParams, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useDebouncedCallback } from 'use-debounce';
+import { ChangeEvent } from "react";
 
-import type { DatePickerProps } from "antd";
-import { DatePicker, Select, Space } from "antd";
-import Image from "next/image";
-export default function DateSelector() {
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
+export default function DateSelector({ placeholder }: { placeholder: string }) {
+
+  // Get page search params
+  const searchParams = useSearchParams();
+
+  // Get current base url
+  // its a client component that can be used anywhere. We need to programatically get the current path name
+  const pathname = usePathname();
+
+  // To replace the current url
+  const { replace } = useRouter();
+
+  // Debounce handle search to reduce rate at which a function fires
+  const handleSearch = useDebouncedCallback((term: string) => {
+    // Create new url
+    const params = new URLSearchParams(searchParams);
+
+    // Set page to 1 when user types new search query
+    params.set('page', '1');
+
+    // set the query
+    if (term) {
+      params.set('query', term);
+    }
+    else {
+      params.delete('query');
+    }
+
+    // Replace current url with generated new one
+    replace(`${pathname}?${params.toString()}`)
+  }, 600)
+
+
+  // Fetch buses based on status
+  const handleChange = (status: string) => {
+    // Create new url
+    const params = new URLSearchParams(searchParams);
+
+    // Set page to 1 when user types new search query
+    params.set('page', '1');
+
+    // set the query
+    if (status) {
+      params.set('operationalStatus', status);
+    }
+    else {
+      params.delete('operationalStatus');
+    }
+
+    // Replace current url with generated new one
+    replace(`${pathname}?${params.toString()}`)
   };
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+
   return (
-    <div
-      id="filtergrid"
-      className="grid grid-cols-4 w-fit font-Gilroy-Bold max-sm:grid-cols-3 filter lg:mt-0 text-[16px] max-sm:text-[14px] items-end gap-4 "
-    >
-      <div className="flex flex-col gap-1 ">
-        <span>Search by:</span>
+    <div className="flex flex-col sm:flex-row gap-3">
+      <div className="min-w-[200px]">
         <Select
-          defaultValue="date"
-          style={{ width: 120, height: 40, color: "#005A86" }}
+          defaultValue="Select Status"
+          style={{ width: "100%", height: 42, color: "#005A86" }}
           onChange={handleChange}
           options={[
-            { value: "date", label: "Date Range" },
-            { value: "lucy", label: "Lucy" },
-            { value: "Yiminghe", label: "yiminghe" },
+            { value: "", label: "ALL" },
+            { value: BUS_OPERATIONAL_STATUS.ACTIVE, label: BUS_OPERATIONAL_STATUS.ACTIVE },
+            { value: BUS_OPERATIONAL_STATUS.INACTIVE, label: BUS_OPERATIONAL_STATUS.INACTIVE },
           ]}
         />
       </div>
-      <div id="startbox" className="flex flex-col gap-1">
-        <span>Start date</span>
-        <DatePicker onChange={onChange} style={{ width: 120, height: 40 }} />
-      </div>{" "}
-      <div id="endbox" className="flex flex-col gap-1">
-        <span>End date</span>
-        <DatePicker onChange={onChange} style={{ width: 120, height: 40 }} />
-      </div>{" "}
-      <div className="flex-row flex p-2 w-[120px] h-[40px] bg-white border border-[#005A86] rounded-md flex-end ">
-        <div className="flex flex-row justify-between basis-3/4 overflow-hidden ">
-          {" "}
-          <input
-            type="text"
-            placeholder="Search"
-            className="focus:border-none text-[13px] focus:outline-none"
-            // value={filterstring}
-            // onChange={(e) => setFilterString(e.target.value)}
-          />
-        </div>
-        <div className="flex justify-end basis-1/3 items-center ">
-          <Image src={Search} className="w-4 h-4" alt="searchimage" />
-        </div>
-      </div>
+
+      <input
+        type="text"
+        className="p-2 border-[1.4px] border-gray-300 rounded w-full max-w-lg focus:outline-none focus:border-ecobankBlue text-gray-500" placeholder={placeholder}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          handleSearch(e.target.value)
+        }}
+        defaultValue={searchParams.get('filter')?.toString()}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Modal } from "@/app/components/ModalWrapper";
+import { Modal } from "@/components/ModalWrapper";
 import { useState } from "react";
 import BusDetails from "./Bus-Details";
 import { Bus } from "@/lib/definitions";
@@ -29,10 +29,10 @@ const DisplayBuses: React.FC<DisplayBusesProp> = ({ buses }) => {
       </div>
 
       {/* SHow bus modal */}
-      
+
       {showBus && (
         <Modal bare={true} closeModal={() => setShowBus(undefined)}>
-            <BusDetails bus={showBus} setShowBus={setShowBus} />
+          <BusDetails bus={showBus} setShowBus={setShowBus} />
         </Modal>
       )}
     </>

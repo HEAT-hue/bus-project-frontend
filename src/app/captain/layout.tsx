@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 // import "./globals.css";
-import { Navigation } from "../components";
-import Footer from "../components/Footer";
+import { Navigation } from "../../components";
+import Footer from "../../components/Footer";
 import { viewport } from "./viewport";
 
 export const metadata: Metadata = {
@@ -17,14 +17,14 @@ export default function RootLayout({
   return (
     <html lang="english">
       <head >
-         <meta name="viewport" content={viewport}/>
+        <meta name="viewport" content={viewport} />
       </head>
       <body className={"font-Inter-Regular"}>
-      <Navigation />
-     
+        <Navigation />
+
         {children}
         <Footer />
-        </body>
+      </body>
     </html>
   );
 }

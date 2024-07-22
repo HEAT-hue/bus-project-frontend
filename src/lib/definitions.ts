@@ -33,8 +33,10 @@ export enum NAVIGATION {
   ADMIN = "/admin",
   ADMIN_MANAGEMENT = `${ADMIN}/management`,
   ADMIN_BSMGT = `${ADMIN}/bsmgt`,
+  ADMIN_CPMGT = `${ADMIN}/cpmgt`,
   ADMIN_STMGT = `${ADMIN}/stmgt`,
   ADMIN_RTMGT = `${ADMIN}/rtmgt`,
+  ADMIN_USMGT = `${ADMIN}/usmgt`,
   ADMIN_REPORT = `${ADMIN}/report`,
 
   ADMIN_CHALLENGE = `${ADMIN}/challenges`,

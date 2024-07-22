@@ -1,12 +1,8 @@
-import { SuccessNotification } from "./_component"
-
-const page = () => {
+'use client'
+const HomePage = () => {
   return (
-    <>
-        <SuccessNotification message="Hello" />
-        <div>page</div>
-    </>
+    <div onClick={() => alert("You clicked this")}>Home page</div>
   )
 }
 
-export default page
+export default HomePage;
