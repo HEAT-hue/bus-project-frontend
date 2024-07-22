@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      padding: {
+        inlinePage: "25px"
+      },
       screens: {
         landscape: { raw: "(orientation: landscape)" },
         "trans-range": { min: "600px", max: "1024px" },

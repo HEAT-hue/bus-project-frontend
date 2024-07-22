@@ -10,8 +10,12 @@ import DisplayBuses from "./_component/DisplayBuses";
 const UserSelectionPage = async () => {
   const session: Session = await getSession();
 
+  if (!session) {
+    redirect("/login");
+  }
+
   const busPage = await fetchBus(session.token, {});
-  
+
   const buses = busPage.content;
 
   return (

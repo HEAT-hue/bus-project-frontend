@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-no-undef */
 'use client'
-import { Modal } from "@/app/components/ModalWrapper"
-import AddSVG from "@/app/components/svg/AddSVG";
+import { Modal } from "@/components/ModalWrapper"
+import AddSVG from "@/components/svg/AddSVG";
 import { CreateBus } from "@/lib/admin/action";
 import { BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
 import { FetchError } from "@/lib/FetchError";
@@ -10,6 +10,7 @@ import classNames from "classnames";
 import { CSSProperties, useState } from "react"
 import { BeatLoader } from "react-spinners";
 import { useImmer } from "use-immer";
+import { ConfirmationModal } from "@/components";
 
 type AddBusModalType = {
     session: Session;
@@ -29,10 +30,13 @@ type BusState = {
     route: string;
 }
 
+let actionToExecute: () => void = () => { return }
+
 export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+    const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
 
     const [bus, updateBus] = useImmer<BusState>({
         number: '',
@@ -57,16 +61,30 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
             setErrorMessage("Missing fields");
         }
 
-        // Set button pending state
-        setLoading(true);
-
         // Clear error messages
         setErrorMessage("");
 
+        actionToExecute = () => createBus();
+
+        setConfirmationModalOpen(true);
+
+
+        (async function () {
+
+        })()
+    }
+
+    function createBus() {
+        // Set button pending state
+        setLoading(true);
+
         (async function () {
             try {
-                await CreateBus(session.token, { busRoute: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
-                setShowAddModal(false);
+                alert("Function called");
+                delay(5000);
+                // await CreateBus(session.token, { busRoute: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
+                // setShowAddModal(false);
+                // setConfirmationModalOpen(false);
             }
             catch (error) {
                 // Clear pending state
@@ -76,14 +94,15 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
             } finally {
                 setLoading(false);
             }
-        })()
+
+        })();
     }
 
     return (
         <div>
 
             <button onClick={() => setShowAddModal(true)} id="largegenerictable"
-                className="flex cursor-pointer font-Gilroy-SemiBold w-[164px] gap-1 rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center">
+                className="flex cursor-pointer font-Gilroy-SemiBold w-[164px] gap-1 rounded-lg hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center">
                 Add bus
                 <AddSVG width={28} height={28} />
             </button>
@@ -160,7 +179,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                 <button
                                     type="submit"
                                     className={classNames({
-                                        'rounded px-32 py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5': true
+                                        'rounded px-32 py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5 cursor-pointer': true
                                     })}>
                                     {loading ? (
                                         <BeatLoader
@@ -178,8 +197,32 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                     </div>
                 </Modal>
             )}
+
+            {/* Confirmation modal */}
+            {isConfirmationModalOpen && (
+                <Modal closeModal={() => setConfirmationModalOpen(false)} bare >
+                    <ConfirmationModal title="Add bus" desc="Are you sure"
+                        next={() => {
+                            // Close modal
+                            setConfirmationModalOpen(false);
+                            createBus();
+                        }}
+
+                        svg={<img src="/RemoveBus.svg" alt="Add bus" />}
+
+                        nextButtonText="Add"
+
+                        cancel={() => setConfirmationModalOpen(false)}
+                    />
+                </Modal>
+            )
+            }
         </div>
     )
 }
 
 export default AddBusModal;
+
+function delay(arg0: number) {
+    throw new Error("Function not implemented.");
+}

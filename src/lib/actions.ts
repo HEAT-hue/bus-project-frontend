@@ -2,7 +2,6 @@
 import { BASE_URL, ROLES } from "./definitions";
 import { FetchError } from "./FetchError";
 import { createSession } from "./session";
-import { AUTH_URL } from "./urls";
 
 export type AuthRequest = {
     email: string;
@@ -27,7 +26,7 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
     }
 
     // Verify credentials && get the user
-    const apiUrl = new URL(`${BASE_URL}${AUTH_URL}`);
+    const apiUrl = new URL(`${BASE_URL}/auth/token`);
 
     // Construct the headers
     const headers: HeadersInit = {
@@ -40,8 +39,6 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
             headers: headers,
             body: JSON.stringify(payload),
         });
-
-        console.log(response);
 
         if (!response.ok) {
             if (response.status == 400) {
