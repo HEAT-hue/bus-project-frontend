@@ -1,12 +1,23 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+"use client";
+import { LogoutUser } from "@/lib/actions";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 // function classNames(...classes) {
 //   return classes.filter(Boolean).join(' ')
 // }
 
 export default function Example() {
+  const router = useRouter();
   return (
     <Disclosure as="nav" className="bg-ecobankBlue">
       <div className="mx-auto max-w-9xl px-2 sm:px-6 lg:px-8 ">
@@ -16,15 +27,23 @@ export default function Example() {
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-white  hover:text-ecobankGreen focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="block h-6 w-6 group-data-[open]:hidden" />
-              <XMarkIcon aria-hidden="true" className="hidden h-6 w-6 group-data-[open]:block" />
+              <Bars3Icon
+                aria-hidden="true"
+                className="block h-6 w-6 group-data-[open]:hidden"
+              />
+              <XMarkIcon
+                aria-hidden="true"
+                className="hidden h-6 w-6 group-data-[open]:block"
+              />
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-            <div className="flex justify-center">
-                    <p className="text-white text-[2.3rem] text-center border-b-[5px] border-b-ecobankGreen w-max font-Aladin-Regular leading-none">Kiti</p>
-                </div>
+              <div className="flex justify-center">
+                <p className="text-white text-[2.3rem] text-center border-b-[5px] border-b-ecobankGreen w-max font-Aladin-Regular leading-none">
+                  Kiti
+                </p>
+              </div>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -55,7 +74,15 @@ export default function Example() {
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      LogoutUser();
+                      router.push("/login");
+                    }}
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                  >
                     Sign out
                   </a>
                 </MenuItem>
@@ -64,7 +91,6 @@ export default function Example() {
           </div>
         </div>
       </div>
-
     </Disclosure>
-  )
+  );
 }

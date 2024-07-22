@@ -1,7 +1,7 @@
 'use server'
 import { BASE_URL, ROLES } from "./definitions";
 import { FetchError } from "./FetchError";
-import { createSession } from "./session";
+import { createSession, logout } from "./session";
 import { AUTH_URL } from "./urls";
 
 export type AuthRequest = {
@@ -70,4 +70,7 @@ export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {
     }
 }
 
+export async function LogoutUser() {
+    logout()
+}
 
