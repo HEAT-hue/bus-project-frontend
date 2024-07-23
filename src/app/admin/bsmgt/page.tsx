@@ -5,20 +5,26 @@ import AddBusModal from "./_component/AddBusModal";
 import BusTable from "./_component/BusTable";
 import { mockBuses } from "@/lib/utils/mock";
 import BusTableMV from "./_component/BusTableMV";
+import { fetchBus, FetchBusParams } from "@/lib/user/action";
+import { redirect } from "next/navigation";
 
-export default async function BusManagement() {
+export default async function BusManagement({ searchParams }: { searchParams: FetchBusParams }) {
   const session: Session = await getSession();
 
-  // if (!session) {
-  //   console.log("Trying to redirect");
-  //   redirect("/login");
-  // }
+  if (!session) {
+    redirect("/login");
+  }
 
-  // const busResponse = await fetchBus(session.token, {});
+  const busResponse = await fetchBus(session.token, {
+    page: searchParams.page || 1,
+    size: 10,
+    operationalStatus: searchParams.operationalStatus,
+    query: searchParams.query
+  });
 
-  // const buses: Bus[] = busResponse.content;
+  const buses: Bus[] = busResponse.content;
 
-  const buses: Bus[] = mockBuses;
+  // const buses: Bus[] = mockBuses;
 
   return (
     <div className="px-4 lg:px-inlinePage">
@@ -32,11 +38,11 @@ export default async function BusManagement() {
       </div>
 
       <div className="hidden lg:block">
-        <BusTable buses={buses} />
+        <BusTable buses={buses} session={session} />
       </div>
 
       <div className="lg:hidden">
-        <BusTableMV buses={buses} />
+        <BusTableMV buses={buses} session={session} />
       </div>
 
       {/* <GenericTable

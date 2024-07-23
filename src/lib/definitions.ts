@@ -17,10 +17,10 @@ export enum ROLES {
 }
 
 export type BaseEntity = {
-  createdAt: Date;
-  createdBy: number;
-  updatedAt: Date;
-  updatedBy: number;
+  createdAt: Date | null;
+  createdBy: number | null;
+  updatedAt: Date | null;
+  updatedBy: number | null;
 };
 
 export enum BUS_OPERATIONAL_STATUS {

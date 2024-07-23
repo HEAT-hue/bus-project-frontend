@@ -18,7 +18,7 @@ export default function SlidingBar({
   useEffect(
     function () {
       const params = new URLSearchParams(searchparams);
-      params.set("listtype", list);
+      // params.set("listtype", list);
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     },
     [list, pathname, router, searchparams]

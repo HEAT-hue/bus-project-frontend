@@ -12,7 +12,7 @@ type BusDetailsProp = {
 };
 
 export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
-  
+
   const router = useRouter()
 
   function handleClick() {
@@ -20,9 +20,7 @@ export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
 
     router.push(`${NAVIGATION.USER_BOOK}?st=${encryptedBusDetails}`);
   }
- 
 
-  console.log(bus);
   return (
     <div className="flex justify-center items-center">
       <div>

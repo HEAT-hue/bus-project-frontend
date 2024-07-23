@@ -1,4 +1,5 @@
-import React, { ReactElement } from "react"
+import { StaticImport } from "next/dist/shared/lib/get-img-props"
+import Image from "next/image"
 
 type ConfirmationModalType = {
     title: string,
@@ -7,7 +8,7 @@ type ConfirmationModalType = {
     cancel?: () => void
     nextButtonText: string
     reverse?: boolean
-    svg: ReactElement
+    svg: string | StaticImport
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalType> = ({ title, desc, next, cancel, nextButtonText, reverse, svg }) => {
@@ -16,12 +17,12 @@ const ConfirmationModal: React.FC<ConfirmationModalType> = ({ title, desc, next,
             <div className="flex items-center justify-center p-9">
                 <div className="flex flex-col items-center justify-center gap-y-5 ">
                     <div>
-                        <h1 className="font-Gilroy-Medium text-xl">{title}</h1>
+                        <h1 className="font-Gilroy-Medium text-xl capitalize">{title}</h1>
                     </div>
 
                     {/* SVG */}
                     <div>
-                        {svg}
+                        <Image src={svg} height={245} width={245} alt="Image" />
                     </div>
 
                     {/* Description */}

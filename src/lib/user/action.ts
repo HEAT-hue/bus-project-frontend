@@ -16,10 +16,7 @@ export type FetchBusParams = {
 };
 
 // Function to fech a bus
-export async function fetchBus(
-  token: string,
-  requestParams: FetchBusParams
-): Promise<PagedResponse<Bus>> {
+export async function fetchBus(token: string, requestParams: FetchBusParams): Promise<PagedResponse<Bus>> {
   const apiUrl = new URL(`${BASE_URL}/bus/list`);
 
   // Append query parameters
@@ -34,6 +31,7 @@ export async function fetchBus(
     apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
   }
 
+  console.log(apiUrl.toString());
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -46,8 +44,6 @@ export async function fetchBus(
       method: "GET",
       headers: headers,
     });
-
-    console.log(response);
 
     if (!response.ok) {
       if (response.status == 401) {

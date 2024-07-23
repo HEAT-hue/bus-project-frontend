@@ -1,17 +1,17 @@
 'use client'
-import { Bus, BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions"
-import Tags from "../../_components/table-tags"
+import { Bus, BUS_OPERATIONAL_STATUS } from "@/lib/definitions"
 import classNames from "classnames"
+import { Session } from "@/lib/definitions"
 import { useState } from "react"
 import { Modal } from "@/components/ModalWrapper"
-import ViewBusModal from "./ViewBoxModal"
+import ViewRoutes from "./ViewRoutes"
 
-type BusTableProp = {
+type RouteTableProps = {
     buses: Bus[]
     session: Session
 }
 
-export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
+const RouteTable: React.FC<RouteTableProps> = ({ buses, session }) => {
 
     const [currentBus, setCurrentBus] = useState<Bus | undefined>(undefined);
 
@@ -32,16 +32,13 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                 Capacity
                             </th>
                             <th className="font-Gilroy-SemiBold">
-                                Color
-                            </th>
-                            <th className="font-Gilroy-SemiBold">
                                 Route
                             </th>
                             <th className="font-Gilroy-SemiBold">
                                 Status
                             </th>
                             <th className="font-Gilroy-SemiBold">
-                                Action
+                                Bus stops
                             </th>
                         </tr>
                     </thead>
@@ -73,11 +70,6 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
-                                        {bus.busColor}
-                                    </td>
-                                    <td
-                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
-                                    >
                                         {bus.routeName}
                                     </td>
                                     <td className=" flex justify-center items-center font-Gilroy-SemiBold whitespace-nowrap ">
@@ -92,10 +84,10 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                         </span>
                                     </td>
                                     <td
+                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Bold cursor-pointer text-ecobankBlue`}
                                         onClick={() => setCurrentBus(bus)}
-                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Medium text-ecobankBlue cursor-pointer`}
                                     >
-                                        view
+                                        View
                                     </td>
                                 </tr>
                             )
@@ -107,11 +99,14 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
             {/* Confirmation modal */}
             {currentBus && (
                 <Modal closeModal={() => setCurrentBus(undefined)} bare >
-                    <ViewBusModal session={session} bus={currentBus} closeModal={() => setCurrentBus(undefined)} />
+                    <>
+                        {/* <ViewBusModal session={session} bus={currentBus} closeModal={() => setCurrentBus(undefined)} /> */}
+                        <ViewRoutes bus={currentBus} session={session} />
+                    </>
                 </Modal>
             )}
         </>
     )
 }
 
-export default BusTable
+export default RouteTable
