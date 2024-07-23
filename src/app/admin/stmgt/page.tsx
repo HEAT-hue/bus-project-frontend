@@ -7,29 +7,25 @@ import Export from "../../../../public/export.png";
 
 import SlidingBar from "../_components/slidingbar";
 import SmallTable from "../_components/small-staff";
+import { getSession } from "@/lib/session";
 import GenericTable, { Data } from "../_components/generic-table";
 
-export default function StaffManagement() {
-  const Staffdata: Data[] = [
-    {
-      name: "Joyce Orimolowo",
-      department: "Marketing & Corp Comms",
-      affiliate: "ENG",
-      staffID: "ENG/FST/067",
-      email: "jorimolowo@ecobank.com",
-      phone: "09058897701",
-      status: "Pending",
-    },
-    {
-      name: "Joy Omodada",
-      department: "Marketing & Corp Comms",
-      affiliate: "ENG",
-      staffID: "ENG/FST/067",
-      email: "jorimolowo@ecobank.com",
-      phone: "09058897701",
-      status: "Active",
-    },
-  ];
+import { fetchUsers } from "@/lib/admin/staff/action";
+import { redirect } from "next/navigation";
+import StaffTable from "./_component/StaffTable";
+import classNames from "classnames";
+import { ACCOUNT_STATUS } from "@/lib/definitions";
+import StaffTableMobile from "./_component/StaffTableMobile";
+
+export default async function StaffManagement() {
+  const session = await getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const users = await fetchUsers(session.token);
+
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-9 max-sm:gap-4">
       <h1 className="text-[32px] max-sm:text-[25px] text-[#023448]">
@@ -50,8 +46,8 @@ export default function StaffManagement() {
 
         <div className="flex flex-row items-center"></div>
       </div>
-      <DateSelector />
-      <GenericTable
+      {/* <DateSelector /> */}
+      {/* <GenericTable
         data={Staffdata}
         tableHeaders={[
           "name",
@@ -64,7 +60,14 @@ export default function StaffManagement() {
         ]}
       >
         <SmallTable />
-      </GenericTable>
+      </GenericTable> */}
+
+      <div className="xl:hidden">
+        <StaffTableMobile users={users} />
+      </div>
+      <div className="hidden xl:block">
+        <StaffTable staffData={users} session={session} />
+      </div>
     </div>
   );
 }

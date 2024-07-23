@@ -1,7 +1,7 @@
 type Status = string
 
 export default function Tags({ statusName }: { statusName: Status }) {
-  console.log(statusName)
+  
     let color = statusName === "Active" ? "text-[#3C8930]" : "text-[#B3261E]";
     let bgColor = statusName === "Active" ? "bg-[#3C893066]" : "bg-[#B3261E4D]";
   

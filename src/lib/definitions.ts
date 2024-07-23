@@ -69,7 +69,29 @@ export type User = {
 
 export type Session = AuthResponse & { SESSION_EXPIRY: number };
 
-export type Account = {};
+export enum ACCOUNT_STATUS {
+  APPROVED = "APPROVED",
+  PENDING = "PENDING",
+  REJECTED = "REJECTED",
+  ACCEPTED = "ACCEPTED",
+}
+
+export type Account = {
+  id: number;
+  email: string;
+  authorities: string;
+  createdAt: Date;
+  level: string;
+  telephone: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  verified: ACCOUNT_STATUS;
+  route: string;
+  department: string;
+  affiliate: string;
+  staff_id: string;
+};
 
 export type Bus = {
   busId: number;

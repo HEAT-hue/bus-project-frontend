@@ -1,38 +1,24 @@
+'use server'
 import { revalidatePath } from "next/cache";
-import {
-  BASE_URL,
-  Bus,
-  BUS_OPERATIONAL_STATUS,
-  PagedResponse,
-} from "../definitions";
-import { FetchError } from "../FetchError";
+import { Account, BASE_URL, NAVIGATION } from "../../definitions";
+import { FetchError } from "../../FetchError";
 
-export type FetchBusParams = {
-  page?: number;
-  size?: number;
-  query?: string;
-  sortDirection?: string;
-  operationalStatus?: BUS_OPERATIONAL_STATUS;
-};
-
-// Function to fech a bus
-export async function fetchBus(
-  token: string,
-  requestParams: FetchBusParams
-): Promise<PagedResponse<Bus>> {
-  const apiUrl = new URL(`${BASE_URL}/bus/list`);
+export async function fetchUsers(
+  token: string
+): Promise<Account[]> {
+  const apiUrl = new URL(`${BASE_URL}/auth/users`);
 
   // Append query parameters
-  Object.entries(requestParams).forEach(([key, value]) => {
-    if (value !== undefined) {
-      apiUrl.searchParams.append(key, value.toString());
-    }
-  });
+  // Object.entries(requestParams).forEach(([key, value]) => {
+  //   if (value !== undefined) {
+  //     apiUrl.searchParams.append(key, value.toString());
+  //   }
+  // });
 
-  // Adjust 'page' parameter to be zero-based
-  if (requestParams.page !== undefined) {
-    apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
-  }
+  // // Adjust 'page' parameter to be zero-based
+  // if (requestParams.page !== undefined) {
+  //   apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
+  // }
 
 
   // Construct the headers, including the Authorization header if the token is provided
@@ -58,7 +44,7 @@ export async function fetchBus(
       }
       throw new FetchError(
         response.status,
-        `Failed to fetch bus: ${response.statusText}`
+        `Failed to fetch user: ${response.statusText}`
       );
     }
 
@@ -80,34 +66,67 @@ export async function fetchBus(
   }
 }
 
-// Function to book a bus
-export async function bookBus(token: string, requestBody: any): Promise<any> {
-  const apiUrl = new URL(`${BASE_URL}/book`);
 
-  // Construct the headers, including the Authorization header if the token is provided
+
+type UpdateStaffStatusRequest = {
+  userId: number
+  verified: boolean
+}
+
+type UpdateStaffStatusResponse = {
+  "id": number,
+  "email": string,
+  "authorities": string,
+  "createdAt": Date,
+  "level": string,
+  "telephone": string,
+  "verfified": string
+}
+
+export async function updateStaffStatus(token: string, params:UpdateStaffStatusRequest ):Promise<UpdateStaffStatusResponse> {
+  
+  const apiUrl = new URL(`${BASE_URL}/auth/users/${params.userId}/update-verified`)
+
   const headers: HeadersInit = {
     "Content-Type": "application/json",
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
+  const body = JSON.stringify({verified: `${params.verified}`})
+
   try {
     const response = await fetch(apiUrl.toString(), {
-      method: "POST",
+      method: "PUT",
       headers: headers,
-      body: JSON.stringify(requestBody),
-    });
+      body: body
+    })
+
+    
 
     if (!response.ok) {
+      if (response.status == 401) {
+        throw new FetchError(
+          response.status,
+          `Unauthorized: ${response.statusText}`
+        );
+      }
       throw new FetchError(
         response.status,
-        `Failed to create idea: ${response.statusText}`
+        `Failed to fetch user: ${response.statusText}`
       );
     }
 
-    // Return the parsed JSON response
-    return await response.json();
+    const data: UpdateStaffStatusResponse = await response.json();
+
+    revalidatePath(NAVIGATION.ADMIN_STMGT);
+
+    
+
+    return data;
+
+
   } catch (error) {
-    // Handle custom FetchError
+      // Handle custom FetchError
     if (error instanceof FetchError) {
       return Promise.reject({
         status: error.status,

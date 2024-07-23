@@ -10,7 +10,7 @@ export default async function BusManagement() {
   const session: Session = await getSession();
 
   // if (!session) {
-  //   console.log("Trying to redirect");
+  
   //   redirect("/login");
   // }
 
