@@ -9,7 +9,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 type SelectCaptainProp = {
     captains: Account[]
-    setCaptainId: Dispatch<SetStateAction<number | null>>
+    setCaptain: Dispatch<SetStateAction<Account | null>>
 }
 
 export default function SelectCaptain({ captains }: SelectCaptainProp) {

@@ -59,48 +59,53 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
                     <h1 className="text-ecobankBlue text-xl font-Gilroy-Medium">Update captain</h1>
 
                     {/* Select Captain */}
-                    <SelectCaptain captains={captains} setCaptainId={setCaptainId} />
+                    <SelectCaptain captains={captains} setCaptain={setCaptain} />
 
-                    {/* Add Bus Form */}
-                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
 
-                        {/* Captain's name */}
-                        <div className="flex flex-col gap-y-1">
-                            <label htmlFor="route" className="text-sm">Captain`&lsquo;`s name</label>
-                            <input
-                                value={captain.firstName ?? ""}
-                                placeholder="Bus Number"
-                                disabled
-                                type="text" required name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
-                            />
-                        </div>
+                    {captain && (
+                        <>
+                            {/* View captain Form */}
+                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
 
-                        {/* Captain's email */}
-                        <div className="flex flex-col gap-y-1">
-                            <label htmlFor="route" className="text-sm">Captain`&lsquo;`s email</label>
-                            <input
-                                value={captain.email}
-                                type="email" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
-                            />
-                        </div>
+                                {/* Captain's name */}
+                                <div className="flex flex-col gap-y-1">
+                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s name</label>
+                                    <input
+                                        value={captain.firstName ?? ""}
+                                        placeholder="Bus Number"
+                                        disabled
+                                        type="text" required name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                                    />
+                                </div>
 
-                        {/* Captain's phone number */}
-                        <div className="flex flex-col gap-y-1">
-                            <label htmlFor="route" className="text-sm">Captain`&lsquo;`s phone number</label>
-                            <input
-                                value={captain.telephone}
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
-                        </div>
+                                {/* Captain's email */}
+                                <div className="flex flex-col gap-y-1">
+                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s email</label>
+                                    <input
+                                        value={captain.email}
+                                        type="email" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                                    />
+                                </div>
 
-                        {/* Captain's staff Id */}
-                        <div className="flex flex-col gap-y-1">
-                            <label htmlFor="route" className="text-sm">Captain`&lsquo;`s staff Id</label>
-                            <input
-                                required
-                                value={captain.staff_id}
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
-                        </div>
-                    </div>
+                                {/* Captain's phone number */}
+                                <div className="flex flex-col gap-y-1">
+                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s phone number</label>
+                                    <input
+                                        value={captain.telephone}
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                </div>
+
+                                {/* Captain's staff Id */}
+                                <div className="flex flex-col gap-y-1">
+                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s staff Id</label>
+                                    <input
+                                        required
+                                        value={captain.staff_id}
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                </div>
+                            </div>
+                        </>
+                    )}
 
                     <div className="w-full flex justify-center mt-9">
                         <button

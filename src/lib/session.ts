@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { FetchError } from "./FetchError";
-import { COOOKIE_EXPIRY, Session, User } from "./definitions";
+import {  Session, User } from "./definitions";
 import { AuthResponse } from "./actions";
 import { JWTExpired } from "jose/errors";
 

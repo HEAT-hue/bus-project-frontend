@@ -3,7 +3,6 @@ import { getSession } from "@/lib/session";
 import DateSelector from "../_components/dateselector";
 import AddBusModal from "./_component/AddBusModal";
 import BusTable from "./_component/BusTable";
-import { mockBuses } from "@/lib/utils/mock";
 import BusTableMV from "./_component/BusTableMV";
 import { fetchBus, FetchBusParams } from "@/lib/user/action";
 import { redirect } from "next/navigation";
