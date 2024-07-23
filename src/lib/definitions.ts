@@ -9,24 +9,17 @@ export const COOOKIE_EXPIRY = 100000000000000;
 
 const SESSION_EXPIRY = 10000;
 
-export enum ROLES {
-  USER = "USER",
-  ADMIN = "ADMIN",
-  CAPTAIN = "CAPTAIN",
-  DRIVER = "DRIVER",
-}
+export type Session = AuthResponse & { SESSION_EXPIRY: number };
 
-export type BaseEntity = {
-  createdAt: Date | null;
-  createdBy: number | null;
-  updatedAt: Date | null;
-  updatedBy: number | null;
+export type PagedResponse<T> = {
+  content: T[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
 };
 
-export enum BUS_OPERATIONAL_STATUS {
-  ACTIVE = "ACTIVE",
-  INACTIVE = "INACTIVE",
-}
 
 export enum NAVIGATION {
   /*************************** Admin Routes ********************************************/
@@ -53,6 +46,25 @@ export enum NAVIGATION {
   LOGIN = "/login",
 }
 
+export enum ROLES {
+  USER = "USER",
+  ADMIN = "ADMIN",
+  CAPTAIN = "CAPTAIN",
+  DRIVER = "DRIVER",
+}
+
+export type BaseEntity = {
+  createdAt: Date | null;
+  createdBy: number | null;
+  updatedAt: Date | null;
+  updatedBy: number | null;
+};
+
+export enum BUS_OPERATIONAL_STATUS {
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+}
+
 export enum USER_AUTHORITES {
   USER = "USER",
   ADMIN = "ADMIN",
@@ -66,8 +78,6 @@ export type User = {
   lastName: string;
   username: string;
 };
-
-export type Session = AuthResponse & { SESSION_EXPIRY: number };
 
 export enum ACCOUNT_STATUS {
   APPROVED = "APPROVED",
@@ -111,12 +121,3 @@ export type BusStop = {
   busStopId: string;
   busStopName: string;
 } & BaseEntity;
-
-export type PagedResponse<T> = {
-  content: T[];
-  pageNumber: number;
-  pageSize: number;
-  totalElements: number;
-  totalPages: number;
-  last: boolean;
-};

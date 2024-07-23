@@ -163,7 +163,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                         {
                             loading ? (
                                 <BeatLoader
-                                    color={"#ffffff"}
+                                    color={"#0282ad"}
                                     loading={true}
                                     cssOverride={override}
                                     size={50}

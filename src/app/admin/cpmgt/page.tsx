@@ -1,31 +1,36 @@
-import { Bus, ROLES, Session } from "@/lib/definitions";
+import { Account, Bus, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import { FetchBusParams, fetchBus } from "@/lib/user/action";
 import { redirect } from "next/navigation";
 import CaptainTable from "./_component/CaptainTable";
 import { FetchUserParams, fetchUsers } from "@/lib/admin/staff/action";
+import { mockAccounts, mockBuses } from "@/lib/utils/mock";
 
 export default async function CaptainManagement({ searchParams }: { searchParams: FetchUserParams & FetchBusParams }) {
-    const session: Session = await getSession();
+    // const session: Session = await getSession();
 
-    if (!session) {
-        redirect("/login");
-    }
+    // if (!session) {
+    //     redirect("/login");
+    // }
 
-    const users = await fetchUsers(session.token, {
-        page: searchParams.page || 1,
-    });
+    // const users = await fetchUsers(session.token, {
+    //     page: searchParams.page || 1,
+    // });
 
 
-    const busResponse = await fetchBus(session.token, {
-        page: searchParams.page || 1,
-        size: 10,
-        operationalStatus: searchParams.operationalStatus,
-        query: searchParams.query
-    });
+    // const busResponse = await fetchBus(session.token, {
+    //     page: searchParams.page || 1,
+    //     size: 10,
+    //     operationalStatus: searchParams.operationalStatus,
+    //     query: searchParams.query
+    // });
 
-    const buses: Bus[] = busResponse.content;
-    console.log(users)
+    // const buses: Bus[] = busResponse.content;
+
+    const users: Account[] = mockAccounts;
+    const buses: Bus[] = mockBuses;
+    const session = null;
+
 
     return (
         <>

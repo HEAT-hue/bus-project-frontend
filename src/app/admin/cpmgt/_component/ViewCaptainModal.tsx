@@ -17,12 +17,12 @@ const override: CSSProperties = {
 
 type ViewCaptainModalProp = {
     bus: Bus
-    sesion: Session
+    session: Session | null
     closeModal: () => void
     captains: Account[]
 }
 
-export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: ViewCaptainModalProp) {
+export default function ViewCaptainModal({ bus, session, captains, closeModal }: ViewCaptainModalProp) {
     const [loading, setLoading] = useState<boolean>(false);
     const [captainId, setCaptainId] = useState<number | null>(bus.captain.id);
     const [captain, setCaptain] = useState<Account | null>(bus.captain)
@@ -31,13 +31,14 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
         // Set button pending state
         setLoading(true);
 
+
         if (!captainId) {
             return
         }
 
         (async function () {
             try {
-                await UpdateBusRouteDetails(sesion.token, { busId: bus.busId }, { captainId, driverId: null, routeName: bus.routeName });
+                // await UpdateBusRouteDetails(session.token, { busId: bus.busId }, { captainId, driverId: null, routeName: bus.routeName });
                 toast.success("Captain updated successfully")
             }
             catch (error) {
@@ -56,20 +57,22 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
             <div>
                 {/* Search captain to Add */}
                 <div className="p-7">
-                    <h1 className="text-ecobankBlue text-xl font-Gilroy-Medium">Update captain</h1>
+                    <h1 className="text-ecobankBlue text-xl font-Gilroy-Medium">Update Bus Captain</h1>
 
                     {/* Select Captain */}
-                    <SelectCaptain captains={captains} setCaptain={setCaptain} />
+                    <div className="mt-3">
+                        <SelectCaptain captains={captains} setCaptain={setCaptain} />
+                    </div>
 
 
                     {captain && (
                         <>
                             {/* View captain Form */}
-                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
 
                                 {/* Captain's name */}
                                 <div className="flex flex-col gap-y-1">
-                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s name</label>
+                                    <label htmlFor="route" className="text-sm">Captain&lsquo;s name</label>
                                     <input
                                         value={captain.firstName ?? ""}
                                         placeholder="Bus Number"
@@ -80,7 +83,7 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
 
                                 {/* Captain's email */}
                                 <div className="flex flex-col gap-y-1">
-                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s email</label>
+                                    <label htmlFor="route" className="text-sm">Captain&lsquo;s email</label>
                                     <input
                                         value={captain.email}
                                         type="email" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
@@ -89,7 +92,7 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
 
                                 {/* Captain's phone number */}
                                 <div className="flex flex-col gap-y-1">
-                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s phone number</label>
+                                    <label htmlFor="route" className="text-sm">Captain&lsquo;s phone number</label>
                                     <input
                                         value={captain.telephone}
                                         type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
@@ -97,7 +100,7 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
 
                                 {/* Captain's staff Id */}
                                 <div className="flex flex-col gap-y-1">
-                                    <label htmlFor="route" className="text-sm">Captain`&lsquo;`s staff Id</label>
+                                    <label htmlFor="route" className="text-sm">Captain&lsquo;s staff Id</label>
                                     <input
                                         required
                                         value={captain.staff_id}
@@ -110,8 +113,9 @@ export default function ViewCaptainModal({ bus, sesion, captains, closeModal }: 
                     <div className="w-full flex justify-center mt-9">
                         <button
                             type="submit"
+                            onClick={updateBusDetails}
                             className={classNames({
-                                'rounded px-32 py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5 cursor-pointer': true
+                                'rounded px-32 py-3 text-sm text-white bg-darkBlue hover:bg-darkBlue/90 focus:outline-none mt-5 cursor-pointer': true
                             })}>
                             {loading ? (
                                 <BeatLoader

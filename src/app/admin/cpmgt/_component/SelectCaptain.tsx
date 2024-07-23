@@ -1,36 +1,39 @@
 'use client'
 
-import { Account, BUS_OPERATIONAL_STATUS } from "@/lib/definitions";
+import { Account } from "@/lib/definitions";
+import { prepareCaptainData } from "@/lib/utils/utils";
 import { Select } from "antd";
-import { useSearchParams, usePathname } from "next/navigation";
-import { useRouter } from "next/router";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { Dispatch, SetStateAction } from "react";
 
 type SelectCaptainProp = {
     captains: Account[]
     setCaptain: Dispatch<SetStateAction<Account | null>>
 }
 
-export default function SelectCaptain({ captains }: SelectCaptainProp) {
+export default function SelectCaptain({ captains, setCaptain }: SelectCaptainProp) {
 
-    console.log(captains);
+    function handleChange(captainId: number) {
+        const selectedCaptain = captains.find((captain: Account) => {
+            return captain.id == captainId
+        })
+
+        if (selectedCaptain) {
+            setCaptain(selectedCaptain);
+        }
+    }
 
     return (
         <div className="flex flex-col sm:flex-row gap-3">
-            <div className="min-w-[200px]">
+            <div className="min-w-[200px] w-full">
                 <Select
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", height: "40px" }}
+                    onChange={(e) => handleChange(e)}
                     showSearch
-                    placeholder="Select a person"
+                    placeholder="Select a captain"
                     filterOption={(input, option) =>
                         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                     }
-                    options={[
-                        { value: '1', label: 'Jack' },
-                        { value: '2', label: 'Lucy' },
-                        { value: '3', label: 'Tom' },
-                    ]}
+                    options={prepareCaptainData(captains)}
                 />
             </div>
         </div>

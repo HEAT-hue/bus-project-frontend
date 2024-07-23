@@ -1,4 +1,4 @@
-import { Bus, BusStop } from "../definitions";
+import { Account, Bus, BusStop } from "../definitions";
 
 export function prepareBusData(data?: Bus[]) {
     if (!data) {
@@ -21,6 +21,19 @@ export function prepareBusStopData(data?: BusStop[]) {
         return ({
             label: option.busStopName,
             value: option.busStopId + ""
+        })
+    })
+}
+
+
+export function prepareCaptainData(data?: Account[]) {
+    if (!data) {
+        return [];
+    }
+    return data.map((option: Account) => {
+        return ({
+            label: getUserName(option.firstName, option.lastName),
+            value: option.id + ""
         })
     })
 }
@@ -50,4 +63,8 @@ export function capitalizeFirstLetter(string: string) {
         return "";
     }
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function getUserName(firstName: string, lastName: string): string {
+    return `${firstName} ${lastName}`
 }

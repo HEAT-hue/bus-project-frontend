@@ -3,11 +3,12 @@ import { Modal } from "@/components/ModalWrapper";
 import { Account, Bus, BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
 import classNames from "classnames";
 import { useState } from "react";
+import ViewCaptainModal from "./ViewCaptainModal";
 
 type CaptainTableProp = {
     buses: Bus[]
     users: Account[]
-    session: Session
+    session: Session | null
 }
 
 const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => {
@@ -115,7 +116,7 @@ const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => 
             {/* Confirmation modal */}
             {currentBus && (
                 <Modal closeModal={() => setCurrentBus(undefined)} bare >
-                    <></>
+                    <ViewCaptainModal bus={currentBus} session={session} captains={users} closeModal={() => setCurrentBus(undefined)} />
                 </Modal>
             )}
         </>

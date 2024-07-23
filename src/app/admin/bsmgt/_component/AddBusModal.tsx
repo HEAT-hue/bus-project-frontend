@@ -176,7 +176,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                     })}>
                                     {loading ? (
                                         <BeatLoader
-                                            color={"#ffffff"}
+                                            color={"#0282ad"}
                                             loading={true}
                                             cssOverride={override}
                                             size={10}
