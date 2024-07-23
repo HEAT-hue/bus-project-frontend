@@ -1,25 +1,25 @@
 'use server'
 import { revalidatePath } from "next/cache";
-import { Account, BASE_URL, NAVIGATION } from "../../definitions";
+import { Account, BASE_URL, NAVIGATION, ROLES } from "../../definitions";
 import { FetchError } from "../../FetchError";
 
-export async function fetchUsers(
-  token: string
-): Promise<Account[]> {
-  const apiUrl = new URL(`${BASE_URL}/auth/users`);
+export type FetchUserParams = {
+  page?: number;
+  per_page?: number;
+  name?: string
+  authorities?: ROLES
+  sort_by?: "createdAt"
+};
 
-  // Append query parameters
-  // Object.entries(requestParams).forEach(([key, value]) => {
-  //   if (value !== undefined) {
-  //     apiUrl.searchParams.append(key, value.toString());
-  //   }
-  // });
+export async function fetchUsers(token: string, params: FetchUserParams): Promise<Account[]> {
+  const apiUrl = new URL(`${BASE_URL}/auth/userspaginate`);
 
-  // // Adjust 'page' parameter to be zero-based
-  // if (requestParams.page !== undefined) {
-  //   apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
-  // }
-
+  // Append search parameters
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined) {
+      apiUrl.searchParams.append(key, value.toString());
+    }
+  });
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -33,7 +33,7 @@ export async function fetchUsers(
       headers: headers,
     });
 
-    
+
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -83,8 +83,8 @@ type UpdateStaffStatusResponse = {
   "verfified": string
 }
 
-export async function updateStaffStatus(token: string, params:UpdateStaffStatusRequest ):Promise<UpdateStaffStatusResponse> {
-  
+export async function updateStaffStatus(token: string, params: UpdateStaffStatusRequest): Promise<UpdateStaffStatusResponse> {
+
   const apiUrl = new URL(`${BASE_URL}/auth/users/${params.userId}/update-verified`)
 
   const headers: HeadersInit = {
@@ -92,7 +92,7 @@ export async function updateStaffStatus(token: string, params:UpdateStaffStatusR
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
-  const body = JSON.stringify({verified: `${params.verified}`})
+  const body = JSON.stringify({ verified: `${params.verified}` })
 
   try {
     const response = await fetch(apiUrl.toString(), {
@@ -101,7 +101,7 @@ export async function updateStaffStatus(token: string, params:UpdateStaffStatusR
       body: body
     })
 
-    
+
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -120,13 +120,13 @@ export async function updateStaffStatus(token: string, params:UpdateStaffStatusR
 
     revalidatePath(NAVIGATION.ADMIN_STMGT);
 
-    
+
 
     return data;
 
 
   } catch (error) {
-      // Handle custom FetchError
+    // Handle custom FetchError
     if (error instanceof FetchError) {
       return Promise.reject({
         status: error.status,

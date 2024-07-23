@@ -3,7 +3,7 @@ import { Bus, BusStop, Session } from "@/lib/definitions"
 import toast, { Toaster } from 'react-hot-toast'
 
 import DeleteSVG from "@/components/svg/DeleteSVG";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, FormEvent, useState } from "react";
 import { CreateBusStop, DeleteBusStop } from "@/lib/admin/route/action";
 import { FetchError } from "@/lib/FetchError";
 import { BeatLoader } from "react-spinners";
@@ -25,7 +25,9 @@ const ViewRoutes: React.FC<ViewRoutes> = ({ bus: initialBus, session }) => {
     const [bus, setBus] = useState<Bus>(initialBus)
     const [busStopId, setBusStopId] = useState<string | undefined>(undefined);
 
-    function handleSubmit() {
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+
         if (!name) {
             return;
         }
@@ -133,9 +135,9 @@ const ViewRoutes: React.FC<ViewRoutes> = ({ bus: initialBus, session }) => {
                     }
                     <div>
 
-                        <form className="grid grid-cols-[5fr,_1fr] gap-x-3 mt-5">
+                        <form onSubmit={handleSubmit} className="grid grid-cols-[5fr,_1fr] gap-x-3 mt-5">
                             <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter a bus stop..." className="border border-gray-300 rounded focus:border-ecobankBlue py-1 px-3 outline-none" type="text" />
-                            <button onClick={handleSubmit} className="bg-ecobankBlue text-white rounded hover:bg-red-900"> {loading ? (
+                            <button type="submit" className="bg-ecobankBlue text-white rounded hover:bg-red-900"> {loading ? (
                                 <BeatLoader
                                     color={"#ffffff"}
                                     loading={true}

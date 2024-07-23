@@ -9,7 +9,7 @@ export type CreateBusRequest = {
   "busModel": string,
   "busCapacity": number,
   "busColor": string
-  "busRoute": string
+  "routeName": string
 };
 
 export type UpdateBusRequest = {

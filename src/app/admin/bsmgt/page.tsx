@@ -24,8 +24,6 @@ export default async function BusManagement({ searchParams }: { searchParams: Fe
 
   const buses: Bus[] = busResponse.content;
 
-  // const buses: Bus[] = mockBuses;
-
   return (
     <div className="px-4 lg:px-inlinePage">
       <h1 className="text-[32px] max-sm:text-[25px] font-Gilroy-SemiBold text-[#023448] mt-2">
@@ -44,21 +42,6 @@ export default async function BusManagement({ searchParams }: { searchParams: Fe
       <div className="lg:hidden">
         <BusTableMV buses={buses} session={session} />
       </div>
-
-      {/* <GenericTable
-        data={buses}
-        tableHeaders={[
-          "bus Number",
-          "model",
-          "capacity",
-          "color",
-          "route",
-          "status",
-        ]}
-      >
-        <SmallBus />
-      </GenericTable>{" "} */}
-      {/* Add Bus Modal */}
     </div>
   );
 }

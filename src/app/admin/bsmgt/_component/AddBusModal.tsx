@@ -75,7 +75,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
 
         (async function () {
             try {
-                await CreateBus(session.token, { busRoute: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
+                await CreateBus(session.token, { routeName: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
                 setShowAddModal(false);
                 setConfirmationModalOpen(false);
             }

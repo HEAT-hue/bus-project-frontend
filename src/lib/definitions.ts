@@ -102,7 +102,7 @@ export type Bus = {
   busColor: string;
   routeName: string;
   driverId: number;
-  captainId: number;
+  captain: Account;
   busStops: BusStop[];
   accounts: Account[];
 } & BaseEntity;
