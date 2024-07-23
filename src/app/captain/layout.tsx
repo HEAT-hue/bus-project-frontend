@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Navigation } from "../../components";
 import Footer from "../../components/Footer";
 import { viewport } from "./viewport";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,6 +21,13 @@ export default function RootLayout({
         <meta name="viewport" content={viewport} />
       </head>
       <body className={"font-Inter-Regular"}>
+
+        {/* Top Loader */}
+        <div className="z-[99999]">
+          <NextTopLoader showSpinner={false} color="#b1dc30" />
+        </div>
+
+        {/* Navigation0 */}
         <Navigation />
 
         {children}

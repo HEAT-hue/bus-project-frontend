@@ -57,7 +57,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        if (!bus.number || !bus.model || bus.capacity || bus.color || bus.route) {
+        if (!bus.number || !bus.model || !bus.capacity || !bus.color || !bus.route) {
             setErrorMessage("Missing fields");
         }
 

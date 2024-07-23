@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import Sidebar from "./_component/SideBar";
 import Navbar from "./_component/Navbar";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,6 +17,11 @@ export default function RootLayout({
   return (
     <html lang="english">
       <body>
+        {/* Top Loader */}
+        <div className="z-[99999]">
+          <NextTopLoader showSpinner={false} color="#b1dc30" />
+        </div>
+
         {/* Navigation */}
         <Navbar />
 
