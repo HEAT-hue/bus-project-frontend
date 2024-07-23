@@ -18,6 +18,7 @@ const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => 
     return (
         <>
             <div id="largegenerictable" className="flex flex-col gap-2 text-[16px] ">
+                
                 <table className="w-full  border-separate border-spacing-y-4 ">
                     <thead className="">
                         <tr id="header" className="text-[#00567B] pb-20">

@@ -46,6 +46,12 @@ export enum NAVIGATION {
   LOGIN = "/login",
 }
 
+export type BusStats = {
+  totalBuses: number,
+  activeBuses: number,
+  inactiveBuses: number,
+}
+
 export enum ROLES {
   USER = "USER",
   ADMIN = "ADMIN",
