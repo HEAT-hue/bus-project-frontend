@@ -89,8 +89,6 @@ export async function DeleteBusStop(token: string, payload: DeleteBusStopRequest
             headers: headers,
         });
 
-        console.log(response)
-
         if (!response.ok) {
             console.error("Response not OK:", response.status, response.statusText);
             if (response.status === 400) {
@@ -100,8 +98,6 @@ export async function DeleteBusStop(token: string, payload: DeleteBusStopRequest
         }
 
         const result = await response.json();
-
-        console.log(result);
 
         revalidatePath(NAVIGATION.ADMIN_BSMGT);
         revalidatePath(NAVIGATION.USER);

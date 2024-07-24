@@ -17,29 +17,28 @@ const override: CSSProperties = {
 
 type ViewCaptainModalProp = {
     bus: Bus
-    session: Session | null
+    session: Session
     closeModal: () => void
     captains: Account[]
 }
 
 export default function ViewCaptainModal({ bus, session, captains, closeModal }: ViewCaptainModalProp) {
     const [loading, setLoading] = useState<boolean>(false);
-    const [captainId, setCaptainId] = useState<number | null>(bus.captain.id);
     const [captain, setCaptain] = useState<Account | null>(bus.captain)
 
     function updateBusDetails() {
         // Set button pending state
         setLoading(true);
 
-
-        if (!captainId) {
+        if (!captain) {
             return
         }
 
         (async function () {
             try {
-                // await UpdateBusRouteDetails(session.token, { busId: bus.busId }, { captainId, driverId: null, routeName: bus.routeName });
+                await UpdateBusRouteDetails(session.token, { busId: bus.busId }, { captainId: captain.id, driverId: 3, routeName: bus.routeName });
                 toast.success("Captain updated successfully")
+                // captainId
             }
             catch (error) {
                 // Clear pending state

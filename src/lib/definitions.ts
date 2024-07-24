@@ -46,6 +46,21 @@ export enum NAVIGATION {
   LOGIN = "/login",
 }
 
+export enum BOOKING_TYPE {
+  WAITLIST = 'WAITLIST',
+  RESERVED = 'RESERVED'
+}
+
+export type BookBusResponse = {
+  time_of_departure: Date,
+  createdAt: Date,
+  take_off_point: string,
+  drop_off_point: string,
+  status: BOOKING_TYPE,
+  route: "string",
+  board: string
+}
+
 export type BusStats = {
   totalBuses: number,
   activeBuses: number,

@@ -15,8 +15,6 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
 
     const [currentBus, setCurrentBus] = useState<Bus | undefined>(undefined);
 
-    console.log(currentBus)
-
     return (
         <>
             <div id="largegenerictable" className="flex flex-col gap-2 text-[16px] ">

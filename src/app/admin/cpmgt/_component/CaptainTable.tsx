@@ -8,7 +8,7 @@ import ViewCaptainModal from "./ViewCaptainModal";
 type CaptainTableProp = {
     buses: Bus[]
     users: Account[]
-    session: Session | null
+    session: Session
 }
 
 const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => {
@@ -18,7 +18,7 @@ const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => 
     return (
         <>
             <div id="largegenerictable" className="flex flex-col gap-2 text-[16px] ">
-                
+
                 <table className="w-full  border-separate border-spacing-y-4 ">
                     <thead className="">
                         <tr id="header" className="text-[#00567B] pb-20">
@@ -51,7 +51,6 @@ const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => 
                     </thead>
                     <tbody className="">
                         {buses.map((bus, index) => {
-                            console.log(bus);
                             return (
                                 <tr
                                     id="staff"
@@ -73,12 +72,12 @@ const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => 
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
-                                        Captain
+                                        {bus?.captain?.firstName || "N/A"}
                                     </td>
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
-                                        05026500600
+                                        {bus?.captain?.telephone || "N/A"}
                                     </td>
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}

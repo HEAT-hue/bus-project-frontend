@@ -1,20 +1,12 @@
-import { Button } from "antd";
-import DateSelector from "../_components/dateselector";
 import Image from "next/image";
-import Search from "../../../../public/search.png";
-import Filter from "../../../../public/filterlist.png";
 import Export from "../../../../public/export.png";
 
-import SlidingBar from "../_components/slidingbar";
-import SmallTable from "../_components/small-staff";
 import { getSession } from "@/lib/session";
-import GenericTable, { Data } from "../_components/generic-table";
+import SlidingBar from "../_components/slidingbar";
 
 import { FetchUserParams, fetchUsers } from "@/lib/admin/staff/action";
 import { redirect } from "next/navigation";
 import StaffTable from "./_component/StaffTable";
-import classNames from "classnames";
-import { ACCOUNT_STATUS } from "@/lib/definitions";
 import StaffTableMobile from "./_component/StaffTableMobile";
 
 export default async function StaffManagement({ searchParams }: { searchParams: FetchUserParams }) {
@@ -26,7 +18,9 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
 
   const users = await fetchUsers(session.token, {
     page: searchParams.page || 1,
+    per_page: 10
   });
+
 
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-9 max-sm:gap-4">

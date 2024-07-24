@@ -7,19 +7,19 @@ export type FetchUserParams = {
   page?: number;
   per_page?: number;
   name?: string
-  authorities?: ROLES
+  authority?: ROLES
   sort_by?: "createdAt"
 };
 
 export async function fetchUsers(token: string, requestParams: FetchUserParams): Promise<Account[]> {
   const apiUrl = new URL(`${BASE_URL}/auth/userspaginate`);
 
-    // Append query parameters
-    Object.entries(requestParams).forEach(([key, value]) => {
-      if (value !== undefined) {
-        apiUrl.searchParams.append(key, value.toString());
-      }
-    });
+  // Append query parameters
+  Object.entries(requestParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      apiUrl.searchParams.append(key, value.toString());
+    }
+  });
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -27,16 +27,11 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
-  console.log(apiUrl.toString());
-
   try {
     const response = await fetch(apiUrl.toString(), {
       method: "GET",
       headers: headers,
     });
-
-    console.log(response)
-    console.log(response.statusText)
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -52,8 +47,7 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
     }
 
     // Return the parsed JSON response
-    const result =  await response.json();
-    console.log(result)
+    const result = await response.json();
     return result;
   } catch (error) {
     // Handle custom FetchError

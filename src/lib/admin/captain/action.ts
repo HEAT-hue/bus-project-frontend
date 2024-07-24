@@ -41,11 +41,12 @@ export async function UpdateBusRouteDetails(token: string, params: UpdateBusRout
             body: JSON.stringify(payload)
         });
 
+
         if (!response.ok) {
             if (response.status == 400) {
-                throw new FetchError(response.status, `Incorrect credentials`);
+                throw new FetchError(response.status, response.statusText);
             }
-            throw new FetchError(response.status, `Failed to Login user: ${response.statusText}`);
+            throw new FetchError(response.status, `Error performing action: ${response.statusText}`);
         }
 
         const result = await response.json() as CreateBusResponse;
