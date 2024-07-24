@@ -1,12 +1,23 @@
 import BarChartView from "@/components/BarChartView";
 import OverviewBox from "@/components/Overviewbox";
+import { fetchStats } from "@/lib/admin/dashboard/action";
+import { getSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
 
-  const totalStaff = 505;
-  const approvedStaff = 205;
-  const pendingStaff = 100;
-  const deniedStaff = 200;
+  const session = await getSession();
+
+  if (!session) {
+    redirect("/login")
+  }
+
+  const stats = await fetchStats(session.token);
+
+  const totalStaff = stats.users;
+  const approvedStaff = stats.verified;
+  const pendingStaff = stats.pending;
+  const deniedStaff = stats.rejected;
 
 
   return (

@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import {
   BASE_URL,
+  BOOKING_TYPE,
   Bus,
   BUS_OPERATIONAL_STATUS,
   PagedResponse,
@@ -21,20 +22,19 @@ export type BookBusParams = {
   route: string;
   drop_off_point: string;
 };
-
 export type BookBusResponse = {
-  time_of_departure: Date;
-  createdAt: Date;
-  take_off_point: string;
-  drop_off_point: string;
-  status: string;
-  route: string;
-  board: string;
-};
+  time_of_departure: Date,
+  createdAt: Date,
+  take_off_point: string,
+  drop_off_point: string,
+  status: BOOKING_TYPE,
+  route: "string",
+  board: string
+}
 
 // Function to fech a bus
 export async function fetchBus(
-  token: string,
+token: string,
   requestParams: FetchBusParams
 ): Promise<PagedResponse<Bus>> {
   const apiUrl = new URL(`${BASE_URL}/bus/list`);

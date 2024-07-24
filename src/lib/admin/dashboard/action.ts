@@ -1,21 +1,18 @@
 'use server'
-import {
-    BASE_URL,
-    Bus,
-    BUS_OPERATIONAL_STATUS,
-    PagedResponse,
-} from "../definitions";
-import { FetchError } from "../FetchError";
-import { BookBusResponse } from "../user/action";
+import { BASE_URL } from "@/lib/definitions";
+import { FetchError } from "@/lib/FetchError";
 
-export type FetchBookingsParams = {
-    busId: number
+export type FetchStatsResponse = {
+    "users": number,
+    "verified": number,
+    "pending": number,
+    "rejected": number,
+    "captainorbuses": number
 }
 
-
 // Function to fech a bus
-export async function fetchBookings(token: string, requestParams: FetchBookingsParams): Promise<BookBusResponse[]> {
-    const apiUrl = new URL(`${BASE_URL}/booking/${requestParams.busId}/bookings`);
+export async function fetchStats(token: string): Promise<FetchStatsResponse> {
+    const apiUrl = new URL(`${BASE_URL}/auth/stats`);
 
     // Construct the headers, including the Authorization header if the token is provided
     const headers: HeadersInit = {

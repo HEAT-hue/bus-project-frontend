@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./WaitingList.css";
-import { Modal } from "../../components/ModalWrapper";
+import { Modal } from "../../../components/ModalWrapper";
 
 const WaitlistData = [
   { id: 31, name: 'Joyce Orimolowo', seat: '8C' },

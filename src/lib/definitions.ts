@@ -46,19 +46,11 @@ export enum NAVIGATION {
   LOGIN = "/login",
 }
 
+export const viewport = "width=device-width, initial-scale=1, user-scalabe=no";
+
 export enum BOOKING_TYPE {
   WAITLIST = 'WAITLIST',
   RESERVED = 'RESERVED'
-}
-
-export type BookBusResponse = {
-  time_of_departure: Date,
-  createdAt: Date,
-  take_off_point: string,
-  drop_off_point: string,
-  status: BOOKING_TYPE,
-  route: "string",
-  board: string
 }
 
 export type BusStats = {

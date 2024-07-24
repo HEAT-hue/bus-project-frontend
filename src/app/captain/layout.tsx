@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 // import "./globals.css";
 import { Navigation } from "../../components";
 import Footer from "../../components/Footer";
-import { viewport } from "./viewport";
+import { viewport } from "@/lib/definitions";
 import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {

@@ -6,11 +6,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ')
-// }
-
 export default function Example() {
   const router = useRouter();
   return (
