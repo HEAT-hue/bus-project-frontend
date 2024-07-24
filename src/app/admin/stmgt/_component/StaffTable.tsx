@@ -29,7 +29,7 @@ export default function StaffTable({ staffData, session }: StaffTableProps) {
               <th className="">S/N</th>
               <th className="font-Gilroy-SemiBold">Name</th>
               <th className="font-Gilroy-SemiBold">Department</th>
-              <th className="font-Gilroy-SemiBold">Affiliate</th>
+              <th className="font-Gilroy-SemiBold">Authority</th>
               <th className="font-Gilroy-SemiBold">Staff ID</th>
               <th className="font-Gilroy-SemiBold">Email Address</th>
               <th className="font-Gilroy-SemiBold">Phone Number</th>
@@ -63,7 +63,7 @@ export default function StaffTable({ staffData, session }: StaffTableProps) {
                   <td
                     className={`px-6 py-4  border-none whitespace-nowrap font-Gilroy-Regular`}
                   >
-                    {item.affiliate}
+                    {item.authorities}
                   </td>
                   <td
                     className={`px-6 py-4  border-none whitespace-nowrap font-Gilroy-Regular`}

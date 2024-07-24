@@ -31,8 +31,6 @@ export async function fetchBus(token: string, requestParams: FetchBusParams): Pr
     apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
   }
 
-  console.log(apiUrl.toString());
-
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
     "Content-Type": "application/json",
