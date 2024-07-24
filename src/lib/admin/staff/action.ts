@@ -3,20 +3,23 @@ import { revalidatePath } from "next/cache";
 import { Account, BASE_URL, NAVIGATION, ROLES } from "../../definitions";
 import { FetchError } from "../../FetchError";
 
-export async function fetchUsers(token: string): Promise<Account[]> {
-  const apiUrl = new URL(`${BASE_URL}/auth/users`);
+export type FetchUserParams = {
+  page?: number;
+  per_page?: number;
+  name?: string
+  authorities?: ROLES
+  sort_by?: "createdAt"
+};
 
-  // Append query parameters
-  // Object.entries(requestParams).forEach(([key, value]) => {
-  //   if (value !== undefined) {
-  //     apiUrl.searchParams.append(key, value.toString());
-  //   }
-  // });
+export async function fetchUsers(token: string, requestParams: FetchUserParams): Promise<Account[]> {
+  const apiUrl = new URL(`${BASE_URL}/auth/userspaginate`);
 
-  // // Adjust 'page' parameter to be zero-based
-  // if (requestParams.page !== undefined) {
-  //   apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
-  // }
+    // Append query parameters
+    Object.entries(requestParams).forEach(([key, value]) => {
+      if (value !== undefined) {
+        apiUrl.searchParams.append(key, value.toString());
+      }
+    });
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -24,11 +27,16 @@ export async function fetchUsers(token: string): Promise<Account[]> {
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
+  console.log(apiUrl.toString());
+
   try {
     const response = await fetch(apiUrl.toString(), {
       method: "GET",
       headers: headers,
     });
+
+    console.log(response)
+    console.log(response.statusText)
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -44,7 +52,9 @@ export async function fetchUsers(token: string): Promise<Account[]> {
     }
 
     // Return the parsed JSON response
-    return await response.json();
+    const result =  await response.json();
+    console.log(result)
+    return result;
   } catch (error) {
     // Handle custom FetchError
     if (error instanceof FetchError) {

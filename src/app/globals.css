@@ -8,6 +8,7 @@
 #staff.tablerow > td {
   padding: 12px 0px; /* Padding for the cells */
   border-color: white;
+  /* color: #0282ad; */
 }
 @media (max-width: 450px) {
   #filtergrid.filter {

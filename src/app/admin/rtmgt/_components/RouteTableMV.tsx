@@ -1,17 +1,16 @@
 'use client'
-import { ConfirmationModal } from "@/components"
 import { Bus, BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions"
 import { Modal } from "@/components/ModalWrapper"
 import classNames from "classnames"
 import { useState } from "react"
-import ViewBusModal from "./ViewBoxModal"
+import ViewRoutes from "./ViewRoutes"
 
 type BusTableProp = {
     buses: Bus[]
     session: Session
 }
 
-const BusTableMV: React.FC<BusTableProp> = ({ buses, session }) => {
+const RouteTableMV: React.FC<BusTableProp> = ({ buses, session }) => {
 
     const [currentBus, setCurrentBus] = useState<Bus | undefined>(undefined);
 
@@ -57,11 +56,14 @@ const BusTableMV: React.FC<BusTableProp> = ({ buses, session }) => {
             {/* Confirmation modal */}
             {currentBus && (
                 <Modal closeModal={() => setCurrentBus(undefined)} bare >
-                    <ViewBusModal session={session} bus={currentBus} closeModal={() => setCurrentBus(undefined)} />
+                    <>
+                        {/* <ViewBusModal session={session} bus={currentBus} closeModal={() => setCurrentBus(undefined)} /> */}
+                        <ViewRoutes bus={currentBus} session={session} />
+                    </>
                 </Modal>
             )}
         </>
     )
 }
 
-export default BusTableMV
+export default RouteTableMV

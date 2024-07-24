@@ -1,25 +1,24 @@
 'use client'
-import { Bus, BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions"
-import Tags from "../../_components/table-tags"
-import classNames from "classnames"
-import { useState } from "react"
-import { Modal } from "@/components/ModalWrapper"
-import ViewBusModal from "./ViewBoxModal"
+import { Modal } from "@/components/ModalWrapper";
+import { Account, Bus, BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
+import classNames from "classnames";
+import { useState } from "react";
+import ViewCaptainModal from "./ViewCaptainModal";
 
-type BusTableProp = {
+type CaptainTableProp = {
     buses: Bus[]
-    session: Session
+    users: Account[]
+    session: Session | null
 }
 
-export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
+const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => {
 
     const [currentBus, setCurrentBus] = useState<Bus | undefined>(undefined);
-
-    console.log(currentBus)
 
     return (
         <>
             <div id="largegenerictable" className="flex flex-col gap-2 text-[16px] ">
+                
                 <table className="w-full  border-separate border-spacing-y-4 ">
                     <thead className="">
                         <tr id="header" className="text-[#00567B] pb-20">
@@ -31,13 +30,16 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                 Model
                             </th>
                             <th className="font-Gilroy-SemiBold">
-                                Capacity
+                                Captain
                             </th>
                             <th className="font-Gilroy-SemiBold">
-                                Color
+                                Phone number
                             </th>
                             <th className="font-Gilroy-SemiBold">
-                                Route
+                                Driver
+                            </th>
+                            <th className="font-Gilroy-SemiBold">
+                                Phone number
                             </th>
                             <th className="font-Gilroy-SemiBold">
                                 Status
@@ -49,6 +51,7 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                     </thead>
                     <tbody className="">
                         {buses.map((bus, index) => {
+                            console.log(bus);
                             return (
                                 <tr
                                     id="staff"
@@ -70,17 +73,22 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
-                                        {bus.busCapacity}
+                                        Captain
                                     </td>
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
-                                        {bus.busColor}
+                                        05026500600
                                     </td>
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
-                                        {bus.routeName}
+                                        Driver
+                                    </td>
+                                    <td
+                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
+                                    >
+                                        05026500600
                                     </td>
                                     <td className=" flex justify-center items-center font-Gilroy-SemiBold whitespace-nowrap ">
                                         <span
@@ -109,11 +117,11 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
             {/* Confirmation modal */}
             {currentBus && (
                 <Modal closeModal={() => setCurrentBus(undefined)} bare >
-                    <ViewBusModal session={session} bus={currentBus} closeModal={() => setCurrentBus(undefined)} />
+                    <ViewCaptainModal bus={currentBus} session={session} captains={users} closeModal={() => setCurrentBus(undefined)} />
                 </Modal>
             )}
         </>
     )
 }
 
-export default BusTable
+export default CaptainTable

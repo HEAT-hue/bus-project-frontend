@@ -9,24 +9,17 @@ export const COOOKIE_EXPIRY = 100000000000000;
 
 const SESSION_EXPIRY = 10000;
 
-export enum ROLES {
-  USER = "USER",
-  ADMIN = "ADMIN",
-  CAPTAIN = "CAPTAIN",
-  DRIVER = "DRIVER",
-}
+export type Session = AuthResponse & { SESSION_EXPIRY: number };
 
-export type BaseEntity = {
-  createdAt: Date;
-  createdBy: number;
-  updatedAt: Date;
-  updatedBy: number;
+export type PagedResponse<T> = {
+  content: T[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
 };
 
-export enum BUS_OPERATIONAL_STATUS {
-  ACTIVE = "ACTIVE",
-  INACTIVE = "INACTIVE",
-}
 
 export enum NAVIGATION {
   /*************************** Admin Routes ********************************************/
@@ -53,6 +46,31 @@ export enum NAVIGATION {
   LOGIN = "/login",
 }
 
+export type BusStats = {
+  totalBuses: number,
+  activeBuses: number,
+  inactiveBuses: number,
+}
+
+export enum ROLES {
+  USER = "USER",
+  ADMIN = "ADMIN",
+  CAPTAIN = "CAPTAIN",
+  DRIVER = "DRIVER",
+}
+
+export type BaseEntity = {
+  createdAt: Date | null;
+  createdBy: number | null;
+  updatedAt: Date | null;
+  updatedBy: number | null;
+};
+
+export enum BUS_OPERATIONAL_STATUS {
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+}
+
 export enum USER_AUTHORITES {
   USER = "USER",
   ADMIN = "ADMIN",
@@ -66,8 +84,6 @@ export type User = {
   lastName: string;
   username: string;
 };
-
-export type Session = AuthResponse & { SESSION_EXPIRY: number };
 
 export enum ACCOUNT_STATUS {
   APPROVED = "APPROVED",
@@ -102,7 +118,7 @@ export type Bus = {
   busColor: string;
   routeName: string;
   driverId: number;
-  captainId: number;
+  captain: Account;
   busStops: BusStop[];
   accounts: Account[];
 } & BaseEntity;
@@ -111,12 +127,3 @@ export type BusStop = {
   busStopId: string;
   busStopName: string;
 } & BaseEntity;
-
-export type PagedResponse<T> = {
-  content: T[];
-  pageNumber: number;
-  pageSize: number;
-  totalElements: number;
-  totalPages: number;
-  last: boolean;
-};

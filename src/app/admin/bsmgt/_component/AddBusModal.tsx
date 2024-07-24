@@ -3,7 +3,7 @@
 'use client'
 import { Modal } from "@/components/ModalWrapper"
 import AddSVG from "@/components/svg/AddSVG";
-import { CreateBus } from "@/lib/admin/action";
+import { CreateBus } from "@/lib/admin/bus/action";
 import { BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
 import { FetchError } from "@/lib/FetchError";
 import classNames from "classnames";
@@ -57,7 +57,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        if (!bus.number || !bus.model || bus.capacity || bus.color || bus.route) {
+        if (!bus.number || !bus.model || !bus.capacity || !bus.color || !bus.route) {
             setErrorMessage("Missing fields");
         }
 
@@ -67,11 +67,6 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
         actionToExecute = () => createBus();
 
         setConfirmationModalOpen(true);
-
-
-        (async function () {
-
-        })()
     }
 
     function createBus() {
@@ -80,11 +75,9 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
 
         (async function () {
             try {
-                alert("Function called");
-                delay(5000);
-                // await CreateBus(session.token, { busRoute: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
-                // setShowAddModal(false);
-                // setConfirmationModalOpen(false);
+                await CreateBus(session.token, { routeName: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
+                setShowAddModal(false);
+                setConfirmationModalOpen(false);
             }
             catch (error) {
                 // Clear pending state
@@ -183,7 +176,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                     })}>
                                     {loading ? (
                                         <BeatLoader
-                                            color={"#ffffff"}
+                                            color={"#0282ad"}
                                             loading={true}
                                             cssOverride={override}
                                             size={10}
@@ -208,15 +201,14 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                             createBus();
                         }}
 
-                        svg={<img src="/RemoveBus.svg" alt="Add bus" />}
+                        svg={"/RemoveBus.svg"}
 
                         nextButtonText="Add"
 
                         cancel={() => setConfirmationModalOpen(false)}
                     />
                 </Modal>
-            )
-            }
+            )}
         </div>
     )
 }

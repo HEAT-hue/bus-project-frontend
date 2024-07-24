@@ -5,6 +5,7 @@ import { FetchError } from "@/lib/FetchError";
 import classNames from "classnames";
 import { CSSProperties, useState } from "react";
 import { BeatLoader } from "react-spinners";
+import toast, { Toaster } from 'react-hot-toast'
 
 // Ant design imports
 import { DownOutlined } from "@ant-design/icons";
@@ -77,8 +78,10 @@ export default function ViewStaffModal({
         });
 
         setUserRole(authorities);
+        toast.success("ROLE updated successfully")
       } catch (error) {
         if (error instanceof FetchError) {
+          toast.error("Error updating role")
           // setErrorMessage(error.message);
         }
       }
@@ -234,6 +237,9 @@ export default function ViewStaffModal({
           </div>
         </form>
       </div>
+
+             {/* Toast messages */}
+             <Toaster />
     </div>
   );
 }

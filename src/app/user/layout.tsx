@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-// import "./globals.css";
 import { Navigation } from "../../components";
 import Footer from "../../components/Footer";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "Kiti | user",
@@ -19,8 +19,19 @@ export default function RootLayout({
         <meta name="viewport" />
       </head>
       <body className="font-Inter-Regular flex flex-col min-h-screen">
+
+        {/* Top Loader */}
+        <div className="z-[99999]">
+          <NextTopLoader showSpinner={false} color="#b1dc30" />
+        </div>
+
+        {/* Navigation */}
         <Navigation />
+
+        {/* Children */}
         <div className="py-5 flex-1">{children}</div>
+
+        {/* Footer */}
         <Footer />
       </body>
     </html>

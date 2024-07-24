@@ -17,47 +17,47 @@ export default function Report(searchParams: MyData) {
   let Reportdata =
     tableListType === "Activity Log"
       ? [
-          {
-            name: "Tayo Adewole",
-            department: "Marketing",
-            email: "tayo@gmail.com",
-            user_activity: "Added Bus",
-            date: "22-04-2024",
-          },
-          {
-            name: "Tayo Adewole",
-            department: "Marketing",
-            email: "tayo@gmail.com",
-            user_activity: "Added Bus",
-            date: "22-04-2024",
-          },
-        ]
+        {
+          name: "Tayo Adewole",
+          department: "Marketing",
+          email: "tayo@gmail.com",
+          user_activity: "Added Bus",
+          date: "22-04-2024",
+        },
+        {
+          name: "Tayo Adewole",
+          department: "Marketing",
+          email: "tayo@gmail.com",
+          user_activity: "Added Bus",
+          date: "22-04-2024",
+        },
+      ]
       : [
-          {
-            date: "22-04-2024",
-            name: "Tayo Adewole",
-            staffComment:
-              "Lorem ipsum dolor sit amet consectetur. Viverra sagittis ...",
-            rating: "3",
-          },
-          {
-            date: "22-04-2024",
-            name: "Tayo Adewole",
-            staffComment:
-              "Lorem ipsum dolor sit amet consectetur. Viverra sagittis ...",
-            rating: "3",
-          },
-        ];
+        {
+          date: "22-04-2024",
+          name: "Tayo Adewole",
+          staffComment:
+            "Lorem ipsum dolor sit amet consectetur. Viverra sagittis ...",
+          rating: "3",
+        },
+        {
+          date: "22-04-2024",
+          name: "Tayo Adewole",
+          staffComment:
+            "Lorem ipsum dolor sit amet consectetur. Viverra sagittis ...",
+          rating: "3",
+        },
+      ];
 
   let tableHeaders =
     tableListType === "Activity Log"
       ? [
-          "name",
-          "department",
-          "email Address",
-          "user Activity",
-          "Activity Date",
-        ]
+        "name",
+        "department",
+        "email Address",
+        "user Activity",
+        "Activity Date",
+      ]
       : ["date", "name", "staff Comment", "Rating"];
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-8 max-sm:gap-4">
@@ -79,7 +79,7 @@ export default function Report(searchParams: MyData) {
 
         <div className="flex flex-row items-center"></div>
       </div>
-      <DateSelector />
+      {/* <DateSelector /> */}
       <GenericTable
         data={Reportdata}
         tableHeaders={tableHeaders}

@@ -46,8 +46,8 @@ export default function DateSelector({ placeholder }: { placeholder: string }) {
     // Create new url
     const params = new URLSearchParams(searchParams);
 
-    // Set page to 1 when user types new search query
-    params.set('page', '1');
+    // // Set page to 1 when user types new search query
+    // params.set('page', '1');
 
     // set the query
     if (status) {
