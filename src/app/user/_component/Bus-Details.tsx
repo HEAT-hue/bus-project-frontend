@@ -57,7 +57,7 @@ export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
               </div>
               <div className="flex justify-between items-center">
                 <div className="font-Gilroy-SemiBold">Bus Captain:</div>
-                <div className="font-Gilroy-Regular">Funmi Dawson</div>
+                <div className="font-Gilroy-Regular">{bus?.captain?.firstName || "N/A"}</div>
               </div>
             </div>
 
