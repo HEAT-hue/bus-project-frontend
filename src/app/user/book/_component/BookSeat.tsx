@@ -2,16 +2,23 @@
 import { Bus, NAVIGATION, Session } from "@/lib/definitions";
 import { prepareBusStopData } from "@/lib/utils/utils";
 import { Select } from "antd";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import classNames from "classnames";
 import { bookBus } from "@/lib/user/action";
 import { useRouter } from "next/navigation";
 import { FetchError } from "@/lib/FetchError";
 import { encryptData } from "@/lib/utils/cyptoUtils";
+import BeatLoader from "react-spinners/BeatLoader";
 
 type BookSeatProp = {
   bus: Bus;
   session: Session;
+};
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
 };
 
 const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
@@ -24,14 +31,12 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
   const router = useRouter();
 
   function handleBook() {
-    // router.push(NAVIGATION.USER_CHECKOUT.toString())
+    setIsLoading(true);
 
     (async function () {
       try {
-        setIsLoading(true);
-
         if (!selectedDropOffPoint) {
-            return;
+          return;
         }
 
         const result = await bookBus(session.token, {
@@ -41,22 +46,19 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
           drop_off_point: selectedDropOffPoint,
         });
 
-        console.log(result);
-
         const encryptedBusDetails = encryptData(result);
 
-        router.push(`${NAVIGATION.USER_CHECKOUT}?bk=${encryptedBusDetails}`)
+        router.push(`${NAVIGATION.USER_CHECKOUT}?bk=${encryptedBusDetails}`);
       } catch (error) {
         if (error instanceof FetchError) {
-            setErrorMessage(error.message);
-          }
+          setErrorMessage(error.message);
+        }
       } finally {
         setIsLoading(false);
       }
     })();
   }
 
-  
   return (
     <div className="max-w-[340px]">
       <form action={handleBook}>
@@ -71,18 +73,31 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
             />
           </div>
         </div>
-        <button
-          type="submit"
-          disabled={!selectedDropOffPoint}
-          className={classNames({
-            " text-white bg-ecobankBlue": selectedDropOffPoint,
-            " text-white bg-gray-400": !selectedDropOffPoint,
-            "w-full font-bold text-white mt-7 rounded font-Inter-Bold py-3":
-              true,
-          })}
-        >
-          Book Now
-        </button>
+        {isLoading ? (
+          <div className="text-center mt-5">
+            <BeatLoader
+              color={"#0282ad"}
+              loading={true}
+              cssOverride={override}
+              size={10}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        ) : (
+          <button
+            type="submit"
+            disabled={!selectedDropOffPoint}
+            className={classNames({
+              " text-white bg-ecobankBlue": selectedDropOffPoint,
+              " text-white bg-gray-400": !selectedDropOffPoint,
+              "w-full font-bold text-white mt-7 rounded font-Inter-Bold py-3":
+                true,
+            })}
+          >
+            Book Now
+          </button>
+        )}
       </form>
     </div>
   );
@@ -90,6 +105,5 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
 
 export default BookSeat;
 function setErrorMessage(message: string) {
-    throw new Error("Function not implemented.");
+  throw new Error("Function not implemented.");
 }
-

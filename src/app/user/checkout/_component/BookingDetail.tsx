@@ -13,6 +13,29 @@ function getDate(date: Date) {
     return `${day}, ${monthShort} ${year}`
 }
 
+function extractTime(dateString: Date) {
+    // Parse the date string to a Date object
+    const date = new Date(dateString);
+    
+    // Extract hours, minutes, and seconds
+    let hours: any = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    
+    // Determine AM or PM suffix
+    const period = hours >= 12 ? 'PM' : 'AM';
+    
+    // Convert hours to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    hours = hours.toString().padStart(2, '0');
+    
+    // Format the time string
+    const timeString = `${hours}:${minutes}:${seconds} ${period}`;
+    
+    return timeString;
+}
+
 const BookingDetail: React.FC<BookingDetailProp> = ({bookRecord}) => {
 
     // Get this details from the backend
@@ -35,7 +58,7 @@ const BookingDetail: React.FC<BookingDetailProp> = ({bookRecord}) => {
                     </div>
                     <div className="w-full flex justify-between items-center">
                         <p className="font-bold">Boarding time:</p>
-                        <p className="text-gray-500">{getDate(new Date(bookRecord.createdAt))}</p>
+                        <p className="text-gray-500">{extractTime(new Date(bookRecord.createdAt))}</p>
                     </div>
                     {/* <div className="w-full flex justify-between items-center">
                         <p className="font-bold">Date:</p>

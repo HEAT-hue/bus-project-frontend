@@ -1,3 +1,5 @@
+'use server'
+
 import { revalidatePath } from "next/cache";
 import {
   BASE_URL,
@@ -97,11 +99,19 @@ token: string,
 // Function to book a bus
 export async function bookBus(
   token: string,
-  requestBody: BookBusParams
+  requestParams: BookBusParams
 ): Promise<BookBusResponse> {
-  const apiUrl = new URL(`${BASE_URL}/book`);
+  const apiUrl = new URL(`${BASE_URL}/booking/bookseat`);
+
+    // Append query parameters
+    Object.entries(requestParams).forEach(([key, value]) => {
+      if (value !== undefined) {
+        apiUrl.searchParams.append(key, value.toString());
+      }
+    });
 
   console.log(apiUrl)
+  console.log(requestParams);
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -113,7 +123,6 @@ export async function bookBus(
     const response = await fetch(apiUrl.toString(), {
       method: "POST",
       headers: headers,
-      body: JSON.stringify(requestBody),
     });
 
     console.log(response)

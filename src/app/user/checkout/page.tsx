@@ -10,6 +10,7 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
     
     try {
         bookRecord = decryptData(searchParams?.bk || "") as BookBusResponse;
+        console.log(bookRecord)
     } catch (error: any) {
         redirect("/user")
     }
@@ -17,7 +18,7 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
     return (
         <>
             <div className="w-[95vw] mx-auto max-w-[928px] pb-[3rem]">
-                <h1 className="text-center text-lg sm:text-xl text-ecobankBlue font-medium">Your Booking</h1>
+                <h1 className="text-center text-lg sm:text-xl text-ecobankBlue font-medium">Your Booking has been confirmed</h1>
                 <div className="mt-7 flex flex-col gap-y-5">
                     {/* Bookign image */}
                     <img src="/pana.svg" alt="booking confirmed" className="mx-auto" width={200} />
