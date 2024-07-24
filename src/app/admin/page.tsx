@@ -15,28 +15,28 @@ export default async function HomePage() {
       {/* Overview boxes */}
       <div className="mt-5 flex gap-[10px] overflow-x-auto md:flex-wrap">
 
-        {/* Total Ideas overview box */}
+        {/* Total staff overview box */}
         <OverviewBox
           title="Total staff"
           value={`${totalStaff}`}
           background={`conic-gradient(${"#333333"} ${360}deg, #E4E8EF 0deg)`}
         />
 
-        {/* Pending overview box */}
+        {/* Pending staff box */}
         <OverviewBox
           title="Pending Staff"
           value={pendingStaff.toString()}
           background={`conic-gradient(${"#ffb800"} ${pendingStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
         />
 
-        {/* Approved Ideas overview box */}
+        {/* Approved staff overview box */}
         <OverviewBox
           title="Approved Staff"
           value={approvedStaff.toString()}
           background={`conic-gradient(${"#347e03"} ${approvedStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
         />
 
-        {/* Rejected Ideas overview box */}
+        {/* Rejected staff overview box */}
         <OverviewBox
           title="Rejected Staff"
           value={deniedStaff.toString()}
