@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { NAVIGATION } from "@/lib/definitions";
-
-
+import { LogoutUser } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 const navigation = [
   { name: "Dashboard", href: `${NAVIGATION.ADMIN}`, icon: "/dashboard.svg" },
@@ -16,7 +16,7 @@ const navigation = [
     icon: "/staff-management.svg",
   },
   {
-    name: "Check-In Management",
+    name: "Captain Management",
     href: `${NAVIGATION.ADMIN_CPMGT}`,
     icon: "/check-in-management.svg",
   },
@@ -43,11 +43,10 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
- 
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  const router = useRouter();
 
   return (
     <>
@@ -101,7 +100,11 @@ const Navbar = () => {
             {/* Footer links */}
             <div className="space-y-[10vh] mb-[12vh] sm:mb-[5vh] p-3">
               <button
-                
+                onClick={(e) => {
+                  e.preventDefault();
+                  LogoutUser();
+                  router.push("/login");
+                }}
                 className="flex items-center space-x-2 group hover:text-white hover:font-bold transition-all duration-300"
               >
                 <div className="w-6 h-6 flex justify-center items-center group-hover:text-white">

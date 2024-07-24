@@ -51,15 +51,6 @@ const BookPage = async ({ searchParams }: { searchParams: { st: string } }) => {
                         <BookSeat bus={busState} session={session} />
                     </div>
                 </div>
-
-                {/* <div className="mt-3">
-                          <Select
-                    placeholder="Where are you going?"
-                    onChange={(e) => { handleBusChange(e) }}
-                    style={{ width: "100%", height: 45, border: "1px" }}
-                    options={prepareBusData(buses)}
-                />
-                </div> */}
             </div>
         </>
     )

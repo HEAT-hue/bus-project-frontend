@@ -3,6 +3,7 @@
 import { LogoutUser } from '@/lib/actions';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 
@@ -34,9 +35,9 @@ export default function Example() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <div className="flex justify-center">
-                <p className="text-white text-[2.3rem] text-center border-b-[5px] border-b-ecobankGreen w-max font-Aladin-Regular leading-none">
+                <Link href={"/user"} className="text-white text-[2.3rem] text-center border-b-[5px] border-b-ecobankGreen w-max font-Aladin-Regular leading-none cursor-pointer">
                   Kiti
-                </p>
+                </Link>
               </div>
             </div>
           </div>

@@ -15,8 +15,28 @@ export type FetchBusParams = {
   operationalStatus?: BUS_OPERATIONAL_STATUS;
 };
 
+export type BookBusParams = {
+  userId: number;
+  busId: number;
+  route: string;
+  drop_off_point: string;
+};
+
+export type BookBusResponse = {
+  time_of_departure: Date;
+  createdAt: Date;
+  take_off_point: string;
+  drop_off_point: string;
+  status: string;
+  route: string;
+  board: string;
+};
+
 // Function to fech a bus
-export async function fetchBus(token: string, requestParams: FetchBusParams): Promise<PagedResponse<Bus>> {
+export async function fetchBus(
+  token: string,
+  requestParams: FetchBusParams
+): Promise<PagedResponse<Bus>> {
   const apiUrl = new URL(`${BASE_URL}/bus/list`);
 
   // Append query parameters
@@ -28,7 +48,7 @@ export async function fetchBus(token: string, requestParams: FetchBusParams): Pr
 
   // Adjust 'page' parameter to be zero-based
   if (requestParams.page !== undefined) {
-    apiUrl.searchParams.set('page', (requestParams.page - 1).toString());
+    apiUrl.searchParams.set("page", (requestParams.page - 1).toString());
   }
 
   // Construct the headers, including the Authorization header if the token is provided
@@ -75,8 +95,13 @@ export async function fetchBus(token: string, requestParams: FetchBusParams): Pr
 }
 
 // Function to book a bus
-export async function bookBus(token: string, requestBody: any): Promise<any> {
+export async function bookBus(
+  token: string,
+  requestBody: BookBusParams
+): Promise<BookBusResponse> {
   const apiUrl = new URL(`${BASE_URL}/book`);
+
+  console.log(apiUrl)
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -91,6 +116,8 @@ export async function bookBus(token: string, requestBody: any): Promise<any> {
       body: JSON.stringify(requestBody),
     });
 
+    console.log(response)
+
     if (!response.ok) {
       throw new FetchError(
         response.status,
@@ -99,7 +126,13 @@ export async function bookBus(token: string, requestBody: any): Promise<any> {
     }
 
     // Return the parsed JSON response
-    return await response.json();
+    // return await response.json();
+
+    const busResponse = await response.json()
+
+    console.log(busResponse)
+
+    return busResponse
   } catch (error) {
     // Handle custom FetchError
     if (error instanceof FetchError) {
