@@ -17,16 +17,12 @@ export default async function CaptainPage() {
     try {
         currentBookings = await fetchBookings(session.token, { busId: 1 });
     } catch (error) {
-        console.log(error);
         return (
             <>
                 <p>An error has occurred!</p>
             </>
         )
     }
-
-
-    console.log(currentBookings);
 
 
     return (

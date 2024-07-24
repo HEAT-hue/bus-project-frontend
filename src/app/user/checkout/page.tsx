@@ -2,17 +2,25 @@ import { BookBusResponse } from "@/lib/user/action";
 import BookingDetail from "./_component/BookingDetail"
 import { decryptData } from "@/lib/utils/cyptoUtils";
 import { redirect } from "next/navigation";
+import { BOOKING_TYPE } from "@/lib/definitions";
 
 /* eslint-disable @next/next/no-img-element */
 const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string } }) => {
 
     let bookRecord;
-    
+
     try {
         bookRecord = decryptData(searchParams?.bk || "") as BookBusResponse;
-        console.log(bookRecord)
     } catch (error: any) {
         redirect("/user")
+    }
+
+    if (bookRecord.status == BOOKING_TYPE.WAITLIST) {
+        return (
+            <>
+
+            </>
+        )
     }
 
     return (

@@ -1,5 +1,5 @@
 'use client'
-import { Bus, NAVIGATION } from "@/lib/definitions";
+import { Bus, BUS_OPERATIONAL_STATUS, NAVIGATION } from "@/lib/definitions";
 import { encryptData } from "@/lib/utils/cyptoUtils";
 import { prepareBusData } from "@/lib/utils/utils";
 import { Select } from "antd";
@@ -33,7 +33,9 @@ const SelectBus: React.FC<SelectBusProp> = ({ buses, route_secret }) => {
                     placeholder="Where are you going?"
                     onChange={(e) => { handleBusChange(e) }}
                     style={{ width: "100%", height: 45, border: "1px" }}
-                    options={prepareBusData(buses)}
+                    options={prepareBusData(buses.filter((bus: Bus) => {
+                        return bus.operationalStatus != BUS_OPERATIONAL_STATUS.INACTIVE
+                    }))}
                 />
             </div>
         </>

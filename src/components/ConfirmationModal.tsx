@@ -12,6 +12,7 @@ type ConfirmationModalType = {
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalType> = ({ title, desc, next, cancel, nextButtonText, reverse, svg }) => {
+
     return (
         <>
             <div className="flex items-center justify-center p-9">

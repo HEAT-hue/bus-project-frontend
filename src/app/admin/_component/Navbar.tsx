@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { NAVIGATION } from "@/lib/definitions";
+import { NAVIGATION, Session } from "@/lib/definitions";
 import { LogoutUser } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
@@ -31,14 +31,19 @@ const navigation = [
     icon: "/bus-management.svg",
   },
   { name: "Report", href: `${NAVIGATION.ADMIN_REPORT}`, icon: "/report.svg" },
-  {
-    name: "User Management",
-    href: `${NAVIGATION.ADMIN_USMGT}`,
-    icon: "/user-management.svg",
-  },
+  // {
+  //   name: "User Management",
+  //   href: `${NAVIGATION.ADMIN_USMGT}`,
+  //   icon: "/user-management.svg",
+  // },
 ];
 
-const Navbar = () => {
+type NavBarProps = {
+  session: Session | null
+}
+
+const Navbar: React.FC<NavBarProps> = ({ session }) => {
+
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -52,9 +57,8 @@ const Navbar = () => {
     <>
       {/* Side Navigation */}
       <div
-        className={`fixed z-[999] w-full lg:w-max inset-0 bg-black/20 ml-[-1px] ${
-          isOpen ? "left-0" : "-left-full"
-        } lg:left-0`}
+        className={`fixed z-[999] w-full lg:w-max inset-0 bg-black/20 ml-[-1px] ${isOpen ? "left-0" : "-left-full"
+          } lg:left-0`}
         onClick={() => setIsOpen(false)}
       >
         <div className={`w-[250px] bg-ecobankTeal text-white h-screen`}>
@@ -134,7 +138,7 @@ const Navbar = () => {
 
         <div className="flex flex-row text-center items-center space-x-[1vh] sm:space-x-[2.5vh]  whitespace-nowrap">
           <img src="/profile-icon.svg" alt="User Icon" className="h-[5vh]" />
-          <p className="font-Gilroy-SemiBold text-white">Tega</p>
+          <p className="font-Gilroy-SemiBold text-white">{session?.firstName || "User"}</p>
         </div>
       </div>
 
@@ -151,7 +155,7 @@ const Navbar = () => {
         <div className="flex items-center md:mr-[0] sm:mr-[1vh] w-64">
           <div className="flex flex-row text-center items-center space-x-[1vh] sm:space-x-[2.5vh] pl-[7vh] whitespace-nowrap">
             <img src="/profile-icon.svg" alt="User Icon" className="h-[5vh]" />
-            <p className="text-gray-700 font-Gilroy-SemiBold">Tega</p>
+            <p className="text-gray-700 font-Gilroy-SemiBold">{session?.firstName || "User"}</p>
           </div>
         </div>
       </div>

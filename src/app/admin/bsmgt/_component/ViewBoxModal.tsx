@@ -70,12 +70,8 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
 
         (async function () {
             try {
-                await UpdateBusStatus(session.token, {
+                await UpdateBusStatus(session.token, { busId: bus.busId }, {
                     operationalStatus: bus.operationalStatus == BUS_OPERATIONAL_STATUS.ACTIVE ? BUS_OPERATIONAL_STATUS.INACTIVE : BUS_OPERATIONAL_STATUS.ACTIVE,
-                    busModel: bus.busModel,
-                    busCapacity: bus.busCapacity,
-                    busColor: bus.busColor,
-                    busNumber: bus.busNumber
                 })
                 setConfirmationModalOpen(false);
                 closeModal();
@@ -166,7 +162,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                     color={"#0282ad"}
                                     loading={true}
                                     cssOverride={override}
-                                    size={50}
+                                    size={20}
                                     aria-label="Loading Spinner"
                                     data-testid="loader"
                                 />
@@ -229,9 +225,9 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
 
                         svg={actionType == 'delete' ? "/DeleteBus.svg" : "/RemoveBus.svg"}
 
-                        nextButtonText={actionType}
+                        nextButtonText={actionType == 'delete' ? "Delete bus" : `${bus.operationalStatus == BUS_OPERATIONAL_STATUS.ACTIVE ? "Deactivate" : "Activate"}`}
 
-                        reverse
+                        reverse={bus.operationalStatus == BUS_OPERATIONAL_STATUS.ACTIVE}
 
                         cancel={() => setConfirmationModalOpen(false)}
                     />
