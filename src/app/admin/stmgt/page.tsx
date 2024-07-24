@@ -63,7 +63,7 @@ export default async function StaffManagement() {
       </GenericTable> */}
 
       <div className="xl:hidden">
-        <StaffTableMobile users={users} />
+        <StaffTableMobile staffData={users} session={session} />
       </div>
       <div className="hidden xl:block">
         <StaffTable staffData={users} session={session} />
