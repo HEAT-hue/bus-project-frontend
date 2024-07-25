@@ -28,6 +28,8 @@ type BusState = {
     capacity: number;
     color: string;
     route: string;
+    driverName: string;
+    driverPhoneNumber: string;
 }
 
 let actionToExecute: () => void = () => { return }
@@ -44,6 +46,8 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
         capacity: 1,
         color: '',
         route: '',
+        driverName: '',
+        driverPhoneNumber: ''
     });
 
     // Set property
@@ -75,7 +79,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
 
         (async function () {
             try {
-                await CreateBus(session.token, { routeName: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE })
+                await CreateBus(session.token, { routeName: bus.route, busNumber: bus.number, busCapacity: bus.capacity, busColor: bus.color, busModel: bus.model, operationalStatus: BUS_OPERATIONAL_STATUS.ACTIVE, driverName: bus.driverName, driverPhoneNumber: bus.driverPhoneNumber })
                 setShowAddModal(false);
                 setConfirmationModalOpen(false);
             }
@@ -142,6 +146,28 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.capacity || ''}
                                         onChange={(e) => setBusProperty('capacity', e.target.value ? parseInt(e.target.value) : 1)}
                                         placeholder="Bus Capacity"
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                </div>
+
+                                {/* Driver name */}
+                                <div className="flex flex-col gap-y-1">
+                                    <label htmlFor="route" className="text-sm">Driver&apos;s name</label>
+                                    <input
+                                        required
+                                        value={bus.driverName || ''}
+                                        onChange={(e) => setBusProperty('driverName', e.target.value)}
+                                        placeholder="Name"
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                </div>
+
+                                {/* Driver's phone number */}
+                                <div className="flex flex-col gap-y-1">
+                                    <label htmlFor="route" className="text-sm">Driver&apos;s number</label>
+                                    <input
+                                        required
+                                        value={bus.driverPhoneNumber || ''}
+                                        onChange={(e) => setBusProperty('driverPhoneNumber', e.target.value)}
+                                        placeholder="Telephone"
                                         type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                                 </div>
 

@@ -126,6 +126,8 @@ export type Bus = {
   routeName: string;
   driverId: number;
   captain: Account;
+  driverName: string,
+  driverPhoneNumber: string
   busStops: BusStop[];
   accounts: Account[];
 } & BaseEntity;

@@ -5,10 +5,12 @@ import { FetchError } from "../../FetchError";
 
 export type CreateBusRequest = {
   "busNumber": string,
-  "operationalStatus": "ACTIVE",
+  "operationalStatus": BUS_OPERATIONAL_STATUS,
   "busModel": string,
   "busCapacity": number,
   "busColor": string
+  "driverName": string,
+  "driverPhoneNumber": string,
   "routeName": string
 };
 
