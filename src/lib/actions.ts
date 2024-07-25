@@ -15,6 +15,7 @@ export type AuthResponse = {
     firstName: string;
     lastName: string;
     username: string;
+    id: number
 };
 
 export async function LoginUser(payload: AuthRequest): Promise<AuthResponse> {

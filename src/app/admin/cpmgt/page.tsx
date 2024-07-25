@@ -14,8 +14,10 @@ export default async function CaptainManagement({ searchParams }: { searchParams
 
     const users = await fetchUsers(session.token, {
         page: searchParams.page || 1,
-        authority: ROLES.CAPTAIN
+        authorities: ROLES.CAPTAIN
     });
+
+    console.log(users);
 
 
     const busResponse = await fetchBus(session.token, {

@@ -7,7 +7,7 @@ export type FetchUserParams = {
   page?: number;
   per_page?: number;
   name?: string
-  authority?: ROLES
+  authorities?: ROLES
   sort_by?: "createdAt"
 };
 

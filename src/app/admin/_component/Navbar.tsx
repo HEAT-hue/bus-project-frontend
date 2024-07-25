@@ -21,16 +21,20 @@ const navigation = [
     icon: "/check-in-management.svg",
   },
   {
+    name: "Bus Management",
+    href: `${NAVIGATION.ADMIN_BSMGT}`,
+    icon: "/bus-management.svg",
+  },
+  {
     name: "Route Management",
     href: `${NAVIGATION.ADMIN_RTMGT}`,
     icon: "/route-management.svg",
   },
   {
-    name: "Bus Management",
-    href: `${NAVIGATION.ADMIN_BSMGT}`,
-    icon: "/bus-management.svg",
+    name: "Report",
+    href: `${NAVIGATION.ADMIN_REPORT}`,
+    icon: "/report.svg"
   },
-  { name: "Report", href: `${NAVIGATION.ADMIN_REPORT}`, icon: "/report.svg" },
   // {
   //   name: "User Management",
   //   href: `${NAVIGATION.ADMIN_USMGT}`,

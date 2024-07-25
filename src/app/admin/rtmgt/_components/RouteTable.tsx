@@ -23,6 +23,9 @@ const RouteTable: React.FC<RouteTableProps> = ({ buses, session }) => {
                         <tr id="header" className="text-[#00567B] pb-20">
                             <th className="">S/N</th>
                             <th className="font-Gilroy-SemiBold">
+                                Route
+                            </th>
+                            <th className="font-Gilroy-SemiBold">
                                 Bus Number
                             </th>
                             <th className="font-Gilroy-SemiBold">
@@ -30,9 +33,6 @@ const RouteTable: React.FC<RouteTableProps> = ({ buses, session }) => {
                             </th>
                             <th className="font-Gilroy-SemiBold">
                                 Capacity
-                            </th>
-                            <th className="font-Gilroy-SemiBold">
-                                Route
                             </th>
                             <th className="font-Gilroy-SemiBold">
                                 Status
@@ -55,6 +55,11 @@ const RouteTable: React.FC<RouteTableProps> = ({ buses, session }) => {
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
+                                        <strong>{bus.routeName}</strong>
+                                    </td>
+                                    <td
+                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
+                                    >
                                         {bus.busNumber}
                                     </td>
                                     <td
@@ -66,11 +71,6 @@ const RouteTable: React.FC<RouteTableProps> = ({ buses, session }) => {
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
                                         {bus.busCapacity}
-                                    </td>
-                                    <td
-                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
-                                    >
-                                        {bus.routeName}
                                     </td>
                                     <td className=" flex justify-center items-center font-Gilroy-SemiBold whitespace-nowrap ">
                                         <span

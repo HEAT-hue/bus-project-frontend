@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import {
+  Account,
   BASE_URL,
   BOOKING_TYPE,
   Bus,
@@ -32,6 +33,8 @@ export type BookBusResponse = {
   status: BOOKING_TYPE,
   route: "string",
   board: string
+  user: Account
+  id: number
 }
 
 // Function to fech a bus
