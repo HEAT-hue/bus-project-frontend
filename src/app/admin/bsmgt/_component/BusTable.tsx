@@ -26,14 +26,20 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                 Bus Number
                             </th>
                             <th className="font-Gilroy-SemiBold">
+                                Driver
+                            </th>
+                            <th className="font-Gilroy-SemiBold">
+                                Phone number
+                            </th>
+                            <th className="font-Gilroy-SemiBold">
                                 Model
                             </th>
                             <th className="font-Gilroy-SemiBold">
                                 Capacity
                             </th>
-                            <th className="font-Gilroy-SemiBold">
+                            {/* <th className="font-Gilroy-SemiBold">
                                 Color
-                            </th>
+                            </th> */}
                             <th className="font-Gilroy-SemiBold">
                                 Route
                             </th>
@@ -46,7 +52,7 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                         </tr>
                     </thead>
                     <tbody className="">
-                        {buses.map((bus, index) => {
+                        {buses.map((bus: Bus, index) => {
                             return (
                                 <tr
                                     id="staff"
@@ -63,6 +69,16 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
+                                        {bus.driverName}
+                                    </td>
+                                    <td
+                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
+                                    >
+                                        {bus.driverPhoneNumber}
+                                    </td>
+                                    <td
+                                        className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
+                                    >
                                         {bus.busModel}
                                     </td>
                                     <td
@@ -70,11 +86,11 @@ export const BusTable: React.FC<BusTableProp> = ({ buses, session }) => {
                                     >
                                         {bus.busCapacity}
                                     </td>
-                                    <td
+                                    {/* <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >
                                         {bus.busColor}
-                                    </td>
+                                    </td> */}
                                     <td
                                         className={`px-6 py-4 border-none whitespace-nowrap font-Gilroy-Regular`}
                                     >

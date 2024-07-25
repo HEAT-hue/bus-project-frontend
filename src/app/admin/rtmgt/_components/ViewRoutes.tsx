@@ -124,7 +124,6 @@ const ViewRoutes: React.FC<ViewRoutes> = ({ bus: initialBus, session }) => {
                                     ) : (
                                         <span onClick={() => {
                                             handleDelete(busStop.busStopId);
-                                            alert("Delete abeg naa");
                                         }} className="text-error cursor-pointer"><DeleteSVG /></span>
                                     )}
 

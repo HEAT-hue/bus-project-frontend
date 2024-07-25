@@ -36,7 +36,7 @@ export type BookBusResponse = {
 
 // Function to fech a bus
 export async function fetchBus(
-token: string,
+  token: string,
   requestParams: FetchBusParams
 ): Promise<PagedResponse<Bus>> {
   const apiUrl = new URL(`${BASE_URL}/bus/list`);
@@ -103,15 +103,12 @@ export async function bookBus(
 ): Promise<BookBusResponse> {
   const apiUrl = new URL(`${BASE_URL}/booking/bookseat`);
 
-    // Append query parameters
-    Object.entries(requestParams).forEach(([key, value]) => {
-      if (value !== undefined) {
-        apiUrl.searchParams.append(key, value.toString());
-      }
-    });
-
-  console.log(apiUrl)
-  console.log(requestParams);
+  // Append query parameters
+  Object.entries(requestParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      apiUrl.searchParams.append(key, value.toString());
+    }
+  });
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -125,8 +122,6 @@ export async function bookBus(
       headers: headers,
     });
 
-    console.log(response)
-
     if (!response.ok) {
       throw new FetchError(
         response.status,
@@ -138,8 +133,6 @@ export async function bookBus(
     // return await response.json();
 
     const busResponse = await response.json()
-
-    console.log(busResponse)
 
     return busResponse
   } catch (error) {

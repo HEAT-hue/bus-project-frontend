@@ -37,14 +37,14 @@ export default async function RouteManagement() {
   // ];
   return (
     <div className="px-4 lg:px-inlinePage">
-      <h1 className="text-[32px] max-sm:text-[25px] font-Gilroy-SemiBold text-[#023448] mt-2">
+      <h1 className="text-[32px] max-sm:text-[25px] font-Gilroy-SemiBold text-[#023448] my-2">
         Route Management
       </h1>
 
 
-      <div className="flex flex-col gap-y-3 my-3 items-end">
+      {/* <div className="flex flex-col gap-y-3 my-3 items-end">
         <DateSelector placeholder="Search Bus..." />
-      </div>
+      </div> */}
 
 
       <div className="flex flex-col">

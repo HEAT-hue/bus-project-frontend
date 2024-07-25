@@ -90,7 +90,6 @@ export async function DeleteBusStop(token: string, payload: DeleteBusStopRequest
         });
 
         if (!response.ok) {
-            console.error("Response not OK:", response.status, response.statusText);
             if (response.status === 400) {
                 throw new FetchError(response.status, response.statusText);
             }

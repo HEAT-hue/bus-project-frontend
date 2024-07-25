@@ -5,19 +5,25 @@ import { FetchError } from "../../FetchError";
 
 export type CreateBusRequest = {
   "busNumber": string,
-  "operationalStatus": "ACTIVE",
+  "operationalStatus": BUS_OPERATIONAL_STATUS,
   "busModel": string,
   "busCapacity": number,
   "busColor": string
+  "driverName": string,
+  "driverPhoneNumber": string,
   "routeName": string
 };
 
-export type UpdateBusRequest = {
+export type UpdateBusPayloadRequest = {
   "busNumber"?: string,
   operationalStatus?: BUS_OPERATIONAL_STATUS,
   "busModel"?: string,
   "busCapacity"?: number,
   "busColor"?: string
+}
+
+export type UpdateBusParamsRequest = {
+  "busId": number
 }
 
 export type CreateBusResponse = {
@@ -40,7 +46,6 @@ export async function CreateBus(token: string, payload: CreateBusRequest): Promi
     'Content-Type': 'application/json',
     ...(token && { 'Authorization': `Bearer ${token}` })
   };
-
 
   try {
     const response = await fetch(apiUrl, {
@@ -125,17 +130,12 @@ export async function deleteBus(token: string, requestParams: DeleteBusRequest):
   }
 }
 
-export async function UpdateBusStatus(token: string, params: UpdateBusRequest): Promise<CreateBusResponse> {
+export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequest, payload: UpdateBusPayloadRequest): Promise<CreateBusResponse> {
 
   // Verify credentials && get the user
   const apiUrl = new URL(`${BASE_URL}/bus/update`);
 
-  // Append query parameters
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== undefined) {
-      apiUrl.searchParams.append(key, value.toString());
-    }
-  });
+  apiUrl.searchParams.append("busId", `${params.busId}`);
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
@@ -148,6 +148,7 @@ export async function UpdateBusStatus(token: string, params: UpdateBusRequest): 
     const response = await fetch(apiUrl, {
       method: 'PATCH',
       headers: headers,
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) {

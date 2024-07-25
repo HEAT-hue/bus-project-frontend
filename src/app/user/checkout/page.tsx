@@ -2,17 +2,34 @@ import { BookBusResponse } from "@/lib/user/action";
 import BookingDetail from "./_component/BookingDetail"
 import { decryptData } from "@/lib/utils/cyptoUtils";
 import { redirect } from "next/navigation";
+import { BOOKING_TYPE } from "@/lib/definitions";
+import Image from "next/image";
 
 /* eslint-disable @next/next/no-img-element */
 const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string } }) => {
 
     let bookRecord;
-    
+
     try {
         bookRecord = decryptData(searchParams?.bk || "") as BookBusResponse;
-        console.log(bookRecord)
     } catch (error: any) {
         redirect("/user")
+    }
+
+    if (bookRecord.status != BOOKING_TYPE.WAITLIST) {
+        return (
+            <>
+                <div className="w-full h-full items-center justify-center mt-[5vh] flex-col flex ">
+                    <span className="text-yellow-300 font-Gilroy-ExtraBold text-[40px] max-sm:text-[30px]">
+                        Oops... The bus is filled up
+                    </span>
+                    <p className="font-Inter-Regular text-[20px] text-gray-500 max-sm:text-[15px]">
+                        You have been placed in the waiting list
+                    </p>
+                    <Image src={"/waiting.jpg"} alt="waitingalert" width={400} height={400} className="mt-[2vh]" />
+                </div>
+            </>
+        )
     }
 
     return (
