@@ -1,10 +1,3 @@
-import Image from "next/image";
-import DateSelector from "../_component/dateselector";
-import SlidingBar from "../_component/slidingbar";
-import Add from "../../../../public/add.png";
-import GenericTable, { Data } from "../_components/generic-table";
-import SmallTable from "../_components/small-staff";
-import SmallRoute from "../_components/small-route";
 import { Bus, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import { fetchBus } from "@/lib/user/action";
@@ -70,22 +63,6 @@ export default async function RouteManagement() {
       <div className="lg:hidden">
         <RouteTableMV buses={buses} session={session} />
       </div>
-
-      {/* <DateSelector /> */}
-      {/* <GenericTable
-        data={Routedata}
-        tableHeaders={[
-          "routeID",
-          "route",
-          "driver",
-          "Phone Number",
-          "captain",
-          "Phone Number",
-          "status",
-        ]}
-      > */}
-      <SmallRoute />
-      {/* </GenericTable>{" "} */}
     </div>
   );
 }

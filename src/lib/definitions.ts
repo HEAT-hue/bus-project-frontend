@@ -65,7 +65,8 @@ export enum ROLES {
   ADMIN = "ADMIN",
   CAPTAIN = "CAPTAIN",
   DRIVER = "DRIVER",
-  EBS = 'EBS'
+  EBS = 'EBS',
+  SUPER_USER =  "SUPER_USER"
 }
 
 export type BaseEntity = {

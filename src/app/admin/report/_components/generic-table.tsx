@@ -4,7 +4,7 @@ import TypedInputNumber from "antd/es/input-number";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReactNode, useEffect, useState } from "react";
-import Tags from "./table-tags";
+// import Tags from "./table-tags";
 import { capitalizeFirstLetter } from "@/lib/utils/utils";
 type Status = "Pending" | "Active" | "Inactive";
 
@@ -68,7 +68,7 @@ export default function GenericTable({ data, isAction = true, tableHeaders, chil
                       </td>
                     ) : (
                       <td className=" flex justify-center items-center font-Gilroy-SemiBold whitespace-nowrap ">
-                        <Tags statusName={item[header]} />
+                        {/* <Tags statusName={item[header]} /> */}
                       </td>
                     );
                   })}
