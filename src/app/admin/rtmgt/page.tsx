@@ -1,6 +1,6 @@
 import Image from "next/image";
-import DateSelector from "../_components/dateselector";
-import SlidingBar from "../_components/slidingbar";
+import DateSelector from "../_component/dateselector";
+import SlidingBar from "../_component/slidingbar";
 import Add from "../../../../public/add.png";
 import GenericTable, { Data } from "../_components/generic-table";
 import SmallTable from "../_components/small-staff";

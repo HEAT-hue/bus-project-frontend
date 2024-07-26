@@ -65,6 +65,7 @@ export enum ROLES {
   ADMIN = "ADMIN",
   CAPTAIN = "CAPTAIN",
   DRIVER = "DRIVER",
+  EBS = 'EBS'
 }
 
 export type BaseEntity = {
@@ -137,3 +138,12 @@ export type BusStop = {
   busStopId: string;
   busStopName: string;
 } & BaseEntity;
+
+export type Report = {
+  fullname: string,
+  email: string
+  activity: string,
+  department: string
+  date: Date
+  createdAt: Date
+}
