@@ -146,5 +146,4 @@ export type Report = {
   activity: string,
   department: string
   date: Date
-  createdAt: Date
 }

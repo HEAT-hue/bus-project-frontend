@@ -16,7 +16,7 @@ type NavigationLink = {
 }
 
 const navigationLinks: NavigationLink[] = [
-  { name: "Dashboard", href: `${NAVIGATION.ADMIN}`, icon: "/dashboard.svg", tags: [ROLES.EBS, ROLES.ADMIN, ROLES.SUPER_USER] },
+  { name: "Dashboard", href: `${NAVIGATION.ADMIN}`, icon: "/dashboard.svg", tags: [ROLES.EBS, ROLES.ADMIN, ROLES.SUPER_USER]},
   {
     name: "Staff Management",
     href: `${NAVIGATION.ADMIN_STMGT}`,

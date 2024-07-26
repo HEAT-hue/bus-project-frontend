@@ -238,8 +238,8 @@ export default function ViewStaffModal({
         </form>
       </div>
 
-             {/* Toast messages */}
-             <Toaster />
+      {/* Toast messages */}
+      <Toaster />
     </div>
   );
 }
