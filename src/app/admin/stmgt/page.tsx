@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Export from "../../../../public/export.png";
-
 import { getSession } from "@/lib/session";
-import SlidingBar from "../_components/slidingbar";
-
+import SlidingBar from "../_component/slidingbar";
 import { FetchUserParams, fetchUsers } from "@/lib/admin/staff/action";
 import { redirect } from "next/navigation";
 import StaffTable from "./_component/StaffTable";
 import StaffTableMobile from "./_component/StaffTableMobile";
+import SearchStaff from "./_component/SearchStaff";
 
 export default async function StaffManagement({ searchParams }: { searchParams: FetchUserParams }) {
   const session = await getSession();
@@ -18,12 +17,12 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
 
   const users = await fetchUsers(session.token, {
     page: searchParams.page || 1,
-    per_page: 10
+    per_page: 10,
+    name: searchParams.name
   });
 
-
   return (
-    <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-9 max-sm:gap-4">
+    <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-5 max-sm:gap-4">
       <h1 className="text-[32px] max-sm:text-[25px] text-[#023448]">
         Staff Management
       </h1>
@@ -41,6 +40,12 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
         </div>
 
         <div className="flex flex-row items-center"></div>
+      </div>
+
+
+      {/* Search staff */}
+      <div className="mb-5">
+        <SearchStaff placeholder="Search Staff..." />
       </div>
 
       <div className="xl:hidden">

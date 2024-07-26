@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "./lib/session";
 import { cookies } from "next/headers";
-import { NAVIGATION, ROLES, Session } from "./lib/definitions";
+import { Bus, NAVIGATION, ROLES, Session } from "./lib/definitions";
+import { fetchBus } from "./lib/user/action";
 
 export default async function middleware(req: NextRequest) {
   // Get path
@@ -62,6 +63,21 @@ export default async function middleware(req: NextRequest) {
     (!session || session?.authorities != ROLES.USER)
   ) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
+  // Check if user role is captain accessing captain route and has been assigned to a bus.
+  if (isCaptainProtectedRoute && session?.authorities === ROLES.CAPTAIN) {
+    try {
+      const buses = (await fetchBus(session.token, {})).content;
+      const busAssignedToCaptain = buses.find((bus: Bus) => bus.captain?.id == session.id);
+
+      // If not assigned to a bus, redirect to user page to login
+      if (!busAssignedToCaptain) {
+        return NextResponse.redirect(new URL(NAVIGATION.USER, req.nextUrl));
+      }
+    } catch (error) {
+      return NextResponse.redirect(new URL("/login", req.nextUrl));
+    }
   }
 
   // Successful authentication, continue on path

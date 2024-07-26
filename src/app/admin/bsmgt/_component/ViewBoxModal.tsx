@@ -27,9 +27,11 @@ const override: CSSProperties = {
 type BusState = {
     number: string;
     model: string;
-    capacity: number;
+    capacity: string;
     color: string;
     route: string;
+    driverName: string,
+    driverPhoneNumber: string
 }
 
 type ActionType = 'delete' | 'deactivate'
@@ -41,6 +43,22 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
     const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
     const [actionType, setActionType] = useState<ActionType | null>(null);
+    const [busState, updateBusState] = useImmer<BusState>({
+        number: bus.busNumber,
+        model: bus.busModel,
+        capacity: `${bus.busCapacity}`,
+        color: bus.busColor,
+        route: bus.routeName,
+        driverName: bus.driverName,
+        driverPhoneNumber: bus.driverPhoneNumber,
+    });
+
+
+    const updateBusRecord = (field: keyof BusState, value: string | number) => {
+        updateBusState((draft: any) => {
+            draft[field] = value;
+        });
+    };
 
     function handleDeleteBus() {
         // Set button pending state
@@ -88,6 +106,38 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
         })();
     }
 
+    function handleUpdateBus() {
+        // Set button pending state
+        setLoading(true);
+
+        (async function () {
+            try {
+                await UpdateBusStatus(session.token, { busId: bus.busId }, {
+                    busNumber: busState.number,
+                    busCapacity: `${busState.capacity}`,
+                    busModel: busState.model,
+                    busColor: busState.color,
+                    routeName: busState.route,
+                    driverName: busState.driverName,
+                    driverPhoneNumber: busState.driverPhoneNumber
+                })
+                setConfirmationModalOpen(false);
+                closeModal();
+            }
+            catch (error) {
+                // Clear pending state
+                if (error instanceof FetchError) {
+                    setErrorMessage(error.message);
+                }
+            } finally {
+                setLoading(false);
+            }
+
+        })();
+    }
+
+
+
     return (
         <div>
             <div className="p-7 w-[90vw] max-w-[650px]">
@@ -102,9 +152,9 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                         <div className="flex flex-col gap-y-1">
                             <label htmlFor="route" className="text-sm">Bus number</label>
                             <input
-                                value={bus.busNumber}
-                                disabled
+                                value={busState.number}
                                 placeholder="Bus Number"
+                                onChange={e => updateBusRecord('number', e.target.value)}
                                 type="text" required name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
                             />
                         </div>
@@ -114,9 +164,9 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                             <label htmlFor="route" className="text-sm">Model</label>
                             <input
                                 required
-                                value={bus.busModel}
-                                disabled
+                                value={busState.model}
                                 placeholder="Bus Model"
+                                onChange={e => updateBusRecord('model', e.target.value)}
                                 type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
                             />
                         </div>
@@ -126,8 +176,8 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                             <label htmlFor="route" className="text-sm">Capacity</label>
                             <input
                                 required
-                                value={bus.busCapacity}
-                                disabled
+                                value={busState.capacity}
+                                onChange={e => updateBusRecord('capacity', Number(e.target.value))}
                                 placeholder="Bus Capacity"
                                 type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
@@ -137,8 +187,8 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                             <label htmlFor="route" className="text-sm">Color</label>
                             <input
                                 required
-                                value={bus.busColor}
-                                disabled
+                                value={busState.color}
+                                onChange={e => updateBusRecord('color', e.target.value)}
                                 placeholder="Bus Color"
                                 type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
@@ -148,9 +198,31 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                             <label htmlFor="route" className="text-sm">Route</label>
                             <input
                                 required
-                                value={bus.routeName}
-                                disabled
+                                value={busState.route}
+                                onChange={e => updateBusRecord('route', e.target.value)}
                                 placeholder="Bus Route"
+                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                        </div>
+
+                        {/* Driver name */}
+                        <div className="flex flex-col gap-y-1">
+                            <label htmlFor="route" className="text-sm">Driver&apos;s name</label>
+                            <input
+                                required
+                                value={busState.driverName}
+                                onChange={e => updateBusRecord('driverName', e.target.value)}
+                                placeholder="Name"
+                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                        </div>
+
+                        {/* Driver's phone number */}
+                        <div className="flex flex-col gap-y-1">
+                            <label htmlFor="route" className="text-sm">Driver&apos;s number</label>
+                            <input
+                                required
+                                value={busState.driverPhoneNumber}
+                                onChange={e => updateBusRecord('driverPhoneNumber', e.target.value)}
+                                placeholder="Telephone"
                                 type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
                     </div>
@@ -198,11 +270,11 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                         <button
                                             type="button"
                                             onClick={() => {
-                                                closeModal()
+                                                handleUpdateBus()
                                             }}
                                             className={classNames({
                                                 'rounded px-[3rem] py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5 cursor-pointer': true
-                                            })}>Cancel
+                                            })}>Update
                                         </button>
                                     </div>
                                 </div>
@@ -232,8 +304,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                         cancel={() => setConfirmationModalOpen(false)}
                     />
                 </Modal>
-            )
-            }
+            )}
         </div>
     )
 }

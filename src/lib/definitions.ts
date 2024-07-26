@@ -41,6 +41,7 @@ export enum NAVIGATION {
 
   /*************************** Captain Routes ********************************************/
   CAPTAIN = "/captain",
+  CAPTAIN_CHECKOUT = "/captain/checkout",
 
   /*************************** Login Routes ********************************************/
   LOGIN = "/login",
@@ -64,6 +65,8 @@ export enum ROLES {
   ADMIN = "ADMIN",
   CAPTAIN = "CAPTAIN",
   DRIVER = "DRIVER",
+  EBS = 'EBS',
+  SUPER_USER =  "SUPER_USER"
 }
 
 export type BaseEntity = {
@@ -136,3 +139,12 @@ export type BusStop = {
   busStopId: string;
   busStopName: string;
 } & BaseEntity;
+
+export type Report = {
+  fullname: string,
+  email: string
+  activity: string,
+  department: string
+  date: Date
+  createdAt: Date
+}

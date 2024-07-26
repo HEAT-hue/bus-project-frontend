@@ -4,33 +4,49 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { NAVIGATION, Session } from "@/lib/definitions";
+import { NAVIGATION, ROLES, Session } from "@/lib/definitions";
 import { LogoutUser } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
-const navigation = [
-  { name: "Dashboard", href: `${NAVIGATION.ADMIN}`, icon: "/dashboard.svg" },
+type NavigationLink = {
+  name: string,
+  href: string,
+  icon: string
+  tags: ROLES[]
+}
+
+const navigationLinks: NavigationLink[] = [
+  { name: "Dashboard", href: `${NAVIGATION.ADMIN}`, icon: "/dashboard.svg", tags: [ROLES.EBS, ROLES.ADMIN, ROLES.SUPER_USER] },
   {
     name: "Staff Management",
     href: `${NAVIGATION.ADMIN_STMGT}`,
     icon: "/staff-management.svg",
+    tags: [ROLES.ADMIN, ROLES.SUPER_USER]
   },
   {
     name: "Captain Management",
     href: `${NAVIGATION.ADMIN_CPMGT}`,
     icon: "/check-in-management.svg",
-  },
-  {
-    name: "Route Management",
-    href: `${NAVIGATION.ADMIN_RTMGT}`,
-    icon: "/route-management.svg",
+    tags: [ROLES.EBS, ROLES.SUPER_USER]
   },
   {
     name: "Bus Management",
     href: `${NAVIGATION.ADMIN_BSMGT}`,
     icon: "/bus-management.svg",
+    tags: [ROLES.EBS, ROLES.SUPER_USER]
   },
-  { name: "Report", href: `${NAVIGATION.ADMIN_REPORT}`, icon: "/report.svg" },
+  {
+    name: "Route Management",
+    href: `${NAVIGATION.ADMIN_RTMGT}`,
+    icon: "/route-management.svg",
+    tags: [ROLES.EBS, ROLES.SUPER_USER]
+  },
+  {
+    name: "Report",
+    href: `${NAVIGATION.ADMIN_REPORT}`,
+    icon: "/report.svg",
+    tags: [ROLES.ADMIN, ROLES.SUPER_USER]
+  },
   // {
   //   name: "User Management",
   //   href: `${NAVIGATION.ADMIN_USMGT}`,
@@ -46,12 +62,20 @@ const Navbar: React.FC<NavBarProps> = ({ session }) => {
 
   const pathname = usePathname();
 
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-  const router = useRouter();
+
+  let navigations = navigationLinks.filter((nav: NavigationLink) => {
+    if (session) {
+      return nav.tags.includes(session?.authorities)
+    }
+    return false
+  })
 
   return (
     <>
@@ -73,7 +97,7 @@ const Navbar: React.FC<NavBarProps> = ({ session }) => {
               {/* Navigation links */}
               <nav className="font-Gilroy-Regular">
                 <ul className="space-y-5" onClick={toggleSidebar}>
-                  {navigation.map((item) => (
+                  {navigations.map((item) => (
                     <li key={item.name} className="flex items-center space-x-4">
                       <Link
                         href={item.href}

@@ -1,10 +1,3 @@
-import Image from "next/image";
-import DateSelector from "../_components/dateselector";
-import SlidingBar from "../_components/slidingbar";
-import Add from "../../../../public/add.png";
-import GenericTable, { Data } from "../_components/generic-table";
-import SmallTable from "../_components/small-staff";
-import SmallRoute from "../_components/small-route";
 import { Bus, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import { fetchBus } from "@/lib/user/action";
@@ -38,7 +31,7 @@ export default async function RouteManagement() {
   return (
     <div className="px-4 lg:px-inlinePage">
       <h1 className="text-[32px] max-sm:text-[25px] font-Gilroy-SemiBold text-[#023448] my-2">
-        Route Management
+        Pick ups Management
       </h1>
 
 
@@ -49,7 +42,7 @@ export default async function RouteManagement() {
 
       <div className="flex flex-col">
         <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
-          <SlidingBar sections={["Route List"]}>
+          {/* <SlidingBar sections={["Route List"]}>
             <div
               id="largegenerictable"
               className="flex w-[164px] font-Gilroy-SemiBold gap-1 rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[20px] text-white bg-[#005A86] justify-center items-center"
@@ -57,7 +50,7 @@ export default async function RouteManagement() {
               <span> Add Route </span>
               <Image src={Add} className="w-6 h-6" alt="add" />
             </div>
-          </SlidingBar>
+          </SlidingBar> */}
         </div>
 
         {/* <div className="flex flex-row items-center"></div> */}
@@ -70,22 +63,6 @@ export default async function RouteManagement() {
       <div className="lg:hidden">
         <RouteTableMV buses={buses} session={session} />
       </div>
-
-      {/* <DateSelector /> */}
-      {/* <GenericTable
-        data={Routedata}
-        tableHeaders={[
-          "routeID",
-          "route",
-          "driver",
-          "Phone Number",
-          "captain",
-          "Phone Number",
-          "status",
-        ]}
-      > */}
-      <SmallRoute />
-      {/* </GenericTable>{" "} */}
     </div>
   );
 }

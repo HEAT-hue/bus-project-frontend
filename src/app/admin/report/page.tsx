@@ -1,9 +1,9 @@
 import Image from "next/image";
-import SlidingBar from "../_components/slidingbar";
-import DateSelector from "../_components/dateselector";
-import GenericTable from "../_components/generic-table";
+import SlidingBar from "../_component/slidingbar";
+import DateSelector from "../_component/dateselector";
+import GenericTable from "./_components/generic-table";
 import Export from "../../../../public/export.png";
-import SmallReport from "../_components/small-report";
+import SmallReport from "./_components/small-report";
 
 type MyData = {
   params: {};

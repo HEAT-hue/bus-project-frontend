@@ -1,6 +1,6 @@
 import { Bus, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
-import DateSelector from "../_components/dateselector";
+import DateSelector from "../_component/dateselector";
 import AddBusModal from "./_component/AddBusModal";
 import BusTable from "./_component/BusTable";
 import BusTableMV from "./_component/BusTableMV";

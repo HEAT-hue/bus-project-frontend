@@ -12,6 +12,10 @@ export type FetchBookingsParams = {
     busId: number
 }
 
+export type UpdateBookingsParams = {
+    bookingId: number
+}
+
 
 // Function to fech a bus
 export async function fetchBookings(token: string, requestParams: FetchBookingsParams): Promise<BookBusResponse[]> {
@@ -56,6 +60,47 @@ export async function fetchBookings(token: string, requestParams: FetchBookingsP
         return Promise.reject({
             status: 500,
             message: "Internal Server Error",
+        });
+    }
+}
+
+export async function updateBookings(token: string, params: UpdateBookingsParams): Promise<Response> {
+
+    // Verify credentials && get the user
+    const apiUrl = new URL(`${BASE_URL}/booking/${params.bookingId}/update`);
+
+    // Construct the headers, including the Authorization header if the token is provided
+    const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: headers
+        });
+
+        if (!response.ok) {
+            if (response.status == 400) {
+                throw new FetchError(response.status, `Incorrect credentials`);
+            }
+            throw new FetchError(response.status, `Failed to Login user: ${response.statusText}`);
+        }
+
+        return response;
+    } catch (error) {
+
+        // Custom error handling logic
+        if (error instanceof FetchError) {
+            return Promise.reject({
+                status: error.status,
+                message: error.message,
+            });
+        }
+        return Promise.reject({
+            status: 500,
+            message: 'Internal Server Error',
         });
     }
 }

@@ -1,16 +1,10 @@
 "use client";
-import { Table } from "antd";
-import TypedInputNumber from "antd/es/input-number";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { ReactNode, useEffect, useState } from "react";
-import Tags from "../../_components/table-tags";
-import { capitalizeFirstLetter } from "@/lib/utils/utils";
+import { Modal } from "@/components/ModalWrapper";
 import { Account, ACCOUNT_STATUS, Session } from "@/lib/definitions";
 import classNames from "classnames";
-import { Modal } from "@/components/ModalWrapper";
+import { useState } from "react";
 import ViewStaffModal from "./ViewStaffModal";
-type Status = "Pending" | "Active" | "Inactive";
 
 export type StaffTableProps = {
   staffData: Account[];

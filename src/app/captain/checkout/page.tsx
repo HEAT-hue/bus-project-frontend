@@ -1,12 +1,10 @@
-import { fetchBookings } from "@/lib/captain/action"
 import { Bus, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { fetchBus } from "@/lib/user/action";
-import ViewBookings from "./_components/ViewBookings";
 
-export default async function CaptainPage() {
+export default async function CaptainCheckoutPage() {
 
     const session: Session = await getSession();
 
@@ -23,19 +21,6 @@ export default async function CaptainPage() {
     if (!busAssignedToCaptain) {
         redirect("/user");
     }
-
-    let currentBookings;
-
-    try {
-        currentBookings = await fetchBookings(session.token, { busId: busAssignedToCaptain?.busId });
-    } catch (error) {
-        return (
-            <>
-                <p>An error has occurred!</p>
-            </>
-        )
-    }
-
 
     return (
         <div className="px-4 lg:px-inlinePage">
@@ -71,8 +56,12 @@ export default async function CaptainPage() {
                 </div>
             </div>
 
-            {/* Verify Booking Section */}
-            <ViewBookings session={session} bookings={currentBookings} />
+            <div className="my-[4vh]">
+                <div className="flex flex-col gap-y-4 text-center">
+                    <h1 className="text-3xl text-ecobankBlue">All Staff members have boarded the bus!</h1>
+                    <p>Thank you!</p>
+                </div>
+            </div>
         </div>
     )
 }

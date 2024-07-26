@@ -18,8 +18,11 @@ export type UpdateBusPayloadRequest = {
   "busNumber"?: string,
   operationalStatus?: BUS_OPERATIONAL_STATUS,
   "busModel"?: string,
-  "busCapacity"?: number,
+  "busCapacity"?: string,
   "busColor"?: string
+  driverName?: string,
+  driverPhoneNumber?: string
+  "routeName"?: string
 }
 
 export type UpdateBusParamsRequest = {
@@ -137,6 +140,10 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
 
   apiUrl.searchParams.append("busId", `${params.busId}`);
 
+  console.log(apiUrl);
+
+  console.log(payload)
+
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
@@ -151,14 +158,19 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
       body: JSON.stringify(payload)
     });
 
+    console.log(response);
+    console.log(response.statusText)
+
     if (!response.ok) {
       if (response.status == 400) {
         throw new FetchError(response.status, `Incorrect credentials`);
       }
-      throw new FetchError(response.status, `Failed to Login user: ${response.statusText}`);
+      throw new FetchError(response.status, `Failed to update bus details: ${response.statusText}`);
     }
 
     const result = await response.json() as CreateBusResponse;
+
+    console.log(result);
 
     revalidatePath(NAVIGATION.ADMIN_BSMGT);
     revalidatePath(NAVIGATION.USER);
