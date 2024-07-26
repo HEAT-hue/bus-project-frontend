@@ -20,6 +20,8 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
     name: searchParams.name
   });
 
+  console.log(users);
+
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[10px] gap-5 max-sm:gap-4">
       <h1 className="text-[32px] max-sm:text-[25px] text-[#023448]">

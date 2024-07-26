@@ -1,12 +1,9 @@
+import ExportData from "@/components/Export";
 import { fetchReports } from "@/lib/admin/report/action";
 import { Report, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
-import Image from "next/image";
 import { redirect } from "next/navigation";
-import SlidingBar from "../_component/slidingbar";
 import ReportTable from "./_components/ReportTable";
-import Export from "@/components/Export";
-import ExportData from "@/components/Export";
 
 export default async function ReportPage() {
 
@@ -30,18 +27,13 @@ export default async function ReportPage() {
         <ExportData data={reports} />
       </div>
 
-      <div className="flex flex-col">
-        <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
-
-
-          {/* <SlidingBar sections={["Activity Log"]}>
-
-          </SlidingBar> */}
-        </div>
-
-        <div className="flex flex-row items-center"></div>
+      {/* Reports table desktop view */}
+      <div className="hidden lg:block">
+        <ReportTable reports={reports} />
       </div>
-      <div>
+
+      {/* Reports table mobile view */}
+      <div className="lg:hidden">
         <ReportTable reports={reports} />
       </div>
     </div>
