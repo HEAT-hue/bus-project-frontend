@@ -37,7 +37,7 @@ const ExportData: React.FC<ExportProp> = ({ data }) => {
     };
     return (
         <div
-            className="flex rounded hover:scale-105 font-Gilroy-SemiBold duration-300 flex-row gap-3 py-2 px-[20px] text-xs text-white bg-[#005A86] justify-between items-center cursor-pointer"
+            className="flex rounded hover:scale-105 font-Gilroy-SemiBold duration-300 flex-row gap-3 py-2 px-[20px] text-xs sm:text-base text-white bg-[#005A86] justify-between items-center cursor-pointer"
             onClick={downloadCSV}
         >
             <span> Export </span>

@@ -1,6 +1,6 @@
 "use client";
 import { updateStaffRole, updateStaffStatus } from "@/lib/admin/staff/action";
-import { Account, ROLES, Session } from "@/lib/definitions";
+import { Account, ACCOUNT_STATUS, ROLES, Session } from "@/lib/definitions";
 import { FetchError } from "@/lib/FetchError";
 import classNames from "classnames";
 import { CSSProperties, useState } from "react";
@@ -46,7 +46,7 @@ export default function ViewStaffModal({
     },
   ];
 
-  function handleStaffUpdate(verified: boolean) {
+  function handleStaffUpdate(verified: ACCOUNT_STATUS) {
     // Set button pending state
     setLoading(true);
 
@@ -212,7 +212,7 @@ export default function ViewStaffModal({
                   <>
                     <button
                       type="button"
-                      onClick={() => handleStaffUpdate(false)}
+                      onClick={() => handleStaffUpdate(ACCOUNT_STATUS.REJECTED)}
                       className={classNames({
                         "rounded md:px-28 py-3 text-sm text-red-500 border border-red-500 focus:outline-none mt-5 cursor-pointer":
                           true,
@@ -222,7 +222,7 @@ export default function ViewStaffModal({
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleStaffUpdate(true)}
+                      onClick={() => handleStaffUpdate(ACCOUNT_STATUS.APPROVED)}
                       className={classNames({
                         "rounded md:px-28  py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5 cursor-pointer":
                           true,

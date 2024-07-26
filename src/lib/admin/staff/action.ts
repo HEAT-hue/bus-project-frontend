@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { Account, BASE_URL, NAVIGATION, ROLES } from "../../definitions";
+import { Account, ACCOUNT_STATUS, BASE_URL, NAVIGATION, ROLES } from "../../definitions";
 import { FetchError } from "../../FetchError";
 
 export type FetchUserParams = {
@@ -32,6 +32,8 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
       method: "GET",
       headers: headers,
     });
+
+    console.log(response);
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -67,7 +69,7 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
 
 type UpdateStaffStatusRequest = {
   userId: number;
-  verified: boolean;
+  verified: ACCOUNT_STATUS;
 };
 
 type UpdateStaffStatusResponse = {
@@ -77,7 +79,7 @@ type UpdateStaffStatusResponse = {
   createdAt: Date;
   level: string;
   telephone: string;
-  verfified: string;
+  verfified: ACCOUNT_STATUS;
 };
 
 export async function updateStaffStatus(
@@ -93,7 +95,11 @@ export async function updateStaffStatus(
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
+  console.log(apiUrl);
+
   const body = JSON.stringify({ verified: `${params.verified}` });
+
+  console.log(body);
 
   try {
     const response = await fetch(apiUrl.toString(), {
