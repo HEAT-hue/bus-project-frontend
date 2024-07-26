@@ -90,7 +90,7 @@ export default function ViewStaffModal({
 
   return (
     <div>
-      <div className=" p-5 md:p-7">
+      <div className=" p-5 md:p-7 max-h-[90vh] overflow-y-auto">
         <h1 className="text-ecobankBlue text-xl font-Gilroy-Medium text-center ">
           View
         </h1>
@@ -131,14 +131,6 @@ export default function ViewStaffModal({
               <label htmlFor="affiliate" className="text-sm">
                 Authority
               </label>
-              {/* <input
-                value={account.authorities}
-                placeholder="Authorities"
-                disabled
-                type="text"
-                name="Authorities"
-                className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
-              /> */}
               <Dropdown menu={{ items }} trigger={["click"]}>
                 <p>
                   <Space className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue flex justify-between items-center hover:cursor-pointer">
@@ -155,12 +147,7 @@ export default function ViewStaffModal({
                 Email Address
               </label>
               <input
-                value={account.email}
-                placeholder="Email"
-                type="email"
-                disabled
-                name="email"
-                className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                value={account.email} placeholder="Email" type="email" disabled name="email" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
               />
             </div>
 

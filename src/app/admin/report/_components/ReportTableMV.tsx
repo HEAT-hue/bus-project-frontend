@@ -1,4 +1,4 @@
-import { Report } from "@/lib/definitions"
+import { Report } from "@/lib/definitions";
 import { getFormattedDate } from "@/lib/utils/utils";
 
 type ReportTableProp = {
@@ -7,22 +7,36 @@ type ReportTableProp = {
 
 const ReportTableMV: React.FC<ReportTableProp> = ({ reports }) => {
     return (
-        <div className="flex flex-row items-center sm:text-[13px] font-Gilroy-SemiBold text-[12px] justify-between p-3 bg-[#F4F4F4] rounded-lg">
-            {reports.map((report: Report) => {
+        <div className="divide-y divide-gray-400">
+            {reports.map((report, index) => {
                 const { day, monthShort, year, time } = getFormattedDate(new Date(report.date))
                 return (
-                    <>
-                        <div className="flex flex-col">
-                            <span className="font-Gilroy-ExtraBold">{report.fullname}</span>
-                            <span className="text-[9px] sm:text-[10px] ">
-                                {report.department}
-                            </span>
+                    <div
+                        key={index}
+                        className="py-2 flex flex-col gap-y-1"
+                    >
+                        <div className="flex flex-col gap-y-1 cursor-pointer">
+                            <div className="flex justify-between">
+                                <p>
+                                    <span className="text-gray-500">name:</span>{" "}
+                                    <span className="text-sm">{report.fullname}</span>
+                                </p>
+                                <p className="flex flex-col items-end">
+                                    <div>{report.department}</div>
+                                    <div className="text-gray-500 text-sm">{`${day}, ${monthShort} ${year} : ${time}`}</div>
+                                </p>
+                            </div>
                         </div>
-                        <span className="">{report.email}</span>
-                        <span className="">{report.activity}</span>
-                        <span className="">{`${day}, ${monthShort} ${year} : ${time}`}</span>
-                    </>
-                )
+                        <p>
+                            <span className="text-gray-500 text-sm">email: </span>{" "}
+                            <span className="text">{report.email}</span>
+                        </p>
+                        <p className="flex gap-x-2 items-center">
+                            <span className="text-gray-500">activity: </span>{" "}
+                            <span className="text-sm">{report.activity}</span>
+                        </p>
+                    </div>
+                );
             })}
         </div>
     )

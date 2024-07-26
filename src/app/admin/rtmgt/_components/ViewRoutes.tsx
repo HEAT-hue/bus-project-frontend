@@ -126,16 +126,14 @@ const ViewRoutes: React.FC<ViewRoutes> = ({ bus: initialBus, session }) => {
                                             handleDelete(busStop.busStopId);
                                         }} className="text-error cursor-pointer"><DeleteSVG /></span>
                                     )}
-
-
                                 </div>
                             )
                         })
                     }
                     <div>
 
-                        <form onSubmit={handleSubmit} className="grid grid-cols-[5fr,_1fr] gap-x-3 mt-5">
-                            <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter a bus stop..." className="border border-gray-300 rounded focus:border-ecobankBlue py-1 px-3 outline-none" type="text" />
+                        <form onSubmit={handleSubmit} className="w-full grid grid-cols-[1fr,_50px] gap-x-3 mt-5">
+                            <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter a bus stop..." className="border border-gray-300 rounded focus:border-ecobankBlue w-full py-1 px-3 outline-none" type="text" />
                             <button type="submit" className="bg-ecobankBlue text-white rounded hover:bg-red-900"> {loading ? (
                                 <BeatLoader
                                     color={"#ffffff"}

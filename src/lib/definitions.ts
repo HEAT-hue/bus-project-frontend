@@ -85,6 +85,7 @@ export enum USER_AUTHORITES {
   USER = "USER",
   ADMIN = "ADMIN",
   CAPTAIN = "CAPTAIN",
+  EBS = "EBS"
 }
 
 export type User = {

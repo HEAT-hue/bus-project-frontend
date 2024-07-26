@@ -61,7 +61,7 @@ export default function StaffTableMobile({
                           true,
                       })}
                     >
-                      {user.verified}
+                      {user.verified.toLocaleUpperCase()}
                     </div>
                   </div>
                 </div>

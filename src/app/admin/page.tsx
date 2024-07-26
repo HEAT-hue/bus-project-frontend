@@ -1,12 +1,13 @@
 import BarChartView from "@/components/BarChartView";
 import OverviewBox from "@/components/Overviewbox";
 import { fetchStats } from "@/lib/admin/dashboard/action";
+import { ROLES, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
 export default async function HomePage() {
 
-  const session = await getSession();
+  const session: Session = await getSession();
 
   if (!session) {
     redirect("/login")
@@ -24,36 +25,38 @@ export default async function HomePage() {
     <div className="px-4 lg:px-inlinePage">
 
       {/* Overview boxes */}
-      <div className="mt-5 flex gap-[10px] overflow-x-auto md:flex-wrap">
+      {session.authorities == ROLES.ADMIN && (
+        <div className="mt-5 flex gap-[10px] overflow-x-auto md:flex-wrap">
 
-        {/* Total staff overview box */}
-        <OverviewBox
-          title="Total staff"
-          value={`${totalStaff}`}
-          background={`conic-gradient(${"#333333"} ${360}deg, #E4E8EF 0deg)`}
-        />
+          {/* Total staff overview box */}
+          <OverviewBox
+            title="Total staff"
+            value={`${totalStaff}`}
+            background={`conic-gradient(${"#333333"} ${360}deg, #E4E8EF 0deg)`}
+          />
 
-        {/* Pending staff box */}
-        <OverviewBox
-          title="Pending Staff"
-          value={pendingStaff.toString()}
-          background={`conic-gradient(${"#ffb800"} ${pendingStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
-        />
+          {/* Pending staff box */}
+          <OverviewBox
+            title="Pending Staff"
+            value={pendingStaff.toString()}
+            background={`conic-gradient(${"#ffb800"} ${pendingStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
+          />
 
-        {/* Approved staff overview box */}
-        <OverviewBox
-          title="Approved Staff"
-          value={approvedStaff.toString()}
-          background={`conic-gradient(${"#347e03"} ${approvedStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
-        />
+          {/* Approved staff overview box */}
+          <OverviewBox
+            title="Approved Staff"
+            value={approvedStaff.toString()}
+            background={`conic-gradient(${"#347e03"} ${approvedStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
+          />
 
-        {/* Rejected staff overview box */}
-        <OverviewBox
-          title="Rejected Staff"
-          value={deniedStaff.toString()}
-          background={`conic-gradient(${"#8d0404"} ${deniedStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
-        />
-      </div>
+          {/* Rejected staff overview box */}
+          <OverviewBox
+            title="Rejected Staff"
+            value={deniedStaff.toString()}
+            background={`conic-gradient(${"#8d0404"} ${deniedStaff / totalStaff * 360}deg, #E4E8EF 0deg)`}
+          />
+        </div>
+      )}
 
       <div className="mt-[3rem] grid grid-cols-1 lg:grid-cols-[360px,_1fr] gap-5">
         {/* Bar chart */}
@@ -65,15 +68,6 @@ export default async function HomePage() {
           }} />
         </div>
 
-      </div>
-
-      <div className="flex flex-col gap-y-3 my-3 items-end">
-        {/* <AddBusModal session={session} />
-                    <DateSelector placeholder="Search Bus..." /> */}
-      </div>
-
-      <div className="lg:hidden">
-        {/* <BusTableMV buses={buses} session={session} /> */}
       </div>
     </div>
   )

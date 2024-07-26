@@ -6,6 +6,7 @@ import SlidingBar from "../_component/slidingbar";
 import SearchStaff from "./_component/SearchStaff";
 import StaffTable from "./_component/StaffTable";
 import StaffTableMobile from "./_component/StaffTableMobile";
+import StaffData from "./_component/StaffData";
 
 export default async function StaffManagement({ searchParams }: { searchParams: FetchUserParams }) {
   const session = await getSession();
@@ -43,12 +44,14 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
         <SearchStaff placeholder="Search Staff..." />
       </div>
 
+      <StaffData session={session} users={users} />
+      {/*       
       <div className="xl:hidden">
         <StaffTableMobile staffData={users} session={session} />
       </div>
       <div className="hidden xl:block">
         <StaffTable staffData={users} session={session} />
-      </div>
+      </div> */}
     </div>
   );
 }

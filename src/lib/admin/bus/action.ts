@@ -80,7 +80,7 @@ export async function CreateBus(token: string, payload: CreateBusRequest): Promi
     }
     return Promise.reject({
       status: 500,
-      message: 'Internal Server Error',
+      message: 'Error adding bus',
     });
   }
 }

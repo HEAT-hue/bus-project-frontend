@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-no-undef */
 'use client'
-import { Modal } from "@/components/ModalWrapper"
-import AddSVG from "@/components/svg/AddSVG";
-import { CreateBus, deleteBus, UpdateBusStatus } from "@/lib/admin/bus/action";
+import { ConfirmationModal } from "@/components";
+import { Modal } from "@/components/ModalWrapper";
+import { deleteBus, UpdateBusStatus } from "@/lib/admin/bus/action";
 import { Bus, BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
 import { FetchError } from "@/lib/FetchError";
 import classNames from "classnames";
-import { CSSProperties, Dispatch, SetStateAction, useState } from "react"
+import { CSSProperties, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { useImmer } from "use-immer";
-import { ConfirmationModal } from "@/components";
 
 type ViewBusModalType = {
     bus: Bus
@@ -147,7 +146,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                 {/* Add Bus Form */}
 
                 <form>
-                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-5 ">
+                    <div className="mt-3 grid grid-cols-2 gap-5 ">
                         {/* Bus number */}
                         <div className="flex flex-col gap-y-1">
                             <label htmlFor="route" className="text-sm">Bus number</label>
@@ -155,7 +154,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.number}
                                 placeholder="Bus Number"
                                 onChange={e => updateBusRecord('number', e.target.value)}
-                                type="text" required name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                                type="text" required name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue"
                             />
                         </div>
 
@@ -167,7 +166,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.model}
                                 placeholder="Bus Model"
                                 onChange={e => updateBusRecord('model', e.target.value)}
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                                type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue"
                             />
                         </div>
 
@@ -179,7 +178,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.capacity}
                                 onChange={e => updateBusRecord('capacity', Number(e.target.value))}
                                 placeholder="Bus Capacity"
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
 
                         {/* Bus color */}
@@ -190,7 +189,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.color}
                                 onChange={e => updateBusRecord('color', e.target.value)}
                                 placeholder="Bus Color"
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
 
                         {/* Bus route */}
@@ -201,7 +200,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.route}
                                 onChange={e => updateBusRecord('route', e.target.value)}
                                 placeholder="Bus Route"
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
 
                         {/* Driver name */}
@@ -212,7 +211,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.driverName}
                                 onChange={e => updateBusRecord('driverName', e.target.value)}
                                 placeholder="Name"
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
 
                         {/* Driver's phone number */}
@@ -223,7 +222,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                 value={busState.driverPhoneNumber}
                                 onChange={e => updateBusRecord('driverPhoneNumber', e.target.value)}
                                 placeholder="Telephone"
-                                type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                         </div>
                     </div>
 
@@ -239,7 +238,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                     data-testid="loader"
                                 />
                             ) : (
-                                <div className="flex gap-x-4">
+                                <div className="flex flex-col sm:flex-row gap-x-4">
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -266,7 +265,7 @@ export const ViewBusModal: React.FC<ViewBusModalType> = ({ session, bus, closeMo
                                             'rounded px-[2rem] py-3 text-sm text-white bg-error focus:outline-none mt-5 cursor-pointer': true
                                         })}>Delete
                                     </button>
-                                    <div className="hidden lg:block">
+                                    <div className="">
                                         <button
                                             type="button"
                                             onClick={() => {

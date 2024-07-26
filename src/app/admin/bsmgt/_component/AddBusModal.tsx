@@ -10,6 +10,7 @@ import classNames from "classnames";
 import { CSSProperties, useState } from "react"
 import { BeatLoader } from "react-spinners";
 import { useImmer } from "use-immer";
+import toast, { Toaster } from 'react-hot-toast'
 import { ConfirmationModal } from "@/components";
 
 type AddBusModalType = {
@@ -63,6 +64,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
 
         if (!bus.number || !bus.model || !bus.capacity || !bus.color || !bus.route) {
             setErrorMessage("Missing fields");
+            toast.error("Missing fields")
         }
 
         // Clear error messages
@@ -87,7 +89,9 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                 // Clear pending state
                 if (error instanceof FetchError) {
                     setErrorMessage(error.message);
+                    toast.error(error.message)
                 }
+                toast.error("An error occurred!");
             } finally {
                 setLoading(false);
             }
@@ -107,13 +111,13 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
 
             {showAddModal && (
                 <Modal bare closeModal={() => setShowAddModal(false)}>
-                    <div className="p-7">
+                    <div className="p-7 max-w-[95vw]">
                         <h1 className="text-ecobankBlue text-xl font-Gilroy-Medium">Add Bus</h1>
 
                         {errorMessage && <p className="text-error font-xs">{errorMessage}</p>}
                         {/* Add Bus Form */}
                         <form onSubmit={(e) => handleSubmit(e)} >
-                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div className="mt-3 grid grid-cols-2 gap-5">
 
                                 {/* Bus number */}
                                 <div className="flex flex-col gap-y-1">
@@ -122,7 +126,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.number || ''}
                                         onChange={(e) => setBusProperty('number', e.target.value)}
                                         placeholder="Bus Number"
-                                        type="text" required name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                                        type="text" required name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue"
                                     />
                                 </div>
 
@@ -134,7 +138,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.model || ''}
                                         onChange={(e) => setBusProperty('model', e.target.value)}
                                         placeholder="Bus Model"
-                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue"
                                     />
                                 </div>
 
@@ -146,7 +150,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.capacity || ''}
                                         onChange={(e) => setBusProperty('capacity', e.target.value ? parseInt(e.target.value) : 1)}
                                         placeholder="Bus Capacity"
-                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                                 </div>
 
                                 {/* Driver name */}
@@ -157,7 +161,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.driverName || ''}
                                         onChange={(e) => setBusProperty('driverName', e.target.value)}
                                         placeholder="Name"
-                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                                 </div>
 
                                 {/* Driver's phone number */}
@@ -168,7 +172,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.driverPhoneNumber || ''}
                                         onChange={(e) => setBusProperty('driverPhoneNumber', e.target.value)}
                                         placeholder="Telephone"
-                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                                 </div>
 
                                 {/* Bus color */}
@@ -179,7 +183,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.color || ''}
                                         onChange={(e) => setBusProperty('color', e.target.value)}
                                         placeholder="Bus Color"
-                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                                 </div>
 
                                 {/* Bus route */}
@@ -190,7 +194,7 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                                         value={bus.route || ''}
                                         onChange={(e) => setBusProperty('route', e.target.value)}
                                         placeholder="Bus Route"
-                                        type="text" name="route" className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue" />
+                                        type="text" name="route" className="text-xs rounded p-2 py-2 min-w-[130px] outline-none border border-gray-400 focus:border-ecobankBlue" />
                                 </div>
                             </div>
 
@@ -235,12 +239,12 @@ export const AddBusModal: React.FC<AddBusModalType> = ({ session }) => {
                     />
                 </Modal>
             )}
+
+
+            {/* Toast messages */}
+            <Toaster />
         </div>
     )
 }
 
 export default AddBusModal;
-
-function delay(arg0: number) {
-    throw new Error("Function not implemented.");
-}

@@ -63,8 +63,10 @@ const Login: React.FC = () => {
                     // Retrieve roles
                     const authorities = user.authorities.split(" ");
 
+                    console.log(authorities);
+
                     // Admin page
-                    if (authorities.includes(USER_AUTHORITES.ADMIN)) {
+                    if (authorities.includes(USER_AUTHORITES.ADMIN) || authorities.includes(USER_AUTHORITES.EBS)) {
                         router.push(NAVIGATION.ADMIN);
                         return;
                     }

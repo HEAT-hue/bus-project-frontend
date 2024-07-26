@@ -4,6 +4,7 @@ import { Report, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import ReportTable from "./_components/ReportTable";
+import ReportTableMV from "./_components/ReportTableMV";
 
 export default async function ReportPage() {
 
@@ -34,7 +35,7 @@ export default async function ReportPage() {
 
       {/* Reports table mobile view */}
       <div className="lg:hidden">
-        <ReportTable reports={reports} />
+        <ReportTableMV reports={reports} />
       </div>
     </div>
   );
