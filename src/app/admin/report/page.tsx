@@ -1,92 +1,49 @@
+import { fetchReports } from "@/lib/admin/report/action";
+import { Report, Session } from "@/lib/definitions";
+import { getSession } from "@/lib/session";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import SlidingBar from "../_component/slidingbar";
-import DateSelector from "../_component/dateselector";
-import GenericTable from "./_components/generic-table";
-import Export from "../../../../public/export.png";
-import SmallReport from "./_components/small-report";
+import ReportTable from "./_components/ReportTable";
+import Export from "@/components/Export";
+import ExportData from "@/components/Export";
 
-type MyData = {
-  params: {};
-  searchParams: {
-    listtype: string;
-  };
-};
-export default function Report(searchParams: MyData) {
-  let tableListType = searchParams.searchParams.listtype;
+export default async function ReportPage() {
 
-  let Reportdata =
-    tableListType === "Activity Log"
-      ? [
-        {
-          name: "Tayo Adewole",
-          department: "Marketing",
-          email: "tayo@gmail.com",
-          user_activity: "Added Bus",
-          date: "22-04-2024",
-        },
-        {
-          name: "Tayo Adewole",
-          department: "Marketing",
-          email: "tayo@gmail.com",
-          user_activity: "Added Bus",
-          date: "22-04-2024",
-        },
-      ]
-      : [
-        {
-          date: "22-04-2024",
-          name: "Tayo Adewole",
-          staffComment:
-            "Lorem ipsum dolor sit amet consectetur. Viverra sagittis ...",
-          rating: "3",
-        },
-        {
-          date: "22-04-2024",
-          name: "Tayo Adewole",
-          staffComment:
-            "Lorem ipsum dolor sit amet consectetur. Viverra sagittis ...",
-          rating: "3",
-        },
-      ];
+  const session: Session = await getSession();
 
-  let tableHeaders =
-    tableListType === "Activity Log"
-      ? [
-        "name",
-        "department",
-        "email Address",
-        "user Activity",
-        "Activity Date",
-      ]
-      : ["date", "name", "staff Comment", "Rating"];
+  if (!session) {
+    redirect("/login")
+  }
+
+  const reports: Report[] = await fetchReports(session.token, {})
+
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-8 max-sm:gap-4">
       <h1 className="text-[32px] max-sm:text-[25px] font-Gilroy-SemiBold text-[#023448]">
-        Report
+        Reports
       </h1>
+
+      <div className="flex justify-between items-center">
+        <h2 className="font-Gilroy-Medium"> <span className=" border-b border-b-gray-500 pb-1">Activity Report</span></h2>
+
+        <ExportData data={reports} />
+      </div>
+
       <div className="flex flex-col">
         <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
-          <SlidingBar sections={["Activity Log", "Feedback Log"]}>
-            <div
-              id="largegenerictable"
-              className="flex w-[164px] rounded-lg max-sm:hidden hover:scale-105 font-Gilroy-SemiBold duration-300 flex-row py-2 px-[40px] text-white bg-[#005A86] justify-between items-center"
-            >
-              <span> Export </span>
-              <Image src={Export} className="w-6 h-6" alt="export" />
-            </div>
-          </SlidingBar>
+
+
+          {/* <SlidingBar sections={["Activity Log"]}>
+
+          </SlidingBar> */}
         </div>
 
         <div className="flex flex-row items-center"></div>
       </div>
-      {/* <DateSelector /> */}
-      <GenericTable
-        data={Reportdata}
-        tableHeaders={tableHeaders}
-        isAction={tableListType !== "Activity Log"}
-      >
-        <SmallReport />
-      </GenericTable>
+      <div>
+        <ReportTable reports={reports} />
+      </div>
     </div>
   );
 }

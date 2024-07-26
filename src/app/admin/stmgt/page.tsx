@@ -1,12 +1,11 @@
-import Image from "next/image";
-import Export from "../../../../public/export.png";
-import { getSession } from "@/lib/session";
-import SlidingBar from "../_component/slidingbar";
+import ExportData from "@/components/Export";
 import { FetchUserParams, fetchUsers } from "@/lib/admin/staff/action";
+import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
+import SlidingBar from "../_component/slidingbar";
+import SearchStaff from "./_component/SearchStaff";
 import StaffTable from "./_component/StaffTable";
 import StaffTableMobile from "./_component/StaffTableMobile";
-import SearchStaff from "./_component/SearchStaff";
 
 export default async function StaffManagement({ searchParams }: { searchParams: FetchUserParams }) {
   const session = await getSession();
@@ -17,25 +16,19 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
 
   const users = await fetchUsers(session.token, {
     page: searchParams.page || 1,
-    per_page: 10,
+    per_page: 5,
     name: searchParams.name
   });
 
   return (
-    <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[33px] gap-5 max-sm:gap-4">
+    <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[10px] gap-5 max-sm:gap-4">
       <h1 className="text-[32px] max-sm:text-[25px] text-[#023448]">
         Staff Management
       </h1>
       <div className="flex flex-col">
         <div className="flex flex-row max-sm:flex-col gap-4 w-full items-center max-sm:items-start justify-between">
           <SlidingBar sections={["Staff List", "Pending Request"]}>
-            <div
-              id="largegenerictable"
-              className="flex w-[164px] font-Gilroy-SemiBold rounded-lg max-sm:hidden hover:scale-105 duration-300 flex-row py-2 px-[40px] text-white bg-[#005A86] justify-between items-center"
-            >
-              <span> Export </span>
-              <Image src={Export} className="w-6 h-6" alt="export" />
-            </div>
+            <ExportData data={users} />
           </SlidingBar>
         </div>
 
@@ -44,7 +37,7 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
 
 
       {/* Search staff */}
-      <div className="mb-5">
+      <div className="mb-">
         <SearchStaff placeholder="Search Staff..." />
       </div>
 

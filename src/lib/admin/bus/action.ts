@@ -140,9 +140,6 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
 
   apiUrl.searchParams.append("busId", `${params.busId}`);
 
-  console.log(apiUrl);
-
-  console.log(payload)
 
   // Construct the headers, including the Authorization header if the token is provided
   const headers: HeadersInit = {

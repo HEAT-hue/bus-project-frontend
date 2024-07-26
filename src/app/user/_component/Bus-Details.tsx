@@ -12,8 +12,9 @@ type BusDetailsProp = {
 };
 
 export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
+  const router = useRouter();
 
-  const router = useRouter()
+  
 
   function handleClick() {
     const encryptedBusDetails = encryptData(bus);
@@ -53,11 +54,15 @@ export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
               </div>
               <div className="flex justify-between items-center">
                 <div className="font-Gilroy-SemiBold">Bus Driver:</div>
-                <div className="font-Gilroy-Regular">Mr. Tayo</div>
+                <div className="font-Gilroy-Regular">
+                  {bus?.driverName || "N/A"}
+                </div>
               </div>
               <div className="flex justify-between items-center">
                 <div className="font-Gilroy-SemiBold">Bus Captain:</div>
-                <div className="font-Gilroy-Regular">{bus?.captain?.firstName || "N/A"}</div>
+                <div className="font-Gilroy-Regular">
+                  {bus?.captain?.firstName || "N/A"}
+                </div>
               </div>
             </div>
 
@@ -66,7 +71,10 @@ export default function BusDetails({ bus, setShowBus }: BusDetailsProp) {
             </div>
 
             <div className="mt-16">
-              <Button onClick={handleClick} className="w-full p-5 bg-[#005A86] text-base text-white font-Gilroy-Regular font-semibold ">
+              <Button
+                onClick={handleClick}
+                className="w-full p-5 bg-[#005A86] text-base text-white font-Gilroy-Regular font-semibold "
+              >
                 Book a Seat
               </Button>
             </div>
