@@ -19,10 +19,10 @@ const ReportTableMV: React.FC<ReportTableProp> = ({ reports }) => {
                             <div className="flex justify-between">
                                 <p>
                                     <span className="text-gray-500">name:</span>{" "}
-                                    <span className="text-sm">{report.fullname}</span>
+                                    <span className="text-sm  capitalize">{report.fullname}</span>
                                 </p>
                                 <p className="flex flex-col items-end">
-                                    <div>{report.department}</div>
+                                    <div className="text-ecobankBlue">{report.department}</div>
                                     <div className="text-gray-500 text-sm">{`${day}, ${monthShort} ${year} : ${time}`}</div>
                                 </p>
                             </div>

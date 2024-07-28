@@ -118,6 +118,7 @@ export type Account = {
   department: string;
   affiliate: string;
   staff_id: string;
+  specialNeeds: boolean
 };
 
 export type Bus = {

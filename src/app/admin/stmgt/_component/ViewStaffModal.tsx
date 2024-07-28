@@ -31,9 +31,10 @@ export default function ViewStaffModal({
 }: VeiwStaffModalProp) {
   const [loading, setLoading] = useState(false);
   const [userRole, setUserRole] = useState<string>(account.authorities);
+  const [userSpecialNeeds, setUserSpecialNeeds] = useState<boolean>(account.specialNeeds || false);
 
-  //Ant design items
-  const items: MenuProps["items"] = [
+  // Account Role Items
+  const AccountRoleItems: MenuProps["items"] = [
     {
       label: <p onClick={() => handleRoleUpdate(ROLES.USER)}>{ROLES.USER}</p>,
       key: "0",
@@ -42,6 +43,17 @@ export default function ViewStaffModal({
       label: (
         <p onClick={() => handleRoleUpdate(ROLES.CAPTAIN)}>{ROLES.CAPTAIN}</p>
       ),
+      key: "1",
+    },
+  ];
+
+  const SpecialNeedsItems: MenuProps["items"] = [
+    {
+      label: <p onClick={() => handleStaffSpecialNeedsUpdate(true)}>YES</p>,
+      key: "0",
+    },
+    {
+      label: <p onClick={() => handleStaffSpecialNeedsUpdate(false)}>NO</p>,
       key: "1",
     },
   ];
@@ -70,6 +82,10 @@ export default function ViewStaffModal({
   }
 
   function handleRoleUpdate(authorities: ROLES) {
+    if (authorities == userRole) {
+      return;
+    }
+
     (async function () {
       try {
         await updateStaffRole(session.token, {
@@ -86,6 +102,32 @@ export default function ViewStaffModal({
         }
       }
     })();
+  }
+
+  function handleStaffSpecialNeedsUpdate(specialNeeds: boolean) {
+    // Set button pending state
+    setLoading(true);
+
+    setUserSpecialNeeds(specialNeeds);
+
+    // Add login to Update staff special needs
+
+    // (async function () {
+    //   try {
+    //     await updateStaffRole(session.token, {
+    //       userId: account.id,
+    //       authorities,
+    //     });
+
+    //     setUserRole(authorities);
+    //     toast.success("ROLE updated successfully")
+    //   } catch (error) {
+    //     if (error instanceof FetchError) {
+    //       toast.error("Error updating role")
+    //       // setErrorMessage(error.message);
+    //     }
+    //   }
+    // })();
   }
 
   return (
@@ -131,7 +173,7 @@ export default function ViewStaffModal({
               <label htmlFor="affiliate" className="text-sm">
                 Authority
               </label>
-              <Dropdown menu={{ items }} trigger={["click"]}>
+              <Dropdown menu={{ items: AccountRoleItems }} trigger={["click"]}>
                 <p>
                   <Space className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue flex justify-between items-center hover:cursor-pointer">
                     {userRole}
@@ -181,6 +223,21 @@ export default function ViewStaffModal({
                 className="text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border border-gray-400 focus:border-ecobankBlue"
               />
             </div>
+
+            {/* Special needs */}
+            <div className="flex flex-col gap-y-1">
+              <label htmlFor="affiliate" className="text-sm">
+                Special needs
+              </label>
+              <Dropdown menu={{ items: SpecialNeedsItems }} trigger={["click"]}>
+                <p>
+                  <Space className={`text-xs rounded p-2 py-2 w-[15vw] min-w-[280px] outline-none border ${userSpecialNeeds ? "border-error" : "border-gray-400"} focus:border-ecobankBlue flex justify-between items-center hover:cursor-pointer`}>
+                    {userSpecialNeeds ? "YES" : "NO"}
+                    <DownOutlined className="text-[12px]" />
+                  </Space>
+                </p>
+              </Dropdown>
+            </div>
           </div>
 
           <div className="w-full flex flex-col md:flex-row justify-center mt-9  md:gap-4">
@@ -197,26 +254,32 @@ export default function ViewStaffModal({
               <>
                 {userRole == ROLES.USER && (
                   <>
-                    <button
-                      type="button"
-                      onClick={() => handleStaffUpdate(ACCOUNT_STATUS.REJECTED)}
-                      className={classNames({
-                        "rounded md:px-28 py-3 text-sm text-red-500 border border-red-500 focus:outline-none mt-5 cursor-pointer":
-                          true,
-                      })}
-                    >
-                      Reject
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleStaffUpdate(ACCOUNT_STATUS.APPROVED)}
-                      className={classNames({
-                        "rounded md:px-28  py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5 cursor-pointer":
-                          true,
-                      })}
-                    >
-                      Approve
-                    </button>
+                    {account.verified != ACCOUNT_STATUS.REJECTED && (
+                      <button
+                        type="button"
+                        onClick={() => handleStaffUpdate(ACCOUNT_STATUS.REJECTED)}
+                        className={classNames({
+                          "rounded md:px-28 py-3 text-sm text-red-500 border border-red-500 focus:outline-none mt-5 cursor-pointer":
+                            true,
+                        })}
+                      >
+                        Reject
+                      </button>
+                    )}
+                    {
+                      account.verified != ACCOUNT_STATUS.APPROVED && (
+                        <button
+                          type="button"
+                          onClick={() => handleStaffUpdate(ACCOUNT_STATUS.APPROVED)}
+                          className={classNames({
+                            "rounded md:px-28  py-3 text-sm text-white bg-darkBlue focus:outline-none mt-5 cursor-pointer":
+                              true,
+                          })}
+                        >
+                          Approve
+                        </button>
+                      )
+                    }
                   </>
                 )}
               </>

@@ -29,7 +29,7 @@ export default async function BusManagement({ searchParams }: { searchParams: Fe
         Bus Management
       </h1>
 
-      <div className="flex flex-col gap-y-3 my-3 items-end">
+      <div className="flex flex-col sm:flex-row-reverse justify-between gap-y-3 my-3 items-end">
         <AddBusModal session={session} />
         <DateSelector placeholder="Search Bus..." />
       </div>

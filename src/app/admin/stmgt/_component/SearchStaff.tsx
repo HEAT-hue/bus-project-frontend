@@ -3,6 +3,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from 'use-debounce';
 
 import { ChangeEvent } from "react";
+import { Select } from "antd";
+import { ACCOUNT_STATUS } from "@/lib/definitions";
 
 export default function SearchStaff({ placeholder }: { placeholder: string }) {
 
@@ -47,10 +49,10 @@ export default function SearchStaff({ placeholder }: { placeholder: string }) {
 
         // set the query
         if (status) {
-            params.set('operationalStatus', status);
+            params.set('authorities', status);
         }
         else {
-            params.delete('operationalStatus');
+            params.delete('authorities');
         }
 
         // Replace current url with generated new one
@@ -59,22 +61,23 @@ export default function SearchStaff({ placeholder }: { placeholder: string }) {
 
     return (
         <div className="flex flex-col sm:flex-row gap-3">
-            {/* <div className="min-w-[200px]">
+            <div className="w-[90vw] max-w-[200px]">
                 <Select
-                    defaultValue="Select Status"
+                    defaultValue={"Select status"}
                     style={{ width: "100%", height: 42, color: "#005A86" }}
                     onChange={handleChange}
                     options={[
                         { value: "", label: "ALL" },
-                        { value: BUS_OPERATIONAL_STATUS.ACTIVE, label: BUS_OPERATIONAL_STATUS.ACTIVE },
-                        { value: BUS_OPERATIONAL_STATUS.INACTIVE, label: BUS_OPERATIONAL_STATUS.INACTIVE },
+                        { value: ACCOUNT_STATUS.PENDING, label: ACCOUNT_STATUS.PENDING },
+                        { value: ACCOUNT_STATUS.APPROVED, label: ACCOUNT_STATUS.APPROVED },
+                        { value: ACCOUNT_STATUS.REJECTED, label: ACCOUNT_STATUS.REJECTED },
                     ]}
                 />
-            </div> */}
+            </div>
 
             <input
                 type="text"
-                className="p-2 border-[1.4px] border-gray-300 rounded w-full max-w-lg focus:outline-none focus:border-ecobankBlue text-gray-500" placeholder={placeholder}
+                className="p-2 border-[1.4px] border-gray-300 rounded w-[90vw] max-w-[400px] focus:outline-none focus:border-ecobankBlue text-gray-500" placeholder={placeholder}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     handleSearch(e.target.value)
                 }}
