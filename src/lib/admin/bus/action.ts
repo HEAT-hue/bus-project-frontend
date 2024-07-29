@@ -155,8 +155,7 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
       body: JSON.stringify(payload)
     });
 
-    console.log(response);
-    console.log(response.statusText)
+   
 
     if (!response.ok) {
       if (response.status == 400) {
@@ -167,7 +166,7 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
 
     const result = await response.json() as CreateBusResponse;
 
-    console.log(result);
+    
 
     revalidatePath(NAVIGATION.ADMIN_BSMGT);
     revalidatePath(NAVIGATION.USER);
