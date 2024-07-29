@@ -17,7 +17,6 @@ export default async function CaptainManagement({ searchParams }: { searchParams
         authorities: ROLES.CAPTAIN
     });
 
-    console.log(users);
 
 
     const busResponse = await fetchBus(session.token, {

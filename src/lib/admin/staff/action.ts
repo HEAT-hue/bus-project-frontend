@@ -1,17 +1,27 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { Account, ACCOUNT_STATUS, BASE_URL, NAVIGATION, ROLES } from "../../definitions";
+import {
+  Account,
+  ACCOUNT_STATUS,
+  BASE_URL,
+  NAVIGATION,
+  ROLES,
+} from "../../definitions";
 import { FetchError } from "../../FetchError";
 
+// type and Function to fetch users
 export type FetchUserParams = {
   page?: number;
   per_page?: number;
-  name?: string
-  authorities?: ROLES
-  sort_by?: "createdAt"
+  name?: string;
+  authorities?: ROLES;
+  sort_by?: "createdAt";
 };
 
-export async function fetchUsers(token: string, requestParams: FetchUserParams): Promise<Account[]> {
+export async function fetchUsers(
+  token: string,
+  requestParams: FetchUserParams
+): Promise<Account[]> {
   const apiUrl = new URL(`${BASE_URL}/auth/userspaginate`);
 
   // Append query parameters
@@ -33,7 +43,7 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
       headers: headers,
     });
 
-    console.log(response);
+    response;
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -67,6 +77,8 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
   }
 }
 
+// Types and function to update staff status
+
 type UpdateStaffStatusRequest = {
   userId: number;
   verified: ACCOUNT_STATUS;
@@ -95,11 +107,10 @@ export async function updateStaffStatus(
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
-  console.log(apiUrl);
+  apiUrl;
 
   const body = JSON.stringify({ verified: `${params.verified}` });
 
-  console.log(body);
 
   try {
     const response = await fetch(apiUrl.toString(), {
@@ -142,8 +153,7 @@ export async function updateStaffStatus(
   }
 }
 
-
-
+// Types and function to update staff role
 type UpdateStaffRoleRequest = {
   userId: number;
   authorities: ROLES;
@@ -204,4 +214,3 @@ export async function updateStaffRole(
     });
   }
 }
-

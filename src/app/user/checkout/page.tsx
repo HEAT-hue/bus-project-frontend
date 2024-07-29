@@ -10,7 +10,7 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
 
     let bookRecord;
 
-    console.log(bookRecord);
+  
 
     try {
         bookRecord = decryptData(searchParams?.bk || "") as BookBusResponse;
@@ -18,7 +18,7 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
         redirect("/user")
     }
 
-    console.log(bookRecord);
+  
 
     if (bookRecord.status == BOOKING_TYPE.WAITLIST) {
         return (
