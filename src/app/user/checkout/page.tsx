@@ -18,6 +18,8 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
         redirect("/user")
     }
 
+    console.log(bookRecord);
+
     if (bookRecord.status == BOOKING_TYPE.WAITLIST) {
         return (
             <>
@@ -39,11 +41,15 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
             <div className="w-[95vw] mx-auto max-w-[928px] pb-[3rem]">
                 <h1 className="text-center text-lg sm:text-xl text-ecobankBlue font-medium">Your Booking has been confirmed</h1>
                 <div className="mt-7 flex flex-col gap-y-5">
-                    {/* Bookign image */}
-                    <img src="/pana.svg" alt="booking confirmed" className="mx-auto" width={200} />
+
+                    <div className="flex justify-center items-center gap-5">
+                        {/* Bookign image */}
+                        <img src="/pana.svg" alt="booking confirmed" className="mx-aut" width={200} />
+                    </div>
 
                     {/* Booking details */}
                     <div className="mt-7">
+                        <h1 className="text-center mb-5 mt-2 font-Inter-Bold text-ecobankGreen text-3xl">Booking number: <span>{bookRecord.id || 8}</span></h1>
                         <BookingDetail bookRecord={bookRecord} />
                     </div>
 

@@ -10,7 +10,7 @@ const Footer = () => {
 
         <div className="text-center m-2 flex flex-row">
           <p className='text-xl pb-0 text-gray-300 font-bold font-Gilroy-Regular pr-2 self-center'>©</p>
-          <p className='text-sm pb-0 font-Gilroy-Regular self-center'> 2024 #Team Innovation</p>
+          <p className='text-sm pb-0 font-Gilroy-Regular self-center'> 2024 Technology innovation</p>
         </div>
       </div>
     </footer>
