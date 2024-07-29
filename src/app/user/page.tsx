@@ -6,6 +6,7 @@ import { getSession } from "@/lib/session";
 import { fetchBus } from "@/lib/user/action";
 import { redirect } from "next/navigation";
 import DisplayBuses from "./_component/DisplayBuses";
+import TooEarly from "@/components/TooEarly";
 
 const UserSelectionPage = async () => {
   const session: Session = await getSession();
