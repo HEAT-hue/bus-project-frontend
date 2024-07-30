@@ -1,12 +1,10 @@
-import { BUS_OPERATIONAL_STATUS, Session } from "@/lib/definitions";
-import Image from "next/image";
+import { Session } from "@/lib/definitions";
 import { SelectBus } from "./_component";
 
 import { getSession } from "@/lib/session";
 import { fetchBus } from "@/lib/user/action";
 import { redirect } from "next/navigation";
 import DisplayBuses from "./_component/DisplayBuses";
-import TooEarly from "@/components/TooEarly";
 
 const UserSelectionPage = async () => {
   const session: Session = await getSession();

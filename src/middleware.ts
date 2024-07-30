@@ -15,65 +15,48 @@ export default async function middleware(req: NextRequest) {
   const isCaptainProtectedRoute = path.startsWith(NAVIGATION.CAPTAIN);
   const isUserProtectedRoute = path.startsWith(NAVIGATION.USER);
 
-  const adminAllowedRoles = [ROLES.ADMIN, ROLES.EBS];
+  const adminAllowedRoles = [ROLES.ADMIN, ROLES.EBS, ROLES.SUPER_USER];
+  const userAllowedRoles = [ROLES.USER, ROLES.CAPTAIN];
 
-  // If on empty path - Go to Login page
   if (path == "/") {
     return NextResponse.redirect(new URL(NAVIGATION.LOGIN, req.nextUrl));
   }
 
   if (publicRoutes.includes(path)) {
-    // If going to login page, please go
     return NextResponse.next();
   }
 
-  // 3. Decrypt the session gotten from the cookie
   const cookie = cookies().get("session")?.value!;
 
-  // 4. If no cookie found, redirect to /login page
   if (!cookie) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  // Retrieve session
   let session: Session | null = null;
 
   try {
     session = await decrypt(cookie);
   } catch (error) {
-    // Redirect to login to create new session
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  // Redirect to /login if the user is not authenticated or user is not an admin
-  if (
-    isAdminProtectedRoute &&
-    (!session || !adminAllowedRoles.includes(session?.authorities))
-  ) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
-  }
-  // Redirect to /login if the user is not authenticated or user is not an captain
-  if (
-    isCaptainProtectedRoute &&
-    (!session || session?.authorities != ROLES.CAPTAIN)
-  ) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
-  }
-  // Redirect to /login if the user is not authenticated or user is not a user
-  if (
-    isUserProtectedRoute &&
-    (!session || session?.authorities != ROLES.USER)
-  ) {
+  if (isUserProtectedRoute && (!session || !userAllowedRoles.includes(session?.authorities))) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  // Check if user role is captain accessing captain route and has been assigned to a bus.
+  if (isAdminProtectedRoute && (!session || !adminAllowedRoles.includes(session?.authorities))) {
+    return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
+  if (isCaptainProtectedRoute && (!session || session?.authorities != ROLES.CAPTAIN)) {
+    return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
   if (isCaptainProtectedRoute && session?.authorities === ROLES.CAPTAIN) {
     try {
       const buses = (await fetchBus(session.token, {})).content;
       const busAssignedToCaptain = buses.find((bus: Bus) => bus.captain?.id == session.id);
 
-      // If not assigned to a bus, redirect to user page to login
       if (!busAssignedToCaptain) {
         return NextResponse.redirect(new URL(NAVIGATION.USER, req.nextUrl));
       }

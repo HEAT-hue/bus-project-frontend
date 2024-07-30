@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { FetchError } from "@/lib/FetchError";
 import { encryptData } from "@/lib/utils/cyptoUtils";
 import BeatLoader from "react-spinners/BeatLoader";
+import toast, { Toaster } from 'react-hot-toast'
 
 type BookSeatProp = {
   bus: Bus;
@@ -40,18 +41,18 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
         }
 
         const result = await bookBus(session.token, {
-          userId: 1,
+          accountId: session.id,
           busId: bus.busId,
-          route: bus.routeName,
-          drop_off_point: selectedDropOffPoint,
+          // route: bus.routeName,
+          // drop_off_point: selectedDropOffPoint,
         });
 
         const encryptedBusDetails = encryptData(result);
 
         router.push(`${NAVIGATION.USER_CHECKOUT}?bk=${encryptedBusDetails}`);
       } catch (error) {
-        if (error instanceof FetchError) {
-          setErrorMessage(error.message);
+        if (error instanceof Error) {
+          toast.error(error.message);
         }
       } finally {
         setIsLoading(false);
@@ -99,6 +100,7 @@ const BookSeat: React.FC<BookSeatProp> = ({ bus, session }) => {
           </button>
         )}
       </form>
+      <Toaster />
     </div>
   );
 };

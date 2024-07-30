@@ -1,6 +1,6 @@
-import { Account, Bus, ROLES, Session } from "@/lib/definitions";
+import { Account, Bus, FetchBusParams, ROLES, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
-import { FetchBusParams, fetchBus } from "@/lib/user/action";
+import { fetchBus } from "@/lib/user/action";
 import { redirect } from "next/navigation";
 import CaptainTable from "./_component/CaptainTable";
 import { FetchUserParams, fetchUsers } from "@/lib/admin/staff/action";
@@ -16,7 +16,7 @@ export default async function CaptainManagement({ searchParams }: { searchParams
         page: searchParams.page || 0,
         role: ROLES.CAPTAIN
     });
-    
+
     const users = usersResponse.content;
 
 

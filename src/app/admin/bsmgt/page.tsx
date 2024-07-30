@@ -1,10 +1,11 @@
-import { Bus, Session } from "@/lib/definitions";
+import { Bus, FetchBusParams, Session } from "@/lib/definitions";
 import { getSession } from "@/lib/session";
 import DateSelector from "../_component/dateselector";
 import AddBusModal from "./_component/AddBusModal";
 import BusTable from "./_component/BusTable";
 import BusTableMV from "./_component/BusTableMV";
-import { fetchBus, FetchBusParams } from "@/lib/user/action";
+import { fetchBus } from "@/lib/user/action";
+
 import { redirect } from "next/navigation";
 
 export default async function BusManagement({ searchParams }: { searchParams: FetchBusParams }) {
@@ -40,7 +41,7 @@ export default async function BusManagement({ searchParams }: { searchParams: Fe
 
       <div className="lg:hidden">
         <BusTableMV buses={buses} session={session} />
-      </div> 
+      </div>
     </div>
   );
 }

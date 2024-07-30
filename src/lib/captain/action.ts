@@ -6,7 +6,7 @@ import {
     PagedResponse,
 } from "../definitions";
 import { FetchError } from "../FetchError";
-import { BookBusResponse } from "../user/action";
+import { BookBusResponse } from "../definitions";
 
 export type FetchBookingsParams = {
     busId: number
@@ -16,10 +16,9 @@ export type UpdateBookingsParams = {
     bookingId: number
 }
 
-
 // Function to fech a bus
 export async function fetchBookings(token: string, requestParams: FetchBookingsParams): Promise<BookBusResponse[]> {
-    const apiUrl = new URL(`${BASE_URL}/booking/${requestParams.busId}/bookings`);
+    const apiUrl = new URL(`${BASE_URL}/bookings/${requestParams.busId}`);
 
     // Construct the headers, including the Authorization header if the token is provided
     const headers: HeadersInit = {
@@ -67,7 +66,7 @@ export async function fetchBookings(token: string, requestParams: FetchBookingsP
 export async function updateBookings(token: string, params: UpdateBookingsParams): Promise<Response> {
 
     // Verify credentials && get the user
-    const apiUrl = new URL(`${BASE_URL}/booking/${params.bookingId}/update`);
+    const apiUrl = new URL(`${BASE_URL}/bookings/${params.bookingId}/update`);
 
     // Construct the headers, including the Authorization header if the token is provided
     const headers: HeadersInit = {
@@ -77,7 +76,7 @@ export async function updateBookings(token: string, params: UpdateBookingsParams
 
     try {
         const response = await fetch(apiUrl, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: headers
         });
 
@@ -88,7 +87,7 @@ export async function updateBookings(token: string, params: UpdateBookingsParams
             throw new FetchError(response.status, `Failed to Login user: ${response.statusText}`);
         }
 
-        return response;
+        return await response.json();
     } catch (error) {
 
         // Custom error handling logic

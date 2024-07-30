@@ -1,4 +1,4 @@
-import { BookBusResponse } from "@/lib/user/action";
+import { BookBusResponse } from "@/lib/definitions";
 import BookingDetail from "./_component/BookingDetail"
 import { decryptData } from "@/lib/utils/cyptoUtils";
 import { redirect } from "next/navigation";
@@ -16,17 +16,23 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
         redirect("/user")
     }
 
-    if (bookRecord.status == BOOKING_TYPE.WAITLIST) {
+    if (bookRecord.bookingType == BOOKING_TYPE.WAITLIST) {
         return (
             <>
-                <div className="w-full h-full items-center justify-center mt-[5vh] flex-col flex ">
-                    <span className="text-yellow-300 font-Gilroy-ExtraBold text-[40px] max-sm:text-[30px]">
-                        Oops... The bus is filled up
-                    </span>
-                    <p className="font-Inter-Regular text-[20px] text-gray-500 max-sm:text-[15px]">
-                        You have been placed in the waiting list
-                    </p>
-                    <Image src={"/waiting.jpg"} alt="waitingalert" width={400} height={400} className="mt-[2vh]" />
+                <div className="w-[95vw] mx-auto max-w-[928px] pb-[3rem]">
+                    <div>Dear {`${bookRecord.account.firstName},`}</div>
+
+                    <div className="flex flex-col justify-center items-center">
+                        <span className="text-yellow-300 font-Gilroy-ExtraBold text-[40px] max-sm:text-[30px] mt-5">
+                            Oops... The bus is filled up
+                        </span>
+                        <p className="font-Inter-Regular text-sm text-gray-500">
+                            You have been placed in the waiting list.
+                        </p>
+
+                        <p className="text-center mt-5 font-Inter-Bold text-gray-600 text-base">Waiting number: <span>{bookRecord.bookingNumber || "N/A"}</span></p>
+                        <Image src={"/waiting.jpg"} alt="waitingalert" width={350} height={350} />
+                    </div>
                 </div>
             </>
         )
@@ -35,6 +41,7 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
     return (
         <>
             <div className="w-[95vw] mx-auto max-w-[928px] pb-[3rem]">
+                <div>Dear {`${bookRecord.account.firstName},`}</div>
                 <h1 className="text-center text-lg sm:text-xl text-ecobankBlue font-medium">Your Booking has been confirmed</h1>
                 <div className="mt-7 flex flex-col gap-y-5">
 
@@ -45,7 +52,7 @@ const ConfirmBookingPage = async ({ searchParams }: { searchParams: { bk: string
 
                     {/* Booking details */}
                     <div className="mt-7">
-                        <h1 className="text-center mb-5 mt-2 font-Inter-Bold text-ecobankGreen text-3xl">Booking number: <span>{bookRecord.id || 8}</span></h1>
+                        <h1 className="text-center mb-5 mt-2 font-Inter-Bold text-ecobankGreen text-3xl">Booking number: <span>{bookRecord.bookingNumber || "N/A"}</span></h1>
                         <BookingDetail bookRecord={bookRecord} />
                     </div>
 

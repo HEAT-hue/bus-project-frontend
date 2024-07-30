@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import "./WaitingList.css";
-import { BookBusResponse } from "@/lib/user/action"
+import { BookBusResponse } from "@/lib/definitions";
 import classNames from "classnames"
 import { CSSProperties, Dispatch, SetStateAction, useState } from "react"
 import { BeatLoader } from "react-spinners"
@@ -24,7 +24,6 @@ const override: CSSProperties = {
 };
 
 const ViewBookings: React.FC<ViewBookingsProp> = ({ session, bookings }) => {
-
     // Get App router
     const router = useRouter();
 
@@ -32,11 +31,11 @@ const ViewBookings: React.FC<ViewBookingsProp> = ({ session, bookings }) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const reservedBookings = bookings.filter((booking: BookBusResponse) => {
-        return booking.status == BOOKING_TYPE.RESERVED
+        return booking.bookingType == BOOKING_TYPE.RESERVED
     })
 
     const waitlistBookings = bookings.filter((booking: BookBusResponse) => {
-        return booking.status == BOOKING_TYPE.WAITLIST
+        return booking.bookingType == BOOKING_TYPE.WAITLIST
     })
 
     function toggleBatchItem(id: number) {
@@ -96,7 +95,7 @@ const ViewBookings: React.FC<ViewBookingsProp> = ({ session, bookings }) => {
 
 
     return (
-        <div className="flex flex-col justify-center sm:flex-row sm:justify-between mb-[10%] mt-[8vh] border border-red-900" >
+        <div className="flex flex-col justify-center sm:flex-row sm:justify-between mb-[10%] boreder border-red-900" >
             <div className="w-full sm:w-1/2 mx-auto">
                 <table className="sm:w-[80%] w-[100%] mx-auto">
                     <thead id='first-thead'>
@@ -108,24 +107,21 @@ const ViewBookings: React.FC<ViewBookingsProp> = ({ session, bookings }) => {
                     </thead>
                     <tbody>
                         {reservedBookings.map((item, index) => (
-                            <>
-                                <tr key={index} className="border-b cursor-pointer mb-2" onClick={() => toggleBatchItem(item.id)}>
-                                    <td className='pt-4 font-Gilroy-Regular text-sm text-center'>{index + 1}</td>
-                                    <td className='pt-4 font-Gilroy-Regular text-sm text-center capitalize'>{`${item.user.firstName} ${item.user.lastName}`}</td>
-                                    {/* <td className="font-Gilroy-SemiBold text-center pt-4 text-sm">{item.seat}</td> */}
-                                    <td className='text-center pt-4'>
-                                        <div className="flex justify-center">
-                                            <img
-                                                src={batchItems.has(item.id) ? '/checked.svg' : '/unchecked.svg'}
-                                                alt={batchItems.has(item.id) ? 'Checked' : 'Unchecked'}
-                                                className="h-5 w-5"
-                                            />
-                                        </div>
-                                    </td>
-                                </tr>
-                            </>
-                        )
-                        )}
+                            <tr key={index} className="border-b border-b-gray-400 last:border-none cursor-pointer mb-2" onClick={() => toggleBatchItem(item.id)}>
+                                <td className='py-4 font-Gilroy-Regular text-sm text-center'>{index + 1}</td>
+                                <td className='py-4 font-Gilroy-Regular text-sm text-center capitalize'>{`${item.account.firstName} ${item.account.lastName}`}</td>
+                                {/* <td className="font-Gilroy-SemiBold text-center pt-4 text-sm">{item.seat}</td> */}
+                                <td className='text-center pt-4'>
+                                    <div className="flex justify-center">
+                                        <img
+                                            src={batchItems.has(item.id) ? '/checked.svg' : '/unchecked.svg'}
+                                            alt={batchItems.has(item.id) ? 'Checked' : 'Unchecked'}
+                                            className="h-5 w-5"
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
 
@@ -190,9 +186,6 @@ function WaitingList({ batchItems, bookings, toggleBatchItem }: WaitingListProps
         <>
             <div id="cpt">
                 <button onClick={toggleModal} className="fixed bottom-8 right-8 bg-ecobankLightTeal text-white w-16 h-16 flex justify-center items-center rounded-full cursor-pointer z-50">
-                    {/* <p className="text-center self-center flex justify-center">
-          Waiting List
-        </p> */}
                     <img src="waitinglist.svg" className="w-7" alt="Watiting" />
                 </button>
 
@@ -226,7 +219,7 @@ function WaitingList({ batchItems, bookings, toggleBatchItem }: WaitingListProps
                                                     <tbody>
                                                         {bookings.slice(0, 10).map((item, index) => (
                                                             <tr key={index} className="border-b" onClick={() => toggleBatchItem(item.id)}>
-                                                                <td className='pt-4 font-Gilroy-Regular text-sm'>{`${item.user.firstName} ${item.user.lastName}`}</td>
+                                                                <td className='pt-4 font-Gilroy-Regular text-sm'>{`${item.account.firstName} ${item.account.lastName}`}</td>
                                                                 <td className='text-center pt-4'>
                                                                     <div className="flex justify-center">
                                                                         <img

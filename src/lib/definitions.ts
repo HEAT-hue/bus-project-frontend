@@ -49,6 +49,43 @@ export enum NAVIGATION {
 
 export const viewport = "width=device-width, initial-scale=1, user-scalabe=no";
 
+
+export type ErrorResponse = {
+  apiPath: string,
+  errorCode: string
+  errorMessage: string
+  errorTime: Date
+}
+
+export type FetchBusParams = {
+  page?: number;
+  size?: number;
+  query?: string;
+  sortDirection?: string;
+  operationalStatus?: BUS_OPERATIONAL_STATUS;
+};
+
+export type BookBusParams = {
+  accountId: number;
+  busId: number;
+};
+
+export enum BOOKING_PERIOD {
+  MORNING = "MORNING",
+  EVENING = "EVENING"
+}
+
+export type BookBusResponse = {
+  id: number,
+  account: Account
+  bus: Bus
+  bookingTime: Date
+  bookingPeriod: BOOKING_PERIOD
+  bookingType: BOOKING_TYPE
+  bookingNumber: number
+  verified: boolean
+}
+
 export enum BOOKING_TYPE {
   WAITLIST = 'WAITLIST',
   RESERVED = 'RESERVED'
@@ -66,7 +103,7 @@ export enum ROLES {
   CAPTAIN = "CAPTAIN",
   DRIVER = "DRIVER",
   EBS = 'EBS',
-  SUPER_USER =  "SUPER_USER"
+  SUPER_USER = "SUPER_USER"
 }
 
 export type BaseEntity = {

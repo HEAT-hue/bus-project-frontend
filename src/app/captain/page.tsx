@@ -20,6 +20,8 @@ export default async function CaptainPage() {
         return bus.captain?.id == session.id
     });
 
+    console.log(busAssignedToCaptain);
+
     if (!busAssignedToCaptain) {
         redirect("/user");
     }
@@ -36,12 +38,14 @@ export default async function CaptainPage() {
         )
     }
 
+    console.log(currentBookings);
+
 
     return (
         <div className="px-4 lg:px-inlinePage">
 
             {/* Hero Section */}
-            <div className="flex flex-col max-w-[100vh] w-[90%] mx-auto mb-[10vh]">
+            <div className="flex flex-col max-w-[100vh] w-[90%] mx-auto mb-[3vh]">
                 <div className="mt-[3vh]">
                     <h1 className="text-lg text-gray-600 font-Gilroy-Bold text-center mb-[5%]">
                         {`Hello ${session.firstName} ${session.lastName}`}

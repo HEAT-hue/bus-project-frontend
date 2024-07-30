@@ -33,7 +33,7 @@ export function Modal({ closeModal, children, bare, info, dark }: ModalProps) {
                 closeModal();
             }}
         >
-            <div className={`relative bg-white border-[1.5px] border-ecobankBlue shadow flex flex-row-reverse rounded-lg`}>
+            <div className={`relative bg-white border-[1.5px] ${!bare && "border-ecobankBlue"} shadow flex flex-row-reverse rounded-lg`}>
                 {/* This  */}
                 {(!bare) && (
                     <div className="absolute right-2 top-2">

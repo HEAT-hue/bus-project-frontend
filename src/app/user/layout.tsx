@@ -2,17 +2,21 @@ import type { Metadata } from "next";
 import { Navigation } from "../../components";
 import Footer from "../../components/Footer";
 import NextTopLoader from "nextjs-toploader";
+import { getSession } from "@/lib/session";
 
 export const metadata: Metadata = {
   title: "Kiti | user",
   description: "Kiti bus management user section",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const session = await getSession();
+
   return (
     <html lang="english">
       <head>
@@ -26,7 +30,7 @@ export default function RootLayout({
         </div>
 
         {/* Navigation */}
-        <Navigation />
+        <Navigation session={session} />
 
         {/* Children */}
         <div className="py-5 flex-1">{children}</div>
