@@ -23,8 +23,8 @@ export default function SearchStaff({ placeholder }: { placeholder: string }) {
         // Create new url
         const params = new URLSearchParams(searchParams);
 
-        // Set page to 1 when user types new search query
-        params.set('page', '1');
+        // Set page to 0 when user types new search query
+        params.set('page', '0');
 
         // set the query
         if (term) {
@@ -49,10 +49,10 @@ export default function SearchStaff({ placeholder }: { placeholder: string }) {
 
         // set the query
         if (status) {
-            params.set('authorities', status);
+            params.set('verificationStatus', status);
         }
         else {
-            params.delete('authorities');
+            params.delete('verificationStatus');
         }
 
         // Replace current url with generated new one

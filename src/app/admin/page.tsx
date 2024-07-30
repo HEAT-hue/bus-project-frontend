@@ -15,10 +15,10 @@ export default async function HomePage() {
 
   const stats = await fetchStats(session.token);
 
-  const totalStaff = stats.users;
-  const approvedStaff = stats.verified;
-  const pendingStaff = stats.pending;
-  const deniedStaff = stats.rejected;
+  const totalStaff = stats.totalAccounts;
+  const approvedStaff = stats.approvedAccounts;
+  const pendingStaff = stats.pendingAccounts;
+  const deniedStaff = stats.rejectedAccounts;
 
 
   return (

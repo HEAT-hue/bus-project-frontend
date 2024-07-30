@@ -38,9 +38,6 @@ function extractTime(dateString: Date) {
 
 const BookingDetail: React.FC<BookingDetailProp> = ({ bookRecord }) => {
 
-    // Get this details from the backend
-    console.log(bookRecord);
-
     return (
         <>
             <div className='flex flex-col-reverse items-center justify-center sm:flex-row gap-5 gap-x-12 max-w-[500px] mx-auto'>

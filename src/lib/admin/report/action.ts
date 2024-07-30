@@ -21,8 +21,6 @@ export async function fetchReports(token: string, requestParams: FetchReportPara
         }
     });
 
-    console.log(apiUrl);
-
     // Construct the headers, including the Authorization header if the token is provided
     const headers: HeadersInit = {
         "Content-Type": "application/json",

@@ -41,12 +41,12 @@ const navigationLinks: NavigationLink[] = [
     icon: "/route-management.svg",
     tags: [ROLES.EBS, ROLES.SUPER_USER]
   },
-  {
-    name: "Report",
-    href: `${NAVIGATION.ADMIN_REPORT}`,
-    icon: "/report.svg",
-    tags: [ROLES.ADMIN, ROLES.SUPER_USER]
-  },
+  // {
+  //   name: "Report",
+  //   href: `${NAVIGATION.ADMIN_REPORT}`,
+  //   icon: "/report.svg",
+  //   tags: [ROLES.ADMIN, ROLES.SUPER_USER]
+  // },
   // {
   //   name: "User Management",
   //   href: `${NAVIGATION.ADMIN_USMGT}`,

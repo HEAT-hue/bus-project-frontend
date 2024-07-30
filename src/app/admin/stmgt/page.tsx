@@ -12,11 +12,14 @@ export default async function StaffManagement({ searchParams }: { searchParams: 
     redirect("/login");
   }
 
-  const users = await fetchUsers(session.token, {
-    page: searchParams.page || 1,
+  const usersResponse = await fetchUsers(session.token, {
+    page: searchParams.page || 0,
     per_page: 5,
-    name: searchParams.name
+    name: searchParams.name,
+    verificationStatus: searchParams.verificationStatus
   });
+
+  const users = usersResponse.content;
 
   return (
     <div className="flex flex-col h-full font-[500] trans-range:px-6 px-[57px] max-sm:px-4 max-sm:w-full py-[10px] gap-5 max-sm:gap-4">

@@ -1,6 +1,6 @@
 'use server'
 
-import { BASE_URL, NAVIGATION } from "@/lib/definitions"
+import { BASE_URL, Bus, NAVIGATION } from "@/lib/definitions"
 import { FetchError } from "@/lib/FetchError"
 import { revalidatePath } from "next/cache"
 import { CreateBusResponse } from "../bus/action"
@@ -20,7 +20,7 @@ export type UpdateBusRouteDetailsResponse = {
     "statusMsg": string
 }
 
-export async function UpdateBusRouteDetails(token: string, params: UpdateBusRouteDetailsParam, payload: UpdateBusRouteDetailsPayload): Promise<UpdateBusRouteDetailsResponse> {
+export async function UpdateBusRouteDetails(token: string, params: UpdateBusRouteDetailsParam, payload: UpdateBusRouteDetailsPayload): Promise<Bus> {
 
     // Verify credentials && get the user
     const apiUrl = new URL(`${BASE_URL}/bus/route/update`);
@@ -49,7 +49,7 @@ export async function UpdateBusRouteDetails(token: string, params: UpdateBusRout
             throw new FetchError(response.status, `Error performing action: ${response.statusText}`);
         }
 
-        const result = await response.json() as CreateBusResponse;
+        const result = await response.json();
 
         revalidatePath(NAVIGATION.ADMIN_CPMGT);
 

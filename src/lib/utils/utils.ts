@@ -1,4 +1,4 @@
-import { Account, Bus, BusStop } from "../definitions";
+import { Account, Bus, BusStop, ROLES } from "../definitions";
 
 export function prepareBusData(data?: Bus[]) {
     if (!data) {
@@ -26,11 +26,17 @@ export function prepareBusStopData(data?: BusStop[]) {
 }
 
 
-export function prepareCaptainData(data?: Account[]) {
+export function prepareCaptainData(buses: Bus[], data?: Account[]) {
     if (!data) {
         return [];
     }
-    return data.map((option: Account) => {
+
+    // Get current available captains
+    const currentCaptains = buses.filter((bus) => {
+        return bus.captain !== null;
+    }).map((bus: Bus) => bus.captain.id);
+
+    return data.filter((user => !currentCaptains.includes(user.id))).map((option: Account) => {
         return ({
             label: getUserName(option.firstName, option.lastName),
             value: option.id + ""

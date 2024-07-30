@@ -3,16 +3,15 @@ import { BASE_URL } from "@/lib/definitions";
 import { FetchError } from "@/lib/FetchError";
 
 export type FetchStatsResponse = {
-    "users": number,
-    "verified": number,
-    "pending": number,
-    "rejected": number,
-    "captainorbuses": number
+    totalAccounts: number,
+    pendingAccounts: number,
+    approvedAccounts: number,
+    rejectedAccounts: number
 }
 
 // Function to fech a bus
 export async function fetchStats(token: string): Promise<FetchStatsResponse> {
-    const apiUrl = new URL(`${BASE_URL}/auth/stats`);
+    const apiUrl = new URL(`${BASE_URL}/users/stats`);
 
     // Construct the headers, including the Authorization header if the token is provided
     const headers: HeadersInit = {

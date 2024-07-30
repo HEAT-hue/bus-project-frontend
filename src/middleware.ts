@@ -15,6 +15,8 @@ export default async function middleware(req: NextRequest) {
   const isCaptainProtectedRoute = path.startsWith(NAVIGATION.CAPTAIN);
   const isUserProtectedRoute = path.startsWith(NAVIGATION.USER);
 
+  const adminAllowedRoles = [ROLES.ADMIN, ROLES.EBS];
+
   // If on empty path - Go to Login page
   if (path == "/") {
     return NextResponse.redirect(new URL(NAVIGATION.LOGIN, req.nextUrl));
@@ -46,7 +48,7 @@ export default async function middleware(req: NextRequest) {
   // Redirect to /login if the user is not authenticated or user is not an admin
   if (
     isAdminProtectedRoute &&
-    (!session || session?.authorities != ROLES.ADMIN)
+    (!session || !adminAllowedRoles.includes(session?.authorities))
   ) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }

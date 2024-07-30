@@ -40,7 +40,7 @@ export default async function BusManagement({ searchParams }: { searchParams: Fe
 
       <div className="lg:hidden">
         <BusTableMV buses={buses} session={session} />
-      </div>
+      </div> 
     </div>
   );
 }

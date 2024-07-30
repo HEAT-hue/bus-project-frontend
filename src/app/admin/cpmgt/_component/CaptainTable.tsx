@@ -116,7 +116,7 @@ const CaptainTable: React.FC<CaptainTableProp> = ({ buses, users, session }) => 
             {/* Confirmation modal */}
             {currentBus && (
                 <Modal closeModal={() => setCurrentBus(undefined)} bare >
-                    <ViewCaptainModal bus={currentBus} session={session} captains={users} closeModal={() => setCurrentBus(undefined)} />
+                    <ViewCaptainModal buses={buses} bus={currentBus} session={session} captains={users} closeModal={() => setCurrentBus(undefined)} />
                 </Modal>
             )}
         </>

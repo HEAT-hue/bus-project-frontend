@@ -1,16 +1,17 @@
 'use client'
 
-import { Account } from "@/lib/definitions";
+import { Account, Bus } from "@/lib/definitions";
 import { prepareCaptainData } from "@/lib/utils/utils";
 import { Select } from "antd";
 import { Dispatch, SetStateAction } from "react";
 
 type SelectCaptainProp = {
+    buses: Bus[]
     captains: Account[]
     setCaptain: Dispatch<SetStateAction<Account | null>>
 }
 
-export default function SelectCaptain({ captains, setCaptain }: SelectCaptainProp) {
+export default function SelectCaptain({ captains, setCaptain, buses }: SelectCaptainProp) {
 
     function handleChange(captainId: number) {
         const selectedCaptain = captains.find((captain: Account) => {
@@ -29,11 +30,11 @@ export default function SelectCaptain({ captains, setCaptain }: SelectCaptainPro
                     style={{ width: "100%", height: "40px" }}
                     onChange={(e) => handleChange(e)}
                     showSearch
-                    placeholder="Select a captain"
+                    placeholder="Select an available captain"
                     filterOption={(input, option) =>
                         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                     }
-                    options={prepareCaptainData(captains)}
+                    options={prepareCaptainData(buses, captains)}
                 />
             </div>
         </div>

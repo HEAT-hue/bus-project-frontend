@@ -1,18 +1,19 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { Account, ACCOUNT_STATUS, BASE_URL, NAVIGATION, ROLES } from "../../definitions";
+import { Account, ACCOUNT_STATUS, BASE_URL, NAVIGATION, PagedResponse, ROLES } from "../../definitions";
 import { FetchError } from "../../FetchError";
 
 export type FetchUserParams = {
   page?: number;
   per_page?: number;
   name?: string
-  authorities?: ROLES
+  role?: ROLES
+  verificationStatus?: ACCOUNT_STATUS
   sort_by?: "createdAt"
 };
 
-export async function fetchUsers(token: string, requestParams: FetchUserParams): Promise<Account[]> {
-  const apiUrl = new URL(`${BASE_URL}/auth/userspaginate`);
+export async function fetchUsers(token: string, requestParams: FetchUserParams): Promise<PagedResponse<Account>> {
+  const apiUrl = new URL(`${BASE_URL}/users/list`);
 
   // Append query parameters
   Object.entries(requestParams).forEach(([key, value]) => {
@@ -32,8 +33,6 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
       method: "GET",
       headers: headers,
     });
-
-    console.log(response);
 
     if (!response.ok) {
       if (response.status == 401) {
@@ -67,9 +66,14 @@ export async function fetchUsers(token: string, requestParams: FetchUserParams):
   }
 }
 
-type UpdateStaffStatusRequest = {
+type UpdateStaffRequestParams = {
   userId: number;
-  verified: ACCOUNT_STATUS;
+};
+
+type UpdateStaffStatusRequestPayload = {
+  role?: ROLES
+  verificationStatus?: ACCOUNT_STATUS
+  specialNeeds?: boolean
 };
 
 type UpdateStaffStatusResponse = {
@@ -82,12 +86,10 @@ type UpdateStaffStatusResponse = {
   verfified: ACCOUNT_STATUS;
 };
 
-export async function updateStaffStatus(
-  token: string,
-  params: UpdateStaffStatusRequest
-): Promise<UpdateStaffStatusResponse> {
+export async function updateStaffProfile(token: string, params: UpdateStaffRequestParams, payload: UpdateStaffStatusRequestPayload): Promise<UpdateStaffStatusResponse> {
+
   const apiUrl = new URL(
-    `${BASE_URL}/auth/users/${params.userId}/update-verified`
+    `${BASE_URL}/users/profile/${params.userId}/update-profile`
   );
 
   const headers: HeadersInit = {
@@ -95,15 +97,11 @@ export async function updateStaffStatus(
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
-  console.log(apiUrl);
-
-  const body = JSON.stringify({ verified: `${params.verified}` });
-
-  console.log(body);
+  const body = JSON.stringify(payload);
 
   try {
     const response = await fetch(apiUrl.toString(), {
-      method: "PUT",
+      method: "PATCH",
       headers: headers,
       body: body,
     });
@@ -144,64 +142,127 @@ export async function updateStaffStatus(
 
 
 
-type UpdateStaffRoleRequest = {
-  userId: number;
-  authorities: ROLES;
-};
+// type UpdateStaffRoleRequest = {
+//   userId: number;
+//   authorities: ROLES;
+// };
 
-export async function updateStaffRole(
-  token: string,
-  params: UpdateStaffRoleRequest
-): Promise<Account> {
-  const apiUrl = new URL(
-    `${BASE_URL}/auth/users/${params.userId}/update-authorities`
-  );
 
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-    ...(token && { Authorization: `Bearer ${token}` }),
-  };
+// type UpdateStaffSpecialNeedsRequest = {
+//   userId: number;
+//   authorities: ROLES;
+// };
 
-  const body = JSON.stringify({ authorities: `${params.authorities}` });
+// export async function updateStaffRole(
+//   token: string,
+//   params: UpdateStaffRoleRequest
+// ): Promise<Account> {
+//   const apiUrl = new URL(
+//     `${BASE_URL}/auth/users/${params.userId}/update-authorities`
+//   );
 
-  try {
-    const response = await fetch(apiUrl.toString(), {
-      method: "PUT",
-      headers: headers,
-      body: body,
-    });
+//   const headers: HeadersInit = {
+//     "Content-Type": "application/json",
+//     ...(token && { Authorization: `Bearer ${token}` }),
+//   };
 
-    if (!response.ok) {
-      if (response.status == 401) {
-        throw new FetchError(
-          response.status,
-          `Unauthorized: ${response.statusText}`
-        );
-      }
-      throw new FetchError(
-        response.status,
-        `Failed to fetch user: ${response.statusText}`
-      );
-    }
+//   const body = JSON.stringify({ authorities: `${params.authorities}` });
 
-    const data: Account = await response.json();
+//   try {
+//     const response = await fetch(apiUrl.toString(), {
+//       method: "PUT",
+//       headers: headers,
+//       body: body,
+//     });
 
-    revalidatePath(NAVIGATION.ADMIN_STMGT);
+//     if (!response.ok) {
+//       if (response.status == 401) {
+//         throw new FetchError(
+//           response.status,
+//           `Unauthorized: ${response.statusText}`
+//         );
+//       }
+//       throw new FetchError(
+//         response.status,
+//         `Failed to fetch user: ${response.statusText}`
+//       );
+//     }
 
-    return data;
-  } catch (error) {
-    // Handle custom FetchError
-    if (error instanceof FetchError) {
-      return Promise.reject({
-        status: error.status,
-        message: error.message,
-      });
-    }
-    // Handle generic errors
-    return Promise.reject({
-      status: 500,
-      message: "Internal Server Error",
-    });
-  }
-}
+//     const data: Account = await response.json();
+
+//     revalidatePath(NAVIGATION.ADMIN_STMGT);
+
+//     return data;
+//   } catch (error) {
+//     // Handle custom FetchError
+//     if (error instanceof FetchError) {
+//       return Promise.reject({
+//         status: error.status,
+//         message: error.message,
+//       });
+//     }
+//     // Handle generic errors
+//     return Promise.reject({
+//       status: 500,
+//       message: "Internal Server Error",
+//     });
+//   }
+// }
+
+
+// export async function updateStaffSpecialNeedsStatus(
+//   token: string,
+//   params: UpdateStaffRoleRequest
+// ): Promise<Account> {
+//   const apiUrl = new URL(
+//     `${BASE_URL}/auth/users/${params.userId}/update-authorities`
+//   );
+
+//   const headers: HeadersInit = {
+//     "Content-Type": "application/json",
+//     ...(token && { Authorization: `Bearer ${token}` }),
+//   };
+
+//   const body = JSON.stringify({ authorities: `${params.authorities}` });
+
+//   try {
+//     const response = await fetch(apiUrl.toString(), {
+//       method: "PUT",
+//       headers: headers,
+//       body: body,
+//     });
+
+//     if (!response.ok) {
+//       if (response.status == 401) {
+//         throw new FetchError(
+//           response.status,
+//           `Unauthorized: ${response.statusText}`
+//         );
+//       }
+//       throw new FetchError(
+//         response.status,
+//         `Failed to fetch user: ${response.statusText}`
+//       );
+//     }
+
+//     const data: Account = await response.json();
+
+//     revalidatePath(NAVIGATION.ADMIN_STMGT);
+
+//     return data;
+//   } catch (error) {
+//     // Handle custom FetchError
+//     if (error instanceof FetchError) {
+//       return Promise.reject({
+//         status: error.status,
+//         message: error.message,
+//       });
+//     }
+//     // Handle generic errors
+//     return Promise.reject({
+//       status: 500,
+//       message: "Internal Server Error",
+//     });
+//   }
+// }
 

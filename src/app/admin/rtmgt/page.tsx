@@ -17,17 +17,6 @@ export default async function RouteManagement() {
 
   const buses: Bus[] = busResponse.content;
 
-  // let Routedata: Data[] = [
-  //   {
-  //     routeID: "23333",
-  //     route: "Ajah",
-  //     driver: "Tayo Adewole",
-  //     driver_number: "09045678929",
-  //     captain: "Funmi Dowson",
-  //     captain_number: "09045678927",
-  //     status: "Active",
-  //   },
-  // ];
   return (
     <div className="px-4 lg:px-inlinePage">
       <h1 className="text-[32px] max-sm:text-[25px] font-Gilroy-SemiBold text-[#023448] my-2">

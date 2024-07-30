@@ -84,7 +84,7 @@ export default function StaffTable({
                   <td
                     className={`px-6 py-4  border-none whitespace-nowrap font-Gilroy-Regular`}
                   >
-                    {item.authorities}
+                    {item.role}
                   </td>
                   <td
                     className={`px-6 py-4  border-none whitespace-nowrap font-Gilroy-Regular`}
@@ -105,21 +105,21 @@ export default function StaffTable({
                     <span
                       className={classNames({
                         " text-[#3C8930] bg-[#3C8930]/40 ":
-                          item.verified.toUpperCase() ==
+                          item.verificationStatus.toUpperCase() ==
                           ACCOUNT_STATUS.ACCEPTED,
                         " text-[#ddce2c] bg-[#ddce2c]/40":
-                          item.verified.toUpperCase() == ACCOUNT_STATUS.PENDING,
+                          item.verificationStatus.toUpperCase() == ACCOUNT_STATUS.PENDING,
                         " text-[#B3261E] bg-[#B3261E]/40":
-                          item.verified.toUpperCase() ==
+                          item.verificationStatus.toUpperCase() ==
                           ACCOUNT_STATUS.REJECTED,
                         " text-[#3C8930] bg-[#3C8930]/40":
-                          item.verified.toUpperCase() ==
+                          item.verificationStatus.toUpperCase() ==
                           ACCOUNT_STATUS.APPROVED,
                         "flex justify-center items-center max-w-[130px]  py-1 rounded-lg  w-full":
                           true,
                       })}
                     >
-                      {item.verified.toUpperCase()}
+                      {item.verificationStatus.toUpperCase()}
                     </span>
                   </td>
                   <td

@@ -41,13 +41,13 @@ export default function StaffTableMobile({
               // className="py-2 "
               className={classNames({
                 " bbg-gradient-to-br from-white to-[#3C8930]/5 text-green-800":
-                  user.verified.toUpperCase() == ACCOUNT_STATUS.ACCEPTED,
+                  user.verificationStatus.toUpperCase() == ACCOUNT_STATUS.ACCEPTED,
                 " bbg-gradient-to-br from-white to-[#3C8930]/5 text-green-700":
-                  user.verified.toUpperCase() == ACCOUNT_STATUS.APPROVED,
+                  user.verificationStatus.toUpperCase() == ACCOUNT_STATUS.APPROVED,
                 " bbg-gradient-to-br from-white to-[#3C8930]/5 text-yellow-700":
-                  user.verified.toUpperCase() == ACCOUNT_STATUS.PENDING,
+                  user.verificationStatus.toUpperCase() == ACCOUNT_STATUS.PENDING,
                 " bbg-gradient-to-br from-white to-[#B3261E]/5 text-error":
-                  user.verified.toUpperCase() == ACCOUNT_STATUS.REJECTED,
+                  user.verificationStatus.toUpperCase() == ACCOUNT_STATUS.REJECTED,
                 "p-2 flex gap-x-4 items-center": true,
               })}
             >
@@ -68,20 +68,20 @@ export default function StaffTableMobile({
                     <div
                       className={classNames({
                         " text-[#3C8930] bg-[#3C8930]/40":
-                          user.verified == ACCOUNT_STATUS.APPROVED,
+                          user.verificationStatus == ACCOUNT_STATUS.APPROVED,
                         " text-[#3C8930] bg-[#3C8930]/50":
-                          user.verified.toUpperCase() ==
+                          user.verificationStatus.toUpperCase() ==
                           ACCOUNT_STATUS.ACCEPTED,
                         " text-[#a6b40c] bg-[#d5e80b]/40":
-                          user.verified.toUpperCase() == ACCOUNT_STATUS.PENDING,
+                          user.verificationStatus.toUpperCase() == ACCOUNT_STATUS.PENDING,
                         " text-[#B3261E] bg-[#B3261E]/40":
-                          user.verified.toUpperCase() ==
+                          user.verificationStatus.toUpperCase() ==
                           ACCOUNT_STATUS.REJECTED,
                         "flex justify-center items-center max-w-[130px]  py-1 px-2 rounded w-full text-xs":
                           true,
                       })}
                     >
-                      {user.verified.toLocaleUpperCase()}
+                      {user.verificationStatus.toLocaleUpperCase()}
                     </div>
                   </div>
                 </div>

@@ -61,7 +61,7 @@ export async function CreateBus(token: string, payload: CreateBusRequest): Promi
       if (response.status == 400) {
         throw new FetchError(response.status, `Incorrect credentials`);
       }
-      throw new FetchError(response.status, `Failed to Login user: ${response.statusText}`);
+      throw new FetchError(response.status, `Failed to create bus: ${response.statusText}`);
     }
 
     const result = await response.json() as CreateBusResponse;
@@ -155,9 +155,6 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
       body: JSON.stringify(payload)
     });
 
-    console.log(response);
-    console.log(response.statusText)
-
     if (!response.ok) {
       if (response.status == 400) {
         throw new FetchError(response.status, `Incorrect credentials`);
@@ -166,8 +163,6 @@ export async function UpdateBusStatus(token: string, params: UpdateBusParamsRequ
     }
 
     const result = await response.json() as CreateBusResponse;
-
-    console.log(result);
 
     revalidatePath(NAVIGATION.ADMIN_BSMGT);
     revalidatePath(NAVIGATION.USER);

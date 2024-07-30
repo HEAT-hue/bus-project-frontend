@@ -1,5 +1,5 @@
 "use client";
-import { updateStaffRole, updateStaffStatus } from "@/lib/admin/staff/action";
+import { updateStaffProfile } from "@/lib/admin/staff/action";
 import { Account, ACCOUNT_STATUS, ROLES, Session } from "@/lib/definitions";
 import { FetchError } from "@/lib/FetchError";
 import classNames from "classnames";
@@ -30,8 +30,9 @@ export default function ViewStaffModal({
   closeModal,
 }: VeiwStaffModalProp) {
   const [loading, setLoading] = useState(false);
-  const [userRole, setUserRole] = useState<string>(account.authorities);
+  const [userRole, setUserRole] = useState<string>(account.role);
   const [userSpecialNeeds, setUserSpecialNeeds] = useState<boolean>(account.specialNeeds || false);
+
 
   // Account Role Items
   const AccountRoleItems: MenuProps["items"] = [
@@ -61,14 +62,9 @@ export default function ViewStaffModal({
   function handleStaffUpdate(verified: ACCOUNT_STATUS) {
     // Set button pending state
     setLoading(true);
-
     (async function () {
       try {
-        await updateStaffStatus(session.token, {
-          userId: account.id,
-          verified,
-        });
-
+        await updateStaffProfile(session.token, { userId: account.id, }, { verificationStatus: verified });
         closeModal();
       } catch (error) {
         // Clear pending state
@@ -85,14 +81,9 @@ export default function ViewStaffModal({
     if (authorities == userRole) {
       return;
     }
-
     (async function () {
       try {
-        await updateStaffRole(session.token, {
-          userId: account.id,
-          authorities,
-        });
-
+        await updateStaffProfile(session.token, { userId: account.id || 2, }, { role: authorities });
         setUserRole(authorities);
         toast.success("ROLE updated successfully")
       } catch (error) {
@@ -108,26 +99,19 @@ export default function ViewStaffModal({
     // Set button pending state
     setLoading(true);
 
-    setUserSpecialNeeds(specialNeeds);
-
-    // Add login to Update staff special needs
-
-    // (async function () {
-    //   try {
-    //     await updateStaffRole(session.token, {
-    //       userId: account.id,
-    //       authorities,
-    //     });
-
-    //     setUserRole(authorities);
-    //     toast.success("ROLE updated successfully")
-    //   } catch (error) {
-    //     if (error instanceof FetchError) {
-    //       toast.error("Error updating role")
-    //       // setErrorMessage(error.message);
-    //     }
-    //   }
-    // })();
+    (async function () {
+      try {
+        await updateStaffProfile(session.token, { userId: account.id, }, { specialNeeds });
+        setUserSpecialNeeds((prev) => !prev)
+        toast.success("Special needs updated successfully")
+      } catch (error) {
+        if (error instanceof FetchError) {
+          toast.error("Error updating special needs");
+        }
+      } finally {
+        setLoading(false);
+      }
+    })();
   }
 
   return (
@@ -254,7 +238,7 @@ export default function ViewStaffModal({
               <>
                 {userRole == ROLES.USER && (
                   <>
-                    {account.verified != ACCOUNT_STATUS.REJECTED && (
+                    {account.verificationStatus != ACCOUNT_STATUS.REJECTED && (
                       <button
                         type="button"
                         onClick={() => handleStaffUpdate(ACCOUNT_STATUS.REJECTED)}
@@ -267,7 +251,7 @@ export default function ViewStaffModal({
                       </button>
                     )}
                     {
-                      account.verified != ACCOUNT_STATUS.APPROVED && (
+                      account.verificationStatus != ACCOUNT_STATUS.APPROVED && (
                         <button
                           type="button"
                           onClick={() => handleStaffUpdate(ACCOUNT_STATUS.APPROVED)}

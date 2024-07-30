@@ -2,7 +2,7 @@
 import { ConfirmationModal } from "@/components";
 import { Modal } from "@/components/ModalWrapper";
 import UIChecksSVG from "@/components/svg/UIChecks";
-import { updateStaffStatus } from "@/lib/admin/staff/action";
+import { updateStaffProfile } from "@/lib/admin/staff/action";
 import { Account, ACCOUNT_STATUS, Session } from "@/lib/definitions";
 import { Select } from "antd";
 import { useState } from "react";
@@ -68,10 +68,7 @@ export default function StaffData({ session, users }: StaffDataProps) {
 
         const fetchPromises = Array.from(batchUpdateItems).map(id => {
             return (
-                updateStaffStatus(session.token, {
-                    userId: parseInt(id),
-                    verified: status,
-                })
+                updateStaffProfile(session.token, { userId: parseInt(id), }, { verificationStatus: status })
                     .then(response => console.log(response))
                     .then(data => ({ status: 'fulfilled', data }))
                     .catch(error => (
@@ -96,7 +93,6 @@ export default function StaffData({ session, users }: StaffDataProps) {
                 setBatchUpdate(false);
             });
     }
-
 
     function updateSelectedStaffsData(status: ACCOUNT_STATUS) {
         if (batchUpdateItems.size < 1) {
@@ -135,14 +131,14 @@ export default function StaffData({ session, users }: StaffDataProps) {
                     )}
                 </div>
             </div>
-            <div className="xl:hidden">
+            <div className="lg:hidden">
                 <StaffTableMobile
                     staffData={users}
                     toggleBatchUpdateItem={toggleBatchUpdateItem}
                     session={session} batchUpdate={batchUpdate}
                     batchUpdateItems={batchUpdateItems} />
             </div>
-            <div className="hidden xl:block">
+            <div className="hidden lg:block">
                 <StaffTable
                     staffData={users}
                     session={session}

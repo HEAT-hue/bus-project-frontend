@@ -106,14 +106,14 @@ export enum ACCOUNT_STATUS {
 export type Account = {
   id: number;
   email: string;
-  authorities: string;
+  role: string;
   createdAt: Date;
   level: string;
   telephone: string;
   firstName: string;
   lastName: string;
   username: string;
-  verified: ACCOUNT_STATUS;
+  verificationStatus: ACCOUNT_STATUS;
   route: string;
   department: string;
   affiliate: string;
