@@ -131,14 +131,14 @@ export default function StaffData({ session, users }: StaffDataProps) {
                     )}
                 </div>
             </div>
-            <div className="lg:hidden">
+            <div className="xl:hidden">
                 <StaffTableMobile
                     staffData={users}
                     toggleBatchUpdateItem={toggleBatchUpdateItem}
                     session={session} batchUpdate={batchUpdate}
                     batchUpdateItems={batchUpdateItems} />
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
                 <StaffTable
                     staffData={users}
                     session={session}
