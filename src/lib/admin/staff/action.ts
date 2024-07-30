@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { Account, ACCOUNT_STATUS, BASE_URL, NAVIGATION, PagedResponse, ROLES } from "../../definitions";
 import { FetchError } from "../../FetchError";
 
+// type and Function to fetch users
 export type FetchUserParams = {
   page?: number;
   per_page?: number;
